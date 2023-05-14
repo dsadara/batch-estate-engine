@@ -1,13 +1,14 @@
-package com.dsadara.realestatebatchservice;
+package com.dsadara.realestatebatchservice.service;
 
+import com.dsadara.realestatebatchservice.dto.AptRentDto;
 import org.jdom2.Element;
 
 import java.util.List;
 
 public class XmlParser {
-    public static AptRentXMLObject transferXmlToParser(Element item) {
+    public static AptRentDto transferXmlToParser(Element item) {
 
-        AptRentXMLObject.AptRentXMLObjectBuilder builder = AptRentXMLObject.builder();
+        AptRentDto.AptRentDtoBuilder builder = AptRentDto.builder();
 
         List<Element> children = item.getChildren();
         for (Element child : children) {
@@ -18,7 +19,7 @@ public class XmlParser {
 
     }
 
-    private static void mappingFromItemToParser(AptRentXMLObject.AptRentXMLObjectBuilder builder, Element item) {
+    private static void mappingFromItemToParser(AptRentDto.AptRentDtoBuilder builder, Element item) {
 
         String value = item.getContent(0).getValue().trim();
         String name = item.getName();

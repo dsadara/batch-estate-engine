@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice;
+package com.dsadara.realestatebatchservice.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class AptRentXMLObject {
+public class AptRentDto {
     private String requestRenewalRight; // 갱신요구권사용
     private String constructYear;       // 건축년도
     private String contractType;        // 계약구분

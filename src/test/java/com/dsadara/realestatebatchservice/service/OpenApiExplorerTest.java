@@ -1,5 +1,7 @@
-package com.dsadara.realestatebatchservice;
+package com.dsadara.realestatebatchservice.service;
 
+import com.dsadara.realestatebatchservice.dto.AptRentDto;
+import com.dsadara.realestatebatchservice.service.OpenApiExplorer;
 import org.jdom2.JDOMException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,13 +11,13 @@ import java.io.IOException;
 import java.util.List;
 
 @SpringBootTest
-public class ApiExplorerTest {
+public class OpenApiExplorerTest {
     @Test
     void ApiExplorerTest_ApartmentRent_Success() {
-        List<AptRentXMLObject> objects;
+        List<AptRentDto> objects;
 
         try {
-            objects = ApiExplorer.apiCall(
+            objects = OpenApiExplorer.getAptRentData(
                     "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                     "11500",
                     "202304",
@@ -34,10 +36,10 @@ public class ApiExplorerTest {
 
     @Test
     void ApiExplorerTest_ApartmentRent_Fail() {
-        List<AptRentXMLObject> objects;
+        List<AptRentDto> objects;
 
         try {
-            objects = ApiExplorer.apiCall(
+            objects = OpenApiExplorer.getAptRentData(
                     "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                     "wrongCode",
                     "WrongYearMonthDay",
