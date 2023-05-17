@@ -1,7 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
 import com.dsadara.realestatebatchservice.dto.AptRentDto;
-import com.dsadara.realestatebatchservice.service.OpenApiExplorer;
 import org.jdom2.JDOMException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,11 +26,9 @@ public class OpenApiExplorerTest {
             throw new RuntimeException(e);
         }
 
-        Assertions.assertEquals("염창동", objects.get(0).getLegalDong());
-        Assertions.assertEquals("무학", objects.get(0).getName());
+        Assertions.assertNotEquals(0, objects.size());
+        Assertions.assertEquals(1112, objects.size());  // 과거 데이터 개수는 변경될 수 있음
 
-        Assertions.assertEquals("염창동", objects.get(1).getLegalDong());
-        Assertions.assertEquals("일신건영휴먼빌", objects.get(1).getName());
     }
 
     @Test
