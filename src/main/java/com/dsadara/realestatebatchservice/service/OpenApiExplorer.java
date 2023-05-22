@@ -1,6 +1,7 @@
 package com.dsadara.realestatebatchservice.service;
 
 import com.dsadara.realestatebatchservice.dto.AptRentDto;
+import lombok.extern.slf4j.Slf4j;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -12,6 +13,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 public class OpenApiExplorer {
     public static List<AptRentDto> getAptRentData(String baseUrl, String regionCode, String contractYearMonthDay, String authenticationKey) throws IOException, JDOMException {
 
@@ -26,7 +28,7 @@ public class OpenApiExplorer {
         conn.setRequestProperty("Content-Type","application/xml");
         conn.setRequestMethod("GET");
         conn.connect();
-        System.out.println("ResponseCode: " + conn.getResponseCode());
+        log.info("ResponseCode: {}", conn.getResponseCode());
 
         SAXBuilder builder = new SAXBuilder();
         Document document = builder.build(conn.getInputStream());
