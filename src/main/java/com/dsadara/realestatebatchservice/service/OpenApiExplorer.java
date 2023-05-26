@@ -1,49 +1,47 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.AptRentDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Slf4j
 public class OpenApiExplorer {
-    public static List<AptRentDto> getAptRentData(String baseUrl, String regionCode, String contractYearMonthDay, String authenticationKey) throws IOException, JDOMException {
+    public static ResponseEntity<String> getResponse(String baseUrl, String regionCode, String contractYearMonthDay, String authenticationKey) throws IOException, JDOMException {
+        URI uri;
 
-        String sb = baseUrl +
-                "LAWD_CD=" + regionCode + "&" +
-                "DEAL_YMD=" + contractYearMonthDay + "&" +
-                "serviceKey=" + authenticationKey;
-
-        URL url = new URL(sb);
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-
-        conn.setRequestProperty("Content-Type","application/xml");
-        conn.setRequestMethod("GET");
-        conn.connect();
-        log.info("ResponseCode: {}", conn.getResponseCode());
-
-        SAXBuilder builder = new SAXBuilder();
-        Document document = builder.build(conn.getInputStream());
-
-        Element root = document.getRootElement();
-        Element body = root.getChild("body");
-        Element items = body.getChild("items");
-        List<Element> item = items.getChildren("item");
-
-        List<AptRentDto> aptRentDtos = new LinkedList<>();
-        for (Element element : item) {
-            aptRentDtos.add(XmlParser.transferXmlToParser(element));
+        try {
+            uri = new URI(baseUrl +
+                    "LAWD_CD=" + regionCode + "&" +
+                    "DEAL_YMD=" + contractYearMonthDay + "&" +
+                    "serviceKey=" + authenticationKey + "&" +
+                    "_type=json");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
 
-        return aptRentDtos;
+        RestTemplate restTemplate = new RestTemplate();
+
+        return restTemplate.getForEntity(uri, String.class);
     }
 
+    public static JsonNode transferStringToJson(String rawJson) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root;
+
+        try {
+            root = mapper.readTree(rawJson);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return root;
+    }
 }
