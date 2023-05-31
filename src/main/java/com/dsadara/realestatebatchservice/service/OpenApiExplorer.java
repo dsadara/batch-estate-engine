@@ -32,7 +32,7 @@ public class OpenApiExplorer {
                 params);
     }
 
-    public JsonNode transferStringToJson(String rawJson) {
+    public JsonNode stringToJsonNode(String rawJson) {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root;
 
