@@ -1,5 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
+import com.dsadara.realestatebatchservice.dto.AptRentDto;
 import com.dsadara.realestatebatchservice.dto.OpenApiResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Assertions;
@@ -35,5 +36,7 @@ class JsonDeserializerTest {
         Assertions.assertEquals("00", openApiResponse.getResultCode());
         Assertions.assertEquals("NORMAL SERVICE.", openApiResponse.getResultMsg());
         Assertions.assertNotEquals(0, openApiResponse.getAptRentDtos().size());
+        Assertions.assertEquals(AptRentDto.class, openApiResponse.getAptRentDtos().get(0).getClass());
+        Assertions.assertEquals("염창동", openApiResponse.getAptRentDtos().get(0).getLegalDong());
     }
 }
