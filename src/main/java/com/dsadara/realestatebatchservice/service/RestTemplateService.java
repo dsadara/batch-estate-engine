@@ -10,10 +10,10 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class OpenApiExplorer {
+public class RestTemplateService {
     private final RestTemplate restTemplate;
 
-    public OpenApiExplorer(RestTemplate restTemplate) {
+    public RestTemplateService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

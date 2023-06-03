@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class JsonDeserializer {
+public class JsonDeserializerService {
     public JsonNode stringToJsonNode(String rawJson) {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root;

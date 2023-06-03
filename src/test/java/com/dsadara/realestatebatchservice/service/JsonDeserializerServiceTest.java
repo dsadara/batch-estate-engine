@@ -12,26 +12,26 @@ import org.springframework.http.ResponseEntity;
 import java.io.IOException;
 
 @SpringBootTest
-class JsonDeserializerTest {
+class JsonDeserializerServiceTest {
 
     @Autowired
-    private OpenApiExplorer openApiExplorer;
+    private RestTemplateService restTemplateService;
     @Autowired
-    private JsonDeserializer jsonDeserializer;
+    private JsonDeserializerService jsonDeserializerService;
 
     @Test
     void jsonNodeToPOJO_Success() throws IOException {
         ResponseEntity<String> response;
 
-        response = openApiExplorer.getResponse(
+        response = restTemplateService.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                 "11500",
                 "202304",
                 "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D"
         );
 
-        JsonNode root = new JsonDeserializer().stringToJsonNode(response.getBody());
-        OpenApiResponse openApiResponse = jsonDeserializer.jsonNodeToPOJO(root);
+        JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
+        OpenApiResponse openApiResponse = jsonDeserializerService.jsonNodeToPOJO(root);
 
         Assertions.assertEquals("00", openApiResponse.getResultCode());
         Assertions.assertEquals("NORMAL SERVICE.", openApiResponse.getResultMsg());
