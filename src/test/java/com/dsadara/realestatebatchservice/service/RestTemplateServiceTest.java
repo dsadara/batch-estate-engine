@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 @SpringBootTest
 public class RestTemplateServiceTest {
@@ -20,11 +22,14 @@ public class RestTemplateServiceTest {
     void ApartmentRent_Success_JsonData() {
         ResponseEntity<String> response;
 
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("LAWD_CD", "11500");
+        queryParams.add("DEAL_YMD", "202304");
+        queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
+
         response = restTemplateService.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
-                "11500",
-                "202304",
-                "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D"
+                queryParams
         );
 
         JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
@@ -42,11 +47,15 @@ public class RestTemplateServiceTest {
     void ApartmentRent_Fail_WrongRegionCode_JsonData() {
         ResponseEntity<String> response;
 
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("LAWD_CD", "wrongCode");
+        queryParams.add("DEAL_YMD", "202304");
+        queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
+
         response = restTemplateService.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
-                "wrongCode",
-                "202304",
-                System.getenv("SEARCH_KEY"));
+                queryParams
+        );
 
         JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
@@ -62,11 +71,15 @@ public class RestTemplateServiceTest {
     void ApartmentRent_Fail_NoSearchKey_JsonData() {
         ResponseEntity<String> response;
 
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("LAWD_CD", "11500");
+        queryParams.add("DEAL_YMD", "202304");
+        queryParams.add("serviceKey", null);
+
         response = restTemplateService.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
-                "wrongCode",
-                "202304",
-                null);
+                queryParams
+        );
 
         JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
