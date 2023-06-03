@@ -27,7 +27,7 @@ public class OpenApiExplorerTest {
                 "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D"
         );
 
-        JsonNode root = openApiExplorer.stringToJsonNode(response.getBody());
+        JsonNode root = new JsonDeserializer().stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode body = responseAttr.path("body");
         JsonNode totalCount = body.path("totalCount");
@@ -48,7 +48,7 @@ public class OpenApiExplorerTest {
                 "202304",
                 System.getenv("SEARCH_KEY"));
 
-        JsonNode root = openApiExplorer.stringToJsonNode(response.getBody());
+        JsonNode root = new JsonDeserializer().stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode header = responseAttr.path("header");
         JsonNode totalCount = header.path("totalCount");
@@ -68,7 +68,7 @@ public class OpenApiExplorerTest {
                 "202304",
                 null);
 
-        JsonNode root = openApiExplorer.stringToJsonNode(response.getBody());
+        JsonNode root = new JsonDeserializer().stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode header = responseAttr.path("header");
         JsonNode resultCode = header.path("resultCode");

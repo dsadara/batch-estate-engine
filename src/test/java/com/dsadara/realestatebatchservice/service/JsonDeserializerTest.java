@@ -30,7 +30,7 @@ class JsonDeserializerTest {
                 "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D"
         );
 
-        JsonNode root = openApiExplorer.stringToJsonNode(response.getBody());
+        JsonNode root = new JsonDeserializer().stringToJsonNode(response.getBody());
         OpenApiResponse openApiResponse = jsonDeserializer.jsonNodeToPOJO(root);
 
         Assertions.assertEquals("00", openApiResponse.getResultCode());
