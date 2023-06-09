@@ -1,5 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,10 +17,12 @@ public class RestTemplateServiceTest {
 
     @Autowired
     private RestTemplateService restTemplateService;
+    @Autowired
+    private JsonDeserializerService jsonDeserializerService;
 
     @Test
     @DisplayName("성공-아파트 전월세 Json 데이터 가져오기")
-    void ApartmentRent_Success_JsonData() {
+    void ApartmentRent_Success_JsonData() throws JsonProcessingException {
         ResponseEntity<String> response;
 
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
@@ -32,7 +35,7 @@ public class RestTemplateServiceTest {
                 queryParams
         );
 
-        JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode body = responseAttr.path("body");
         JsonNode totalCount = body.path("totalCount");
@@ -44,7 +47,7 @@ public class RestTemplateServiceTest {
 
     @Test
     @DisplayName("실패-아파트 전월세 Json 데이터 가져오기-지역코드 없음")
-    void ApartmentRent_Fail_WrongRegionCode_JsonData() {
+    void ApartmentRent_Fail_WrongRegionCode_JsonData() throws JsonProcessingException {
         ResponseEntity<String> response;
 
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
@@ -57,7 +60,7 @@ public class RestTemplateServiceTest {
                 queryParams
         );
 
-        JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode header = responseAttr.path("header");
         JsonNode totalCount = header.path("totalCount");
@@ -68,7 +71,7 @@ public class RestTemplateServiceTest {
 
     @Test
     @DisplayName("실패-아파트 전월세 Json 데이터 가져오기-searchKey 없음")
-    void ApartmentRent_Fail_NoSearchKey_JsonData() {
+    void ApartmentRent_Fail_NoSearchKey_JsonData() throws JsonProcessingException {
         ResponseEntity<String> response;
 
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
@@ -81,7 +84,7 @@ public class RestTemplateServiceTest {
                 queryParams
         );
 
-        JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode header = responseAttr.path("header");
         JsonNode resultCode = header.path("resultCode");

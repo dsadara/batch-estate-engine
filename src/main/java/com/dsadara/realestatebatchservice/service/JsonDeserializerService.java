@@ -10,21 +10,18 @@ import java.io.IOException;
 
 @Service
 public class JsonDeserializerService {
-    public JsonNode stringToJsonNode(String rawJson) {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root;
+    private final ObjectMapper objectMapper;
 
-        try {
-            root = mapper.readTree(rawJson);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public JsonDeserializerService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
-        return root;
+    public JsonNode stringToJsonNode(String rawJson) throws JsonProcessingException {
+        return objectMapper.readTree(rawJson);
     }
 
     public OpenApiResponse jsonNodeToPOJO(JsonNode root) throws IOException {
-        return new ObjectMapper()
+        return objectMapper
                 .readerFor(OpenApiResponse.class)
                 .readValue(root);
     }

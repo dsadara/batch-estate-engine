@@ -35,7 +35,7 @@ class JsonDeserializerServiceTest {
                 queryParams
         );
 
-        JsonNode root = new JsonDeserializerService().stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
         OpenApiResponse openApiResponse = jsonDeserializerService.jsonNodeToPOJO(root);
 
         Assertions.assertEquals("00", openApiResponse.getResultCode());
