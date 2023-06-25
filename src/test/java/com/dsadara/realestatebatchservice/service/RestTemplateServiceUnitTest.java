@@ -21,7 +21,7 @@ import static org.springframework.web.client.HttpClientErrorException.NotFound;
 import static org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
 @ExtendWith(MockitoExtension.class)
-public class RestTemplateServiceMockTest {
+public class RestTemplateServiceUnitTest {
     @Mock
     private RestTemplate restTemplate;
 

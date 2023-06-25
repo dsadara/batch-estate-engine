@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class JsonDeserializerServiceMockTest {
+public class JsonDeserializerServiceUnitTest {
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private ObjectMapper objectMapper;
