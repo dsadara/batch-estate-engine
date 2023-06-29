@@ -10,23 +10,23 @@ import org.springframework.util.MultiValueMap;
 import java.io.IOException;
 
 @Service
-public class AptRentService {
+public class RequestDataService {
+
     private final JsonDeserializerService jsonDeserializerService;
     private final RestTemplateService restTemplateService;
 
-    public AptRentService(JsonDeserializerService jsonDeserializerService, RestTemplateService restTemplateService) {
+    public RequestDataService(JsonDeserializerService jsonDeserializerService, RestTemplateService restTemplateService) {
         this.jsonDeserializerService = jsonDeserializerService;
         this.restTemplateService = restTemplateService;
     }
 
-    public OpenApiResponse requestAptRent(String legalDongCode, String contractYMD, String servicekey) throws IOException {
-        String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
+    public OpenApiResponse requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws IOException {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", legalDongCode);
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", servicekey);
 
-        ResponseEntity<String> response = restTemplateService.getResponse(baseUrl, queryParams);
+        ResponseEntity<String> response = restTemplateService.getResponse(baseURL, queryParams);
         JsonNode jsonNode = jsonDeserializerService.stringToJsonNode(response.getBody());
         return jsonDeserializerService.jsonNodeToPOJO(jsonNode);
     }

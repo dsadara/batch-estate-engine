@@ -25,20 +25,20 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AptRentServiceUnitTest {
-
+public class RequestDataServiceTest {
     @Mock
     private RestTemplateService restTemplateService;
     @Mock
     private JsonDeserializerService jsonDeserializerService;
 
     @InjectMocks
-    private AptRentService aptRentService;
+    private RequestDataService requestDataService;
 
-    // requestAptRent() Data
+    // 아파트 전월세 요청 파라미터, 비교용 데이터
     private static JsonNode jsonNodeSample;
     private static OpenApiResponse openApiResponseSample;
     private static ResponseEntity<String> responseSample;
+    private static String baseURL;
     private static String legalDong;
     private static String contractYMD;
     private static String searchKey;
@@ -55,49 +55,49 @@ public class AptRentServiceUnitTest {
         legalDong = "11500";
         contractYMD = "202304";
         searchKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+        baseURL = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
 
-        String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", legalDong);
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", searchKey);
 
-        responseSample = restTemplateServiceTemp.getResponse(baseUrl, queryParams);
+        responseSample = restTemplateServiceTemp.getResponse(baseURL, queryParams);
         jsonNodeSample = jsonDeserializerServiceTemp.stringToJsonNode(responseSample.getBody());
         openApiResponseSample = jsonDeserializerServiceTemp.jsonNodeToPOJO(jsonNodeSample);
     }
 
     @Test
-    @DisplayName("성공-requestAptRent")
-    void requestAptRent_Success() throws IOException {
+    @DisplayName("성공-requestData()")
+    void requestData_Success() throws IOException {
         //given
         //when
         when(restTemplateService.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
         when(jsonDeserializerService.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
         when(jsonDeserializerService.jsonNodeToPOJO(any(JsonNode.class))).thenReturn(openApiResponseSample);
         //then
-        Assertions.assertEquals(openApiResponseSample, aptRentService.requestAptRent(legalDong, contractYMD, searchKey));
+        Assertions.assertEquals(openApiResponseSample, requestDataService.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(restTemplateService, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializerService, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializerService, times(1)).jsonNodeToPOJO(any(JsonNode.class));
     }
 
     @Test
-    @DisplayName("실패-requestAptRent-IOException")
-    void requestAptRent_Failure_IOException() throws IOException {
+    @DisplayName("실패-requestData()-IOException")
+    void requestData_Failure_IOException() throws IOException {
         //given
         //when
         when(restTemplateService.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
         when(jsonDeserializerService.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
         when(jsonDeserializerService.jsonNodeToPOJO(any(JsonNode.class))).thenThrow(IOException.class);
         //then
-        Assertions.assertThrows(IOException.class, () -> aptRentService.requestAptRent(legalDong, contractYMD, searchKey));
+        Assertions.assertThrows(IOException.class, () -> requestDataService.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(restTemplateService, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializerService, times(1)).stringToJsonNode(anyString());
     }
 
     @Test
-    @DisplayName("실패-requestAptRent-JsonProcessionException")
+    @DisplayName("실패-requestData()-JsonProcessionException")
     void requestAptRent_Failure_JsonProcessionException() throws IOException {
         //given
         //when
@@ -105,7 +105,7 @@ public class AptRentServiceUnitTest {
         when(jsonDeserializerService.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
         when(jsonDeserializerService.jsonNodeToPOJO(any(JsonNode.class))).thenThrow(JsonProcessingException.class);
         //then
-        Assertions.assertThrows(JsonProcessingException.class, () -> aptRentService.requestAptRent(legalDong, contractYMD, searchKey));
+        Assertions.assertThrows(JsonProcessingException.class, () -> requestDataService.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(restTemplateService, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
 }
