@@ -14,12 +14,12 @@ import org.springframework.util.MultiValueMap;
 import java.io.IOException;
 
 @SpringBootTest
-class JsonDeserializerServiceTest {
+class JsonDeserializerTest {
 
     @Autowired
-    private RestTemplateService restTemplateService;
+    private RestTemplates restTemplates;
     @Autowired
-    private JsonDeserializerService jsonDeserializerService;
+    private JsonDeserializer jsonDeserializer;
 
     @Test
     void jsonNodeToPOJO_Success() throws IOException {
@@ -30,13 +30,13 @@ class JsonDeserializerServiceTest {
         queryParams.add("DEAL_YMD", "202304");
         queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
 
-        response = restTemplateService.getResponse(
+        response = restTemplates.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                 queryParams
         );
 
-        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
-        OpenApiResponse openApiResponse = jsonDeserializerService.jsonNodeToPOJO(root);
+        JsonNode root = jsonDeserializer.stringToJsonNode(response.getBody());
+        OpenApiResponse openApiResponse = jsonDeserializer.jsonNodeToPOJO(root);
 
         Assertions.assertEquals("00", openApiResponse.getResultCode());
         Assertions.assertEquals("NORMAL SERVICE.", openApiResponse.getResultMsg());

@@ -13,12 +13,12 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 @SpringBootTest
-public class RestTemplateServiceTest {
+public class RestTemplatesTest {
 
     @Autowired
-    private RestTemplateService restTemplateService;
+    private RestTemplates restTemplates;
     @Autowired
-    private JsonDeserializerService jsonDeserializerService;
+    private JsonDeserializer jsonDeserializer;
 
     @Test
     @DisplayName("성공-아파트 전월세 Json 데이터 가져오기")
@@ -30,12 +30,12 @@ public class RestTemplateServiceTest {
         queryParams.add("DEAL_YMD", "202304");
         queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
 
-        response = restTemplateService.getResponse(
+        response = restTemplates.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                 queryParams
         );
 
-        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializer.stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode body = responseAttr.path("body");
         JsonNode totalCount = body.path("totalCount");
@@ -55,12 +55,12 @@ public class RestTemplateServiceTest {
         queryParams.add("DEAL_YMD", "202304");
         queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
 
-        response = restTemplateService.getResponse(
+        response = restTemplates.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                 queryParams
         );
 
-        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializer.stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode header = responseAttr.path("header");
         JsonNode totalCount = header.path("totalCount");
@@ -79,12 +79,12 @@ public class RestTemplateServiceTest {
         queryParams.add("DEAL_YMD", "202304");
         queryParams.add("serviceKey", null);
 
-        response = restTemplateService.getResponse(
+        response = restTemplates.getResponse(
                 "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?",
                 queryParams
         );
 
-        JsonNode root = jsonDeserializerService.stringToJsonNode(response.getBody());
+        JsonNode root = jsonDeserializer.stringToJsonNode(response.getBody());
         JsonNode responseAttr = root.path("response");
         JsonNode header = responseAttr.path("header");
         JsonNode resultCode = header.path("resultCode");

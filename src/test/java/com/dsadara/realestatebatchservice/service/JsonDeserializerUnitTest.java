@@ -21,13 +21,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class JsonDeserializerServiceUnitTest {
+public class JsonDeserializerUnitTest {
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private ObjectMapper objectMapper;
 
     @InjectMocks
-    private JsonDeserializerService jsonDeserializerService;
+    private JsonDeserializer jsonDeserializer;
 
     private static String rawJsonSample;
     private static String rawJsonSampleInvalid;
@@ -37,13 +37,13 @@ public class JsonDeserializerServiceUnitTest {
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        JsonDeserializerService jsonDeserializerService = new JsonDeserializerService(new ObjectMapper());
+        JsonDeserializer jsonDeserializer = new JsonDeserializer(new ObjectMapper());
 
         rawJsonSample = "{\"response\":{\"header\":{\"resultCode\":\"00\",\"resultMsg\":\"NORMAL SERVICE.\"},\"body\":{\"items\":{\"item\":[{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"55,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.8873,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":16},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"34,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":9},{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.06~25.06\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"65,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":84.9529,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":1},{\"갱신요구권사용\":\" \",\"건축년도\":2021,\"계약구분\":\" \",\"계약기간\":\" \",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"35,000\",\"아파트\":\"등촌제이스카이\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":39.87,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":311,\"지역코드\":11500,\"층\":2},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"28,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":11},{\"갱신요구권사용\":\" \",\"건축년도\":1994,\"계약구분\":\" \",\"계약기간\":\"23.05~25.08\",\"년\":2023,\"법정동\":\"방화동\",\"보증금액\":\"24,500\",\"아파트\":\"장미\",\"월\":4,\"월세금액\":0,\"일\":29,\"전용면적\":39.96,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":841,\"지역코드\":11500,\"층\":9}]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1245}}}";
         rawJsonSampleInvalid = "\"response\":{\"header\":{\"resultCode\":\"00\",\"resultMsg\":\"NORMAL SERVICE.\"},\"body\":{\"items\":{\"item\":[{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"55,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.8873,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":16},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"34,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":9},{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.06~25.06\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"65,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":84.9529,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":1},{\"갱신요구권사용\":\" \",\"건축년도\":2021,\"계약구분\":\" \",\"계약기간\":\" \",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"35,000\",\"아파트\":\"등촌제이스카이\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":39.87,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":311,\"지역코드\":11500,\"층\":2},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"28,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":11},{\"갱신요구권사용\":\" \",\"건축년도\":1994,\"계약구분\":\" \",\"계약기간\":\"23.05~25.08\",\"년\":2023,\"법정동\":\"방화동\",\"보증금액\":\"24,500\",\"아파트\":\"장미\",\"월\":4,\"월세금액\":0,\"일\":29,\"전용면적\":39.96,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":841,\"지역코드\":11500,\"층\":9}]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1245}}}";
-        jsonNodeSample = jsonDeserializerService.stringToJsonNode(rawJsonSample);
-        jsonNodeSampleInvalid = jsonDeserializerService.stringToJsonNode(rawJsonSampleInvalid);
-        openApiResponseSample = jsonDeserializerService.jsonNodeToPOJO(jsonNodeSample);
+        jsonNodeSample = jsonDeserializer.stringToJsonNode(rawJsonSample);
+        jsonNodeSampleInvalid = jsonDeserializer.stringToJsonNode(rawJsonSampleInvalid);
+        openApiResponseSample = jsonDeserializer.jsonNodeToPOJO(jsonNodeSample);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class JsonDeserializerServiceUnitTest {
         //when
         when(objectMapper.readTree(rawJsonSample)).thenReturn(jsonNodeSample);
         //then
-        assertEquals(jsonNodeSample, jsonDeserializerService.stringToJsonNode(rawJsonSample));
+        assertEquals(jsonNodeSample, jsonDeserializer.stringToJsonNode(rawJsonSample));
         verify(objectMapper, times(1)).readTree(anyString());
     }
 
@@ -64,7 +64,7 @@ public class JsonDeserializerServiceUnitTest {
         //when
         when(objectMapper.readTree(rawJsonSampleInvalid)).thenReturn(jsonNodeSampleInvalid);
         //then
-        assertEquals(jsonNodeSampleInvalid, jsonDeserializerService.stringToJsonNode(rawJsonSampleInvalid));
+        assertEquals(jsonNodeSampleInvalid, jsonDeserializer.stringToJsonNode(rawJsonSampleInvalid));
         verify(objectMapper, times(1)).readTree(anyString());
     }
 
@@ -75,7 +75,7 @@ public class JsonDeserializerServiceUnitTest {
         //when
         when(objectMapper.readTree(rawJsonSampleInvalid)).thenThrow(JsonProcessingException.class);
         //then
-        assertThrows(JsonProcessingException.class, () -> jsonDeserializerService.stringToJsonNode(rawJsonSampleInvalid));
+        assertThrows(JsonProcessingException.class, () -> jsonDeserializer.stringToJsonNode(rawJsonSampleInvalid));
         verify(objectMapper, times(1)).readTree(anyString());
     }
 
@@ -86,7 +86,7 @@ public class JsonDeserializerServiceUnitTest {
         //when
         when(objectMapper.readerFor(OpenApiResponse.class).readValue(jsonNodeSample)).thenReturn(openApiResponseSample);
         //then
-        assertEquals(openApiResponseSample, jsonDeserializerService.jsonNodeToPOJO(jsonNodeSample));
+        assertEquals(openApiResponseSample, jsonDeserializer.jsonNodeToPOJO(jsonNodeSample));
         verify(objectMapper.readerFor(OpenApiResponse.class), times(1)).readValue(any(JsonNode.class));
     }
 
@@ -97,7 +97,7 @@ public class JsonDeserializerServiceUnitTest {
         //when
         when(objectMapper.readerFor(OpenApiResponse.class).readValue(jsonNodeSampleInvalid)).thenThrow(IOException.class);
         //then
-        assertThrows(IOException.class, () -> jsonDeserializerService.jsonNodeToPOJO(jsonNodeSampleInvalid));
+        assertThrows(IOException.class, () -> jsonDeserializer.jsonNodeToPOJO(jsonNodeSampleInvalid));
         verify(objectMapper.readerFor(OpenApiResponse.class), times(1)).readValue(any(JsonNode.class));
     }
 }

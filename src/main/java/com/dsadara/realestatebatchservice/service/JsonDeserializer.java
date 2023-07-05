@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class JsonDeserializerService {
+public class JsonDeserializer {
     private final ObjectMapper objectMapper;
 
-    public JsonDeserializerService(ObjectMapper objectMapper) {
+    public JsonDeserializer(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

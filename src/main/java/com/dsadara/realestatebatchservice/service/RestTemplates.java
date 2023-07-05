@@ -11,10 +11,10 @@ import java.net.URI;
 
 @Slf4j
 @Service
-public class RestTemplateService {
+public class RestTemplates {
     private final RestTemplate restTemplate;
 
-    public RestTemplateService(RestTemplate restTemplate) {
+    public RestTemplates(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

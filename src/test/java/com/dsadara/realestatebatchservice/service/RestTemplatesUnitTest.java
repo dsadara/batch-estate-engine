@@ -21,12 +21,12 @@ import static org.springframework.web.client.HttpClientErrorException.NotFound;
 import static org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
 @ExtendWith(MockitoExtension.class)
-public class RestTemplateServiceUnitTest {
+public class RestTemplatesUnitTest {
     @Mock
     private RestTemplate restTemplate;
 
     @InjectMocks
-    private RestTemplateService restTemplateService;
+    private RestTemplates restTemplates;
 
     private static String baseUrl;
     private static String wrongBaseUrl;
@@ -35,14 +35,14 @@ public class RestTemplateServiceUnitTest {
 
     @BeforeAll
     static void beforeAll() {
-        RestTemplateService restTemplateService = new RestTemplateService(new RestTemplate());
+        RestTemplates restTemplates = new RestTemplates(new RestTemplate());
         queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", "11500");
         queryParams.add("DEAL_YMD", "202304");
         queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
         baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
         wrongBaseUrl = "http://openapi.molit.go.kr:8081/WrongURI/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
-        responseSample = restTemplateService.getResponse(baseUrl, queryParams);
+        responseSample = restTemplates.getResponse(baseUrl, queryParams);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class RestTemplateServiceUnitTest {
         //when
         when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenReturn(responseSample);
         //then
-        Assertions.assertEquals(responseSample, restTemplateService.getResponse(baseUrl, queryParams));
+        Assertions.assertEquals(responseSample, restTemplates.getResponse(baseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
     }
 
@@ -63,7 +63,7 @@ public class RestTemplateServiceUnitTest {
         //when
         when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenThrow(NotFound.class);
         //then
-        Assertions.assertThrows(NotFound.class, () -> restTemplateService.getResponse(wrongBaseUrl, queryParams));
+        Assertions.assertThrows(NotFound.class, () -> restTemplates.getResponse(wrongBaseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
     }
 
@@ -74,7 +74,7 @@ public class RestTemplateServiceUnitTest {
         //when
         when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenThrow(InternalServerError.class);
         //then
-        Assertions.assertThrows(InternalServerError.class, () -> restTemplateService.getResponse(wrongBaseUrl, queryParams));
+        Assertions.assertThrows(InternalServerError.class, () -> restTemplates.getResponse(wrongBaseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
     }
 

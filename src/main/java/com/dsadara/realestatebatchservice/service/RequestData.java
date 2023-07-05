@@ -10,14 +10,14 @@ import org.springframework.util.MultiValueMap;
 import java.io.IOException;
 
 @Service
-public class RequestDataService {
+public class RequestData {
 
-    private final JsonDeserializerService jsonDeserializerService;
-    private final RestTemplateService restTemplateService;
+    private final JsonDeserializer jsonDeserializer;
+    private final RestTemplates restTemplates;
 
-    public RequestDataService(JsonDeserializerService jsonDeserializerService, RestTemplateService restTemplateService) {
-        this.jsonDeserializerService = jsonDeserializerService;
-        this.restTemplateService = restTemplateService;
+    public RequestData(JsonDeserializer jsonDeserializer, RestTemplates restTemplates) {
+        this.jsonDeserializer = jsonDeserializer;
+        this.restTemplates = restTemplates;
     }
 
     public OpenApiResponse requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws IOException {
@@ -26,8 +26,8 @@ public class RequestDataService {
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", servicekey);
 
-        ResponseEntity<String> response = restTemplateService.getResponse(baseURL, queryParams);
-        JsonNode jsonNode = jsonDeserializerService.stringToJsonNode(response.getBody());
-        return jsonDeserializerService.jsonNodeToPOJO(jsonNode);
+        ResponseEntity<String> response = restTemplates.getResponse(baseURL, queryParams);
+        JsonNode jsonNode = jsonDeserializer.stringToJsonNode(response.getBody());
+        return jsonDeserializer.jsonNodeToPOJO(jsonNode);
     }
 }
