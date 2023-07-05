@@ -13,11 +13,8 @@ import java.io.IOException;
 public class RequestData {
 
     private final JsonDeserializer jsonDeserializer;
-    private final RestTemplates restTemplates;
-
-    public RequestData(JsonDeserializer jsonDeserializer, RestTemplates restTemplates) {
+    public RequestData(JsonDeserializer jsonDeserializer) {
         this.jsonDeserializer = jsonDeserializer;
-        this.restTemplates = restTemplates;
     }
 
     public OpenApiResponse requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws IOException {
@@ -26,7 +23,7 @@ public class RequestData {
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", servicekey);
 
-        ResponseEntity<String> response = restTemplates.getResponse(baseURL, queryParams);
+        ResponseEntity<String> response = jsonDeserializer.getResponse(baseURL, queryParams);
         JsonNode jsonNode = jsonDeserializer.stringToJsonNode(response.getBody());
         return jsonDeserializer.jsonNodeToPOJO(jsonNode);
     }

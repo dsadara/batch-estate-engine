@@ -27,8 +27,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class RequestDataTest {
     @Mock
-    private RestTemplates restTemplates;
-    @Mock
     private JsonDeserializer jsonDeserializer;
 
     @InjectMocks
@@ -49,8 +47,7 @@ public class RequestDataTest {
     }
 
     static void prepareDataForRequestAptRent() throws IOException {
-        RestTemplates restTemplatesTemp = new RestTemplates(new RestTemplate());
-        JsonDeserializer jsonDeserializerTemp = new JsonDeserializer(new ObjectMapper());
+        JsonDeserializer jsonDeserializerTemp = new JsonDeserializer(new ObjectMapper(), new RestTemplate());
 
         legalDong = "11500";
         contractYMD = "202304";
@@ -62,7 +59,7 @@ public class RequestDataTest {
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", searchKey);
 
-        responseSample = restTemplatesTemp.getResponse(baseURL, queryParams);
+        responseSample = jsonDeserializerTemp.getResponse(baseURL, queryParams);
         jsonNodeSample = jsonDeserializerTemp.stringToJsonNode(responseSample.getBody());
         openApiResponseSample = jsonDeserializerTemp.jsonNodeToPOJO(jsonNodeSample);
     }
@@ -72,12 +69,12 @@ public class RequestDataTest {
     void requestData_Success() throws IOException {
         //given
         //when
-        when(restTemplates.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
+        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
         when(jsonDeserializer.jsonNodeToPOJO(any(JsonNode.class))).thenReturn(openApiResponseSample);
         //then
         Assertions.assertEquals(openApiResponseSample, requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
-        verify(restTemplates, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
+        verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializer, times(1)).jsonNodeToPOJO(any(JsonNode.class));
     }
@@ -87,12 +84,12 @@ public class RequestDataTest {
     void requestData_Failure_IOException() throws IOException {
         //given
         //when
-        when(restTemplates.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
+        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
         when(jsonDeserializer.jsonNodeToPOJO(any(JsonNode.class))).thenThrow(IOException.class);
         //then
         Assertions.assertThrows(IOException.class, () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
-        verify(restTemplates, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
+        verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
     }
 
@@ -101,11 +98,11 @@ public class RequestDataTest {
     void requestAptRent_Failure_JsonProcessionException() throws IOException {
         //given
         //when
-        when(restTemplates.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
+        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
         when(jsonDeserializer.jsonNodeToPOJO(any(JsonNode.class))).thenThrow(JsonProcessingException.class);
         //then
         Assertions.assertThrows(JsonProcessingException.class, () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
-        verify(restTemplates, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
+        verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
 }
