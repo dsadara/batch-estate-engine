@@ -3,13 +3,13 @@ package com.dsadara.realestatebatchservice.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Setter
 @Getter
+@ToString
 public class OpenApiResponse {
 
     @JsonProperty(value = "resultCode")
@@ -17,7 +17,7 @@ public class OpenApiResponse {
     @JsonProperty(value = "resultMsg")
     private String resultMsg;
     @JsonProperty(value = "item")
-    private List<RealEstateDataDto> realEstateDataDtos;
+    private List<RealEstateDataDto> realEstateDataDtos = new LinkedList<>();
 
     @SuppressWarnings("unchecked")
     @JsonProperty("response")
@@ -26,12 +26,13 @@ public class OpenApiResponse {
         this.resultCode = (String) header.get("resultCode");
         this.resultMsg = (String) header.get("resultMsg");
         Map<String, Object> body = (Map<String, Object>) response.get("body");
-        Map<String, Object> items = (Map<String, Object>) body.get("items");
-        mapItemToAptRentDtos((List<Map<String, Object>>) items.get("item"));
+        if (body.get("items") instanceof LinkedHashMap) {
+            Map<String, Object> items = (Map<String, Object>) body.get("items");
+            mapItemToAptRentDtos((List<Map<String, Object>>) items.get("item"));
+        }
     }
 
     private void mapItemToAptRentDtos(List<Map<String, Object>> item) {
-        realEstateDataDtos = new LinkedList<>();
         for (Map<String, Object> stringObjectMap : item) {
             RealEstateDataDto realEstateDataDto = new RealEstateDataDto();
             realEstateDataDto.setRequestRenewalRight(String.valueOf(stringObjectMap.get("갱신요구권사용")));
