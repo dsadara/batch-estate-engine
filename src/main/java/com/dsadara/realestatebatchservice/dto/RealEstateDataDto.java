@@ -1,20 +1,15 @@
 package com.dsadara.realestatebatchservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@ToString
-@Getter
-@Setter
+
 public class RealEstateDataDto {
     // 공통
     @JsonProperty(value = "건축년도")
     private String constructYear;       // 건축년도
     @JsonProperty(value = "년")
     private String contractYear;        // 년
-    @JsonProperty(value = "이름")
+    @JsonProperty(value = "아파트")
     private String name;                // 이름
     @JsonProperty(value = "법정동")
     private String legalDong;           // 법정동

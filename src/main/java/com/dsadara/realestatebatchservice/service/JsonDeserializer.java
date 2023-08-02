@@ -1,7 +1,7 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.OpenApiResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +10,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 @Service
 public class JsonDeserializer {
@@ -23,14 +23,19 @@ public class JsonDeserializer {
         this.restTemplate = restTemplate;
     }
 
-    public JsonNode stringToJsonNode(String rawJson) throws JsonProcessingException {
-        return objectMapper.readTree(rawJson);
+    public JsonNode stringToJsonNode(String rawJson) throws Exception {
+        return objectMapper.readTree(rawJson)
+                .path("response")
+                .path("body")
+                .path("items")
+                .findValue("item");
     }
 
-    public OpenApiResponse jsonNodeToPOJO(JsonNode root) throws IOException {
+    public List<RealEstateDataDto> jsonNodeToPOJO(JsonNode item) throws Exception {
         return objectMapper
-                .readerFor(OpenApiResponse.class)
-                .readValue(root);
+                .readerFor(new TypeReference<List<RealEstateDataDto>>() {
+                })
+                .readValue(item);
     }
 
     public ResponseEntity<String> getResponse(String baseUrl, MultiValueMap<String, String> queryParams) {

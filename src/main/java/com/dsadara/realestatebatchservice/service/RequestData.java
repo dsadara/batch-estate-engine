@@ -1,13 +1,13 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.OpenApiResponse;
+import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.io.IOException;
+import java.util.List;
 
 @Service
 public class RequestData {
@@ -17,7 +17,7 @@ public class RequestData {
         this.jsonDeserializer = jsonDeserializer;
     }
 
-    public OpenApiResponse requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws IOException {
+    public List<RealEstateDataDto> requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws Exception {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", legalDongCode);
         queryParams.add("DEAL_YMD", contractYMD);

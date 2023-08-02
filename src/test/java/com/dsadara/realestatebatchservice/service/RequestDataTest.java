@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.OpenApiResponse;
+import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -34,7 +35,7 @@ public class RequestDataTest {
 
     // 아파트 전월세 요청 파라미터, 비교용 데이터
     private static JsonNode jsonNodeSample;
-    private static OpenApiResponse openApiResponseSample;
+    private static List<RealEstateDataDto> realEstateDataDtos;
     private static ResponseEntity<String> responseSample;
     private static String baseURL;
     private static String legalDong;
@@ -42,11 +43,11 @@ public class RequestDataTest {
     private static String searchKey;
 
     @BeforeAll
-    static void beforeAll() throws IOException {
+    static void beforeAll() throws Exception {
         prepareDataForRequestAptRent();
     }
 
-    static void prepareDataForRequestAptRent() throws IOException {
+    static void prepareDataForRequestAptRent() throws Exception {
         JsonDeserializer jsonDeserializerTemp = new JsonDeserializer(new ObjectMapper(), new RestTemplate());
 
         legalDong = "11500";
@@ -61,19 +62,19 @@ public class RequestDataTest {
 
         responseSample = jsonDeserializerTemp.getResponse(baseURL, queryParams);
         jsonNodeSample = jsonDeserializerTemp.stringToJsonNode(responseSample.getBody());
-        openApiResponseSample = jsonDeserializerTemp.jsonNodeToPOJO(jsonNodeSample);
+        realEstateDataDtos = jsonDeserializerTemp.jsonNodeToPOJO(jsonNodeSample);
     }
 
     @Test
     @DisplayName("성공-requestData()")
-    void requestData_Success() throws IOException {
+    void requestData_Success() throws Exception {
         //given
         //when
         when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeSample);
-        when(jsonDeserializer.jsonNodeToPOJO(any(JsonNode.class))).thenReturn(openApiResponseSample);
+        when(jsonDeserializer.jsonNodeToPOJO(any(JsonNode.class))).thenReturn(realEstateDataDtos);
         //then
-        Assertions.assertEquals(openApiResponseSample, requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+        Assertions.assertEquals(realEstateDataDtos, requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializer, times(1)).jsonNodeToPOJO(any(JsonNode.class));
@@ -81,7 +82,7 @@ public class RequestDataTest {
 
     @Test
     @DisplayName("실패-requestData()-IOException")
-    void requestData_Failure_IOException() throws IOException {
+    void requestData_Failure_IOException() throws Exception {
         //given
         //when
         when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
@@ -95,7 +96,7 @@ public class RequestDataTest {
 
     @Test
     @DisplayName("실패-requestData()-JsonProcessionException")
-    void requestAptRent_Failure_JsonProcessionException() throws IOException {
+    void requestAptRent_Failure_JsonProcessionException() throws Exception {
         //given
         //when
         when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
