@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JsonDeserializer {
@@ -23,19 +24,23 @@ public class JsonDeserializer {
         this.restTemplate = restTemplate;
     }
 
-    public JsonNode stringToJsonNode(String rawJson) throws Exception {
-        return objectMapper.readTree(rawJson)
-                .path("response")
-                .path("body")
-                .path("items")
-                .findValue("item");
+    public Optional<JsonNode> stringToJsonNode(String rawJson) throws Exception {
+        return Optional.ofNullable(
+                objectMapper.readTree(rawJson)
+                        .path("response")
+                        .path("body")
+                        .path("items")
+                        .findValue("item")
+        );
     }
 
-    public List<RealEstateDataDto> jsonNodeToPOJO(JsonNode item) throws Exception {
-        return objectMapper
-                .readerFor(new TypeReference<List<RealEstateDataDto>>() {
-                })
-                .readValue(item);
+    public Optional<List<RealEstateDataDto>> jsonNodeToPOJO(Optional<JsonNode> itemOptional) throws Exception {
+        return Optional.ofNullable(
+                objectMapper
+                        .readerFor(new TypeReference<List<RealEstateDataDto>>() {
+                        })
+                        .readValue(itemOptional.orElse(objectMapper.nullNode()))
+        );
     }
 
     public ResponseEntity<String> getResponse(String baseUrl, MultiValueMap<String, String> queryParams) {

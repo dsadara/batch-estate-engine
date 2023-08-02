@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RequestData {
@@ -24,7 +26,7 @@ public class RequestData {
         queryParams.add("serviceKey", servicekey);
 
         ResponseEntity<String> response = jsonDeserializer.getResponse(baseURL, queryParams);
-        JsonNode jsonNode = jsonDeserializer.stringToJsonNode(response.getBody());
-        return jsonDeserializer.jsonNodeToPOJO(jsonNode);
+        Optional<JsonNode> itemOptional = jsonDeserializer.stringToJsonNode(response.getBody());
+        return jsonDeserializer.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
     }
 }
