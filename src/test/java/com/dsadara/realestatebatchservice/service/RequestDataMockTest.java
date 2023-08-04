@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class RequestDataTest {
+public class RequestDataMockTest {
     @Mock
     private JsonDeserializer jsonDeserializer;
 
@@ -34,9 +34,9 @@ public class RequestDataTest {
     private RequestData requestData;
 
     // 아파트 전월세 요청 파라미터, 비교용 데이터
-    private static Optional<JsonNode> jsonNodeOptionalSample;
-    private static Optional<List<RealEstateDataDto>> realEstateDataDtosOptional;
-    private static ResponseEntity<String> responseSample;
+    private static Optional<JsonNode> jsonNodeOptional;
+    private static Optional<List<RealEstateDataDto>> realEstateDataDtos;
+    private static ResponseEntity<String> response;
     private static String baseURL;
     private static String legalDong;
     private static String contractYMD;
@@ -60,9 +60,9 @@ public class RequestDataTest {
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", searchKey);
 
-        responseSample = jsonDeserializerTemp.getResponse(baseURL, queryParams);
-        jsonNodeOptionalSample = jsonDeserializerTemp.stringToJsonNode(responseSample.getBody());
-        realEstateDataDtosOptional = jsonDeserializerTemp.jsonNodeToPOJO(jsonNodeOptionalSample);
+        response = jsonDeserializerTemp.getResponse(baseURL, queryParams);
+        jsonNodeOptional = jsonDeserializerTemp.stringToJsonNode(response.getBody());
+        realEstateDataDtos = jsonDeserializerTemp.jsonNodeToPOJO(jsonNodeOptional);
     }
 
     @Test
@@ -70,14 +70,14 @@ public class RequestDataTest {
     void requestData_Success() throws Exception {
         //given
         //when
-        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
-        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptionalSample);
-        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptionalSample)).thenReturn(realEstateDataDtosOptional);
+        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
+        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
+        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenReturn(realEstateDataDtos);
         //then
-        Assertions.assertEquals(realEstateDataDtosOptional.get(), requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+        Assertions.assertEquals(realEstateDataDtos.get(), requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
-        verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptionalSample);
+        verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptional);
     }
 
     @Test
@@ -85,9 +85,9 @@ public class RequestDataTest {
     void requestData_Failure_IOException() throws Exception {
         //given
         //when
-        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
-        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptionalSample);
-        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptionalSample)).thenThrow(IOException.class);
+        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
+        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
+        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(IOException.class);
         //then
         Assertions.assertThrows(IOException.class, () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
@@ -99,9 +99,9 @@ public class RequestDataTest {
     void requestAptRent_Failure_JsonProcessionException() throws Exception {
         //given
         //when
-        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(responseSample);
-        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptionalSample);
-        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptionalSample)).thenThrow(JsonProcessingException.class);
+        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
+        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
+        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(JsonProcessingException.class);
         //then
         Assertions.assertThrows(JsonProcessingException.class, () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());

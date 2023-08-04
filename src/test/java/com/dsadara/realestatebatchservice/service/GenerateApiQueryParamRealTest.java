@@ -13,7 +13,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GenerateApiQueryParamTest {
+public class GenerateApiQueryParamRealTest {
 
     @Autowired
     private GenerateApiQueryParam generateApiQueryParam;

@@ -29,7 +29,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class JsonDeserializerTest {
+public class JsonDeserializerMockTest {
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private ObjectMapper objectMapper;
@@ -43,11 +43,11 @@ public class JsonDeserializerTest {
     private static String baseUrl;
     private static String wrongBaseUrl;
     private static MultiValueMap<String, String> queryParams;
-    private static ResponseEntity<String> responseSample;
+    private static ResponseEntity<String> response;
     // stringToJsonNode(), jsonNodeToPOJO() 요청 파라미터, 비교용 데이터
-    private static String rawJsonSample;
-    private static Optional<JsonNode> jsonNodeOptionalSample;
-    private static Optional<List<RealEstateDataDto>> realEstateDataDtosOptional;
+    private static String rawJson;
+    private static Optional<JsonNode> jsonNodeOptional;
+    private static Optional<List<RealEstateDataDto>> realEstateDataDtos;
 
     @BeforeAll
     static void beforeAll() throws Exception {
@@ -58,10 +58,10 @@ public class JsonDeserializerTest {
         queryParams.add("serviceKey", "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D");
         baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
         wrongBaseUrl = "http://openapi.molit.go.kr:8081/WrongURI/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
-        rawJsonSample = "{\"response\":{\"header\":{\"resultCode\":\"00\",\"resultMsg\":\"NORMAL SERVICE.\"},\"body\":{\"items\":{\"item\":[{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"55,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.8873,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":16},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"34,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":9},{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.06~25.06\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"65,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":84.9529,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":1},{\"갱신요구권사용\":\" \",\"건축년도\":2021,\"계약구분\":\" \",\"계약기간\":\" \",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"35,000\",\"아파트\":\"등촌제이스카이\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":39.87,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":311,\"지역코드\":11500,\"층\":2},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"28,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":11},{\"갱신요구권사용\":\" \",\"건축년도\":1994,\"계약구분\":\" \",\"계약기간\":\"23.05~25.08\",\"년\":2023,\"법정동\":\"방화동\",\"보증금액\":\"24,500\",\"아파트\":\"장미\",\"월\":4,\"월세금액\":0,\"일\":29,\"전용면적\":39.96,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":841,\"지역코드\":11500,\"층\":9}]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1245}}}";
-        responseSample = ResponseEntity.ok(rawJsonSample);
-        jsonNodeOptionalSample = jsonDeserializer.stringToJsonNode(rawJsonSample);
-        realEstateDataDtosOptional = jsonDeserializer.jsonNodeToPOJO(jsonNodeOptionalSample);
+        rawJson = "{\"response\":{\"header\":{\"resultCode\":\"00\",\"resultMsg\":\"NORMAL SERVICE.\"},\"body\":{\"items\":{\"item\":[{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"55,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.8873,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":16},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"34,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":9},{\"갱신요구권사용\":\" \",\"건축년도\":2019,\"계약구분\":\"신규\",\"계약기간\":\"23.06~25.06\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"65,000\",\"아파트\":\"e편한세상염창\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":84.9529,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":309,\"지역코드\":11500,\"층\":1},{\"갱신요구권사용\":\" \",\"건축년도\":2021,\"계약구분\":\" \",\"계약기간\":\" \",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"35,000\",\"아파트\":\"등촌제이스카이\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":39.87,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":311,\"지역코드\":11500,\"층\":2},{\"갱신요구권사용\":\" \",\"건축년도\":1998,\"계약구분\":\"신규\",\"계약기간\":\"23.05~25.05\",\"년\":2023,\"법정동\":\"염창동\",\"보증금액\":\"28,000\",\"아파트\":\"동아\",\"월\":4,\"월세금액\":0,\"일\":1,\"전용면적\":59.97,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":292,\"지역코드\":11500,\"층\":11},{\"갱신요구권사용\":\" \",\"건축년도\":1994,\"계약구분\":\" \",\"계약기간\":\"23.05~25.08\",\"년\":2023,\"법정동\":\"방화동\",\"보증금액\":\"24,500\",\"아파트\":\"장미\",\"월\":4,\"월세금액\":0,\"일\":29,\"전용면적\":39.96,\"종전계약보증금\":\" \",\"종전계약월세\":\" \",\"지번\":841,\"지역코드\":11500,\"층\":9}]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1245}}}";
+        response = ResponseEntity.ok(rawJson);
+        jsonNodeOptional = jsonDeserializer.stringToJsonNode(rawJson);
+        realEstateDataDtos = jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional);
     }
 
     @Test
@@ -69,18 +69,9 @@ public class JsonDeserializerTest {
     void stringToJsonNode_Success() throws Exception {
         //given
         //when
-        when(objectMapper.readTree(rawJsonSample).path(anyString()).path(anyString()).path(anyString()).findValue(anyString())).thenReturn(jsonNodeOptionalSample.get());
+        when(objectMapper.readTree(rawJson).path(anyString()).path(anyString()).path(anyString()).findValue(anyString())).thenReturn(jsonNodeOptional.get());
         //then
-        assertEquals(jsonNodeOptionalSample, jsonDeserializer.stringToJsonNode(rawJsonSample));
-    }
-
-    @Test
-    @DisplayName("실패-stringToJsonNode()-json field가 없는 경우")
-    void stringToJsonNode_Failure_NoJsonField() {
-        // given
-
-        // when
-        // then
+        assertEquals(jsonNodeOptional, jsonDeserializer.stringToJsonNode(rawJson));
     }
 
     @Test
@@ -88,9 +79,9 @@ public class JsonDeserializerTest {
     void jsonNodeToPOJO_Success() throws Exception {
         //given
         //when
-        when(objectMapper.readerFor(any(TypeReference.class)).readValue(any(JsonNode.class))).thenReturn(realEstateDataDtosOptional.get());
+        when(objectMapper.readerFor(any(TypeReference.class)).readValue(any(JsonNode.class))).thenReturn(realEstateDataDtos.get());
         //then
-        assertEquals(realEstateDataDtosOptional, jsonDeserializer.jsonNodeToPOJO(jsonNodeOptionalSample));
+        assertEquals(realEstateDataDtos, jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional));
     }
 
     @Test
@@ -98,9 +89,9 @@ public class JsonDeserializerTest {
     void getResponse_Success() {
         //given
         //when
-        when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenReturn(responseSample);
+        when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenReturn(response);
         //then
-        Assertions.assertEquals(responseSample, jsonDeserializer.getResponse(baseUrl, queryParams));
+        Assertions.assertEquals(response, jsonDeserializer.getResponse(baseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
     }
 
