@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: local
+  jackson:
+    deserialization:
+      accept-single-value-as-array: true
 spring.batch.job.names: ${job.name:NONE}
 ---
 spring:
