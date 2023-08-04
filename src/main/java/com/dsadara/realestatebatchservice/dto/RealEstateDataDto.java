@@ -2,8 +2,10 @@ package com.dsadara.realestatebatchservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
 public class RealEstateDataDto {
     // 공통
     @JsonProperty(value = "건축년도")
