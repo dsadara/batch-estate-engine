@@ -1,5 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
+import com.dsadara.realestatebatchservice.aop.LogExecutionTime;
 import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -24,6 +25,7 @@ public class JsonDeserializer {
         this.restTemplate = restTemplate;
     }
 
+    @LogExecutionTime
     public Optional<JsonNode> stringToJsonNode(String rawJson) throws Exception {
         return Optional.ofNullable(
                 objectMapper.readTree(rawJson)
@@ -34,6 +36,7 @@ public class JsonDeserializer {
         );
     }
 
+    @LogExecutionTime
     public Optional<List<RealEstateDataDto>> jsonNodeToPOJO(Optional<JsonNode> itemOptional) throws Exception {
         return Optional.ofNullable(
                 objectMapper
@@ -43,6 +46,7 @@ public class JsonDeserializer {
         );
     }
 
+    @LogExecutionTime
     public ResponseEntity<String> getResponse(String baseUrl, MultiValueMap<String, String> queryParams) {
         URI uri = UriComponentsBuilder.fromUriString(baseUrl)
                 .queryParams(queryParams)
