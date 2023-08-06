@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class RequestData {
         this.jsonDeserializer = jsonDeserializer;
     }
 
-    public List<RealEstateDataDto> requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws Exception {
+    public List<RealEstateDto> requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws Exception {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", legalDongCode);
         queryParams.add("DEAL_YMD", contractYMD);

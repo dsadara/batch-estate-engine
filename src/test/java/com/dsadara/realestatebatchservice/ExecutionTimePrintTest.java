@@ -1,7 +1,7 @@
 package com.dsadara.realestatebatchservice;
 
 import com.dsadara.realestatebatchservice.aop.CustomStopwatch;
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
 import com.dsadara.realestatebatchservice.service.RequestData;
 import org.junit.Ignore;
@@ -48,7 +48,7 @@ public class ExecutionTimePrintTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         customStopwatch.reset();
         //when
-        List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
         //then
         logger.info(customStopwatch.prettyPrint());
     }
@@ -79,7 +79,7 @@ public class ExecutionTimePrintTest {
         customStopwatch.reset();
         //when
         for (String dealYearhMonth : dealYearMonthsList) {
-            List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, dealYearhMonth, serviceKey);
+            List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, dealYearhMonth, serviceKey);
         }
         //then
         logger.info(customStopwatch.prettyPrint());

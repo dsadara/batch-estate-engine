@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class RequestDataRealTest {
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         //when
-        List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
         //then
         assertNotNull(dtos);
@@ -63,7 +63,7 @@ public class RequestDataRealTest {
         String contractYMD = "202007";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         //when
-        List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
         //then
         assertNotNull(dtos);
@@ -94,7 +94,7 @@ public class RequestDataRealTest {
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         //when
-        List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
         //then
         assertNotNull(dtos);
@@ -124,7 +124,7 @@ public class RequestDataRealTest {
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         //when
-        List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
         //then
         assertNotNull(dtos);
@@ -157,7 +157,7 @@ public class RequestDataRealTest {
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         //when
-        List<RealEstateDataDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
         //then
         assertNotNull(dtos);

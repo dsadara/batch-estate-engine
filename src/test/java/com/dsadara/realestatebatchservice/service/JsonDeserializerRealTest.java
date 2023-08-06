@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +31,7 @@ public class JsonDeserializerRealTest {
                 "]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":2}}}";
         Optional<JsonNode> optionalJsonNode = jsonDeserializer.stringToJsonNode(rawJson);
         // when
-        Optional<List<RealEstateDataDto>> realEstateDataDtosOptional =
+        Optional<List<RealEstateDto>> realEstateDataDtosOptional =
                 jsonDeserializer.jsonNodeToPOJO(optionalJsonNode);
         // then
         assertEquals("1998", realEstateDataDtosOptional.get().get(0).getConstructYear());
@@ -50,7 +50,7 @@ public class JsonDeserializerRealTest {
                 "},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1}}}";
         Optional<JsonNode> optionalJsonNode = jsonDeserializer.stringToJsonNode(rawJson);
         //when
-        Optional<List<RealEstateDataDto>> realEstateDataDtosOptional =
+        Optional<List<RealEstateDto>> realEstateDataDtosOptional =
                 jsonDeserializer.jsonNodeToPOJO(optionalJsonNode);
         //then
         assertEquals("1998", realEstateDataDtosOptional.get().get(0).getConstructYear());

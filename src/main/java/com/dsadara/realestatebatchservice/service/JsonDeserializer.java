@@ -1,7 +1,7 @@
 package com.dsadara.realestatebatchservice.service;
 
 import com.dsadara.realestatebatchservice.aop.LogExecutionTime;
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,10 +37,10 @@ public class JsonDeserializer {
     }
 
     @LogExecutionTime
-    public Optional<List<RealEstateDataDto>> jsonNodeToPOJO(Optional<JsonNode> itemOptional) throws Exception {
+    public Optional<List<RealEstateDto>> jsonNodeToPOJO(Optional<JsonNode> itemOptional) throws Exception {
         return Optional.ofNullable(
                 objectMapper
-                        .readerFor(new TypeReference<List<RealEstateDataDto>>() {
+                        .readerFor(new TypeReference<List<RealEstateDto>>() {
                         })
                         .readValue(itemOptional.orElse(objectMapper.nullNode()))
         );

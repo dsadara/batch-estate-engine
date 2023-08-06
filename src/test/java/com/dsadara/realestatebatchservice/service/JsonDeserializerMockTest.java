@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,7 +47,7 @@ public class JsonDeserializerMockTest {
     // stringToJsonNode(), jsonNodeToPOJO() 요청 파라미터, 비교용 데이터
     private static String rawJson;
     private static Optional<JsonNode> jsonNodeOptional;
-    private static Optional<List<RealEstateDataDto>> realEstateDataDtos;
+    private static Optional<List<RealEstateDto>> realEstateDataDtos;
 
     @BeforeAll
     static void beforeAll() throws Exception {

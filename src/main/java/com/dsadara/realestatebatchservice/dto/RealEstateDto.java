@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
-public class RealEstateDataDto {
+public class RealEstateDto {
     // 공통
     @JsonProperty(value = "건축년도")
     private String constructYear;

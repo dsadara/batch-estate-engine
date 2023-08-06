@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
-import com.dsadara.realestatebatchservice.dto.RealEstateDataDto;
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +35,7 @@ public class RequestDataMockTest {
 
     // 아파트 전월세 요청 파라미터, 비교용 데이터
     private static Optional<JsonNode> jsonNodeOptional;
-    private static Optional<List<RealEstateDataDto>> realEstateDataDtos;
+    private static Optional<List<RealEstateDto>> realEstateDataDtos;
     private static ResponseEntity<String> response;
     private static String baseURL;
     private static String legalDong;
