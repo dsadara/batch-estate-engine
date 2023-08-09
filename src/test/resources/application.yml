@@ -1,0 +1,28 @@
+spring:
+  main:
+    web-application-type: none
+  profiles:
+    active: test
+  jackson:
+    deserialization:
+      accept-single-value-as-array: true
+---
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/batch_real_estate
+    username: root
+    password: Lch885233@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    activate:
+      on-profile: test
