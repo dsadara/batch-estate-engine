@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.data.RepositoryItemWriter;
@@ -31,30 +33,99 @@ public class CreateRealEstateJobConfig {
     public Job createRealEstateJob() throws Exception {
         return jobBuilderFactory.get("createRealEstateJob")
                 .incrementer(new RunIdIncrementer())
-                .start(createRealEstateStep())
+                .start(createAptRentStep())
+                .next(createAptTradeStep())
+                .next(createDetachedHouseRentStep())
+                .next(createRowHouseRentStep())
+                .next(createEfficencyAptRentStep())
                 .build();
     }
 
     @Bean
-    public Step createRealEstateStep() throws Exception {
-        return stepBuilderFactory.get("createRealEstateStep")
-                .<RealEstateDto, RealEstate>chunk(100)
-                .reader(createRealEstateListReader())
+    @JobScope
+    public Step createAptRentStep() throws Exception {
+        return stepBuilderFactory.get("createAptRentStep")
+                .<RealEstateDto, RealEstate>chunk(1000)
+                .reader(createAptRentListReader())
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
                 .build();
     }
 
     @Bean
-    public ListItemReader<RealEstateDto> createRealEstateListReader() throws Exception {
-        String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
-        String legalDongCode = "11200";
-        String contractYMD = "202207";
-        String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
-        return new ListItemReader<RealEstateDto>(
-                requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey)
-        );
+    @JobScope
+    public Step createAptTradeStep() throws Exception {
+        return stepBuilderFactory.get("createAptTradeStep")
+                .<RealEstateDto, RealEstate>chunk(1000)
+                .reader(createAptTradeListReader())
+                .processor(createRealEstateProcessor())
+                .writer(createRealEstateWriter())
+                .build();
     }
+
+    @Bean
+    @JobScope
+    public Step createDetachedHouseRentStep() throws Exception {
+        return stepBuilderFactory.get("createDetachedHouseRentStep")
+                .<RealEstateDto, RealEstate>chunk(1000)
+                .reader(createDetachedHouseRentListReader())
+                .processor(createRealEstateProcessor())
+                .writer(createRealEstateWriter())
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step createRowHouseRentStep() throws Exception {
+        return stepBuilderFactory.get("createRowHouseRentStep")
+                .<RealEstateDto, RealEstate>chunk(1000)
+                .reader(createRowHouseRentListReader())
+                .processor(createRealEstateProcessor())
+                .writer(createRealEstateWriter())
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step createEfficencyAptRentStep() throws Exception {
+        return stepBuilderFactory.get("createEfficencyAptRentStep")
+                .<RealEstateDto, RealEstate>chunk(1000)
+                .reader(createEfficencyAptRentListReader())
+                .processor(createRealEstateProcessor())
+                .writer(createRealEstateWriter())
+                .build();
+    }
+
+    @Bean
+    @StepScope
+    public ListItemReader<RealEstateDto> createAptRentListReader() throws Exception {
+        return new ListItemReader<>(requestData.requestAptRentData());
+    }
+
+    @Bean
+    @StepScope
+    public ListItemReader<RealEstateDto> createAptTradeListReader() throws Exception {
+        return new ListItemReader<>(requestData.requestAptTradeData());
+    }
+
+    @Bean
+    @StepScope
+    public ListItemReader<RealEstateDto> createDetachedHouseRentListReader() throws Exception {
+        return new ListItemReader<>(requestData.requestDetachedHouseRent());
+    }
+
+    @Bean
+    @StepScope
+    public ListItemReader<RealEstateDto> createRowHouseRentListReader() throws Exception {
+        return new ListItemReader<>(requestData.requestRowHouseRent());
+    }
+
+    @Bean
+    @StepScope
+    public ListItemReader<RealEstateDto> createEfficencyAptRentListReader() throws Exception {
+        return new ListItemReader<>(requestData.requestEfficencyAptRent());
+    }
+
 
     @Bean
     public ItemProcessor<RealEstateDto, RealEstate> createRealEstateProcessor() {
