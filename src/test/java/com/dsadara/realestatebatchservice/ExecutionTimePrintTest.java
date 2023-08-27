@@ -4,6 +4,7 @@ import com.dsadara.realestatebatchservice.aop.CustomStopwatch;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
 import com.dsadara.realestatebatchservice.service.RequestData;
+import com.dsadara.realestatebatchservice.service.RequestDataAsync;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StopWatch;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class ExecutionTimePrintTest {
     private RequestData requestData;
     @Autowired
     private CustomStopwatch customStopwatch;
+    @Autowired
+    private RequestDataAsync requestDataAsync;
     Logger logger = LoggerFactory.getLogger(ExecutionTimePrintTest.class);
 
     /**
@@ -63,7 +67,7 @@ public class ExecutionTimePrintTest {
      * ---------------------------------------------
      * 44590038150 ns  <= Total Execution Time
      * ---------------------------------------------
-     * 법정동 하나당 실행시간 44초 걸림
+     * 법정동 하나당 실행시간 44초 걸림 (약 224번의 호출)
      * 전체 법정동을 요청하면 -> 44 * 439 = 19,316 = 321 minutes 56 seconds = 5 hours 21 minutes 56 seconds
      * 주택종류 5가지를 모두 요청하면 -> 5 hours 21 minutes 56 seconds * 5 = 26 hours 49 minutes 40 seconds
      * (요청시마다 다름 대략 계산한 것)
@@ -83,5 +87,35 @@ public class ExecutionTimePrintTest {
         }
         //then
         logger.info(customStopwatch.prettyPrint());
+    }
+
+    /**
+     * ---------------------------------------------
+     * stopwatch running time: 3.353380 second
+     * number of data: 92901
+     * ---------------------------------------------
+     * async를 사용해서 요청시간을 단축함
+     * 44초 -> 3.5초로 단축
+     * 법정동 코드 전체를 요청하면 3.5 * 439 = 1536 = 25분 정도 걸림
+     */
+    @Test
+    @Ignore
+    public void requestData_OneBjdCodeAsync() throws Exception {
+        //given
+        String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
+        String legalDongCode = "11200";
+        String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+        StopWatch stopWatch = new StopWatch("one bjd code");
+        stopWatch.start();
+        //when
+        List<RealEstateDto> dtos = requestDataAsync.requestDataOneBjd(baseUrl, legalDongCode, serviceKey);
+        stopWatch.stop();
+        //then
+        logger.info("\n" +
+                "---------------------------------------------\n" +
+                String.format("stopwatch running time: %f second\n" +
+                        "number of data: %d\n", stopWatch.getTotalTimeSeconds(), dtos.size())
+                + "---------------------------------------------"
+        );
     }
 }

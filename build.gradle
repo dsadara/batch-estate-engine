@@ -23,6 +23,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'io.netty:netty-all:4.1.97.Final'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.77.Final:osx-aarch_64'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'com.h2database:h2'
