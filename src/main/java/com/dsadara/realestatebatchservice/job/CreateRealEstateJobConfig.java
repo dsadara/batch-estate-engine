@@ -19,6 +19,9 @@ import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.HttpServerErrorException;
+
+import java.util.concurrent.ExecutionException;
 
 @Configuration
 @Slf4j
@@ -42,10 +45,14 @@ public class CreateRealEstateJobConfig {
     @JobScope
     public Step createAptRentStep() {
         return stepBuilderFactory.get("createAptRentStep")
-                .<RealEstateDto, RealEstate>chunk(10000)
+                .<RealEstateDto, RealEstate>chunk(1000)
                 .reader(createAptRentReader())
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
+                .faultTolerant()
+                .skip(HttpServerErrorException.class)
+                .skip(ExecutionException.class)
+                .skipLimit(10000)
                 .build();
     }
 
