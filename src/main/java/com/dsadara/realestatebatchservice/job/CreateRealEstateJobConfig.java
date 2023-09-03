@@ -3,7 +3,8 @@ package com.dsadara.realestatebatchservice.job;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.entity.RealEstate;
 import com.dsadara.realestatebatchservice.repository.RealEstateRepository;
-import com.dsadara.realestatebatchservice.service.RequestData;
+import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
+import com.dsadara.realestatebatchservice.service.RequestDataAsync;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -16,7 +17,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
-import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,70 +27,23 @@ public class CreateRealEstateJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final RealEstateRepository realEstateRepository;
-    private final RequestData requestData;
+    private final RequestDataAsync requestDataAsync;
+    private final GenerateApiQueryParam generateApiQueryParam;
 
     @Bean
-    public Job createRealEstateJob() throws Exception {
+    public Job createRealEstateJob() {
         return jobBuilderFactory.get("createRealEstateJob")
                 .incrementer(new RunIdIncrementer())
                 .start(createAptRentStep())
-                .next(createAptTradeStep())
-                .next(createDetachedHouseRentStep())
-                .next(createRowHouseRentStep())
-                .next(createEfficencyAptRentStep())
                 .build();
     }
 
     @Bean
     @JobScope
-    public Step createAptRentStep() throws Exception {
+    public Step createAptRentStep() {
         return stepBuilderFactory.get("createAptRentStep")
-                .<RealEstateDto, RealEstate>chunk(1000)
-                .reader(createAptRentListReader())
-                .processor(createRealEstateProcessor())
-                .writer(createRealEstateWriter())
-                .build();
-    }
-
-    @Bean
-    @JobScope
-    public Step createAptTradeStep() throws Exception {
-        return stepBuilderFactory.get("createAptTradeStep")
-                .<RealEstateDto, RealEstate>chunk(1000)
-                .reader(createAptTradeListReader())
-                .processor(createRealEstateProcessor())
-                .writer(createRealEstateWriter())
-                .build();
-    }
-
-    @Bean
-    @JobScope
-    public Step createDetachedHouseRentStep() throws Exception {
-        return stepBuilderFactory.get("createDetachedHouseRentStep")
-                .<RealEstateDto, RealEstate>chunk(1000)
-                .reader(createDetachedHouseRentListReader())
-                .processor(createRealEstateProcessor())
-                .writer(createRealEstateWriter())
-                .build();
-    }
-
-    @Bean
-    @JobScope
-    public Step createRowHouseRentStep() throws Exception {
-        return stepBuilderFactory.get("createRowHouseRentStep")
-                .<RealEstateDto, RealEstate>chunk(1000)
-                .reader(createRowHouseRentListReader())
-                .processor(createRealEstateProcessor())
-                .writer(createRealEstateWriter())
-                .build();
-    }
-
-    @Bean
-    @JobScope
-    public Step createEfficencyAptRentStep() throws Exception {
-        return stepBuilderFactory.get("createEfficencyAptRentStep")
-                .<RealEstateDto, RealEstate>chunk(1000)
-                .reader(createEfficencyAptRentListReader())
+                .<RealEstateDto, RealEstate>chunk(10000)
+                .reader(createAptRentReader())
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
                 .build();
@@ -98,34 +51,12 @@ public class CreateRealEstateJobConfig {
 
     @Bean
     @StepScope
-    public ListItemReader<RealEstateDto> createAptRentListReader() throws Exception {
-        return new ListItemReader<>(requestData.requestAptRentData());
+    public ApiItemReader createAptRentReader() {
+        return new ApiItemReader(
+                "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent",
+                "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D",
+                requestDataAsync, generateApiQueryParam);
     }
-
-    @Bean
-    @StepScope
-    public ListItemReader<RealEstateDto> createAptTradeListReader() throws Exception {
-        return new ListItemReader<>(requestData.requestAptTradeData());
-    }
-
-    @Bean
-    @StepScope
-    public ListItemReader<RealEstateDto> createDetachedHouseRentListReader() throws Exception {
-        return new ListItemReader<>(requestData.requestDetachedHouseRent());
-    }
-
-    @Bean
-    @StepScope
-    public ListItemReader<RealEstateDto> createRowHouseRentListReader() throws Exception {
-        return new ListItemReader<>(requestData.requestRowHouseRent());
-    }
-
-    @Bean
-    @StepScope
-    public ListItemReader<RealEstateDto> createEfficencyAptRentListReader() throws Exception {
-        return new ListItemReader<>(requestData.requestEfficencyAptRent());
-    }
-
 
     @Bean
     public ItemProcessor<RealEstateDto, RealEstate> createRealEstateProcessor() {

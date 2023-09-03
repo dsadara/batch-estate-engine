@@ -22,7 +22,7 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
   config:
     activate:
       on-profile: local
