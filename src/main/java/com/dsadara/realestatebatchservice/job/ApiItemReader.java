@@ -30,8 +30,9 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
     @Override
     public RealEstateDto read() throws Exception {
         if (items.isEmpty() && currentBjdCode < BjdCodeList.size()) {
-            log.info("법정동 코드 {} 요청", BjdCodeList.get(currentBjdCode));
-            items.addAll(requestDataAsync.requestDataOneBjd(baseUrl, BjdCodeList.get(currentBjdCode), serviceKey));
+            List<RealEstateDto> dtos = requestDataAsync.requestDataOneBjd(baseUrl, BjdCodeList.get(currentBjdCode), serviceKey);
+            log.info("[법정동 코드 {} 요청][데이터 개수 {}]", BjdCodeList.get(currentBjdCode), dtos.size());
+            items.addAll(dtos);
             currentBjdCode++;
         }
 

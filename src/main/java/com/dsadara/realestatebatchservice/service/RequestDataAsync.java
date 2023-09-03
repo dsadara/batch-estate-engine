@@ -52,6 +52,7 @@ public class RequestDataAsync {
                         .collect(Collectors.toList())).get();
 
         List<RealEstateDto> result = new LinkedList<>();
+        result.add(new RealEstateDto());
         realEstateDtosList.forEach(result::addAll);
         return result;
     }
