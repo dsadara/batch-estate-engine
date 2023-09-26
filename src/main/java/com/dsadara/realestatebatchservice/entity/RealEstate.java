@@ -4,10 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,8 +30,10 @@ public class RealEstate {
     @Comment("시군구")
     private String siGunGu;
     @Comment("월")
+    @Column(name = "months")
     private String month;
     @Comment("일")
+    @Column(name = "days")
     private String day;
     @Comment("전용면적, 계약면적")
     private String jeonYongArea;

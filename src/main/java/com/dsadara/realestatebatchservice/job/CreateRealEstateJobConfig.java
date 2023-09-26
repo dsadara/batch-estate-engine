@@ -120,7 +120,7 @@ public class CreateRealEstateJobConfig {
                         "contract_type," +
                         "contract_year," +
                         "created_at," +
-                        "day," +
+                        "days," +
                         "deal_amount," +
                         "deal_type," +
                         "deposit," +
@@ -128,7 +128,7 @@ public class CreateRealEstateJobConfig {
                         "floor," +
                         "jeon_yong_area," +
                         "legal_dong," +
-                        "month," +
+                        "months," +
                         "monthly_rent," +
                         "monthly_rent_before," +
                         "name," +
