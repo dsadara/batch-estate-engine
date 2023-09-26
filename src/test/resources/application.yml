@@ -9,7 +9,7 @@ spring:
 ---
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/batch_real_estate
+    url: jdbc:mysql://localhost:3306/batch_real_estate?rewriteBatchedStatements=true
     username: root
     password: Lch885233@
     driver-class-name: com.mysql.cj.jdbc.Driver
