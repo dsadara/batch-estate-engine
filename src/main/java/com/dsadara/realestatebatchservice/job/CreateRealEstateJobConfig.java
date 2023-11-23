@@ -18,6 +18,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,7 +51,7 @@ public class CreateRealEstateJobConfig {
     public Step createAptRentStep() {
         return stepBuilderFactory.get("createAptRentStep")
                 .<RealEstateDto, RealEstate>chunk(10000)
-                .reader(createAptRentReader())
+                .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
                 .writer(createJdbcRealEstateWriter())
                 .faultTolerant()
@@ -62,11 +63,10 @@ public class CreateRealEstateJobConfig {
 
     @Bean
     @StepScope
-    public ApiItemReader createAptRentReader() {
-        return new ApiItemReader(
-                "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent",
-                "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D",
-                requestDataAsync, generateApiQueryParam);
+    public ApiItemReader createApiItemReader(
+            @Value("${openapi.url.apt-rent}") String baseUrl,
+            @Value("${openapi.key}") String serviceKey) {
+        return new ApiItemReader(baseUrl, serviceKey, requestDataAsync, generateApiQueryParam);
     }
 
     @Bean
