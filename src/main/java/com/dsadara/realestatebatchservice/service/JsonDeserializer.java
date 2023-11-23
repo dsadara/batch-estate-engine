@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @Service
 public class JsonDeserializer {
+
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
@@ -51,4 +52,5 @@ public class JsonDeserializer {
 
         return restTemplate.getForEntity(uri, String.class);
     }
+
 }

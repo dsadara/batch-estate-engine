@@ -8,6 +8,7 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 public class RealEstateDto {
+
     // 공통
     @JsonProperty(value = "건축년도")
     private String constructYear;
@@ -33,6 +34,7 @@ public class RealEstateDto {
     private String regionCode;
     @JsonProperty(value = "층")
     private String floor;
+
     // 매매
     @JsonProperty(value = "거래금액")
     private String dealAmount;
@@ -44,6 +46,7 @@ public class RealEstateDto {
     private String dealType;
     @JsonProperty(value = "중개사소재지")
     private String agentAddress;
+
     // 전월세
     @JsonProperty(value = "갱신요구권사용")
     private String requestRenewalRight;
@@ -61,4 +64,5 @@ public class RealEstateDto {
     private String depositBefore;
     @JsonProperty(value = "종전계약월세")
     private String monthlyRentBefore;
+
 }

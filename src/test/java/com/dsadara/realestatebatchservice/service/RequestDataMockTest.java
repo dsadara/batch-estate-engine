@@ -27,9 +27,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RequestDataMockTest {
+
     @Mock
     private JsonDeserializer jsonDeserializer;
-
     @InjectMocks
     private RequestData requestData;
 
@@ -68,13 +68,14 @@ public class RequestDataMockTest {
     @Test
     @DisplayName("성공-requestData()")
     void requestData_Success() throws Exception {
-        //given
         //when
         when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
         when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenReturn(realEstateDataDtos);
+
         //then
-        Assertions.assertEquals(realEstateDataDtos.get(), requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+        Assertions.assertEquals(realEstateDataDtos.get(),
+                requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptional);
@@ -83,13 +84,14 @@ public class RequestDataMockTest {
     @Test
     @DisplayName("실패-requestData()-IOException")
     void requestData_Failure_IOException() throws Exception {
-        //given
         //when
         when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
         when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(IOException.class);
+
         //then
-        Assertions.assertThrows(IOException.class, () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+        Assertions.assertThrows(IOException.class,
+                () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
     }
@@ -97,13 +99,15 @@ public class RequestDataMockTest {
     @Test
     @DisplayName("실패-requestData()-JsonProcessionException")
     void requestAptRent_Failure_JsonProcessionException() throws Exception {
-        //given
         //when
         when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
         when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
         when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(JsonProcessingException.class);
+
         //then
-        Assertions.assertThrows(JsonProcessingException.class, () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+        Assertions.assertThrows(JsonProcessingException.class,
+                () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
+
 }

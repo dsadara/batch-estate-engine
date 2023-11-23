@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @Transactional
 public class RealEstateRepositoryTest {
+
     @Autowired
     private RealEstateRepository realEstateRepository;
 

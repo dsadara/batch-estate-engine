@@ -6,7 +6,6 @@ spring:
   jackson:
     deserialization:
       accept-single-value-as-array: true
-
 openapi:
   url:
     apt-rent: "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent"

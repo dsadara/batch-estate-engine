@@ -11,6 +11,7 @@ import java.util.List;
 
 @Slf4j
 public class ApiItemReader implements ItemReader<RealEstateDto> {
+
     private final String baseUrl;
     private final String serviceKey;
     private final RequestDataAsync requestDataAsync;
@@ -42,4 +43,5 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
             return items.remove(0);
         }
     }
+
 }

@@ -20,7 +20,6 @@ public class RequestDataRealTest {
     @Autowired
     private RequestData requestData;
 
-
     @Test
     @DisplayName("성공-requestData()-아파트 전월세 api 요청")
     public void requestData_Success_AptRent() throws Exception {
@@ -29,6 +28,7 @@ public class RequestDataRealTest {
         String legalDongCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+
         //when
         List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
@@ -62,6 +62,7 @@ public class RequestDataRealTest {
         String legalDongCode = "11200";
         String contractYMD = "202007";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+
         //when
         List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
@@ -93,6 +94,7 @@ public class RequestDataRealTest {
         String legalDongCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+
         //when
         List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
@@ -123,6 +125,7 @@ public class RequestDataRealTest {
         String legalDongCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+
         //when
         List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
@@ -156,6 +159,7 @@ public class RequestDataRealTest {
         String legalDongCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+
         //when
         List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
 
@@ -181,4 +185,5 @@ public class RequestDataRealTest {
         assertNotNull(dtos.get(0).getRegionCode());
         assertNotNull(dtos.get(0).getFloor());
     }
+
 }

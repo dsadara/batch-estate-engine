@@ -31,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @RequiredArgsConstructor
 public class CreateRealEstateJobConfig {
+
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final RealEstateRepository realEstateRepository;
@@ -166,4 +167,5 @@ public class CreateRealEstateJobConfig {
                     ps.setObject(24, RealEstate.getSiGunGu());
                 });
     }
+
 }

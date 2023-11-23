@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class RequestDataAsync {
+
     private final GenerateApiQueryParam generateApiQueryParam;
     private final JsonDeserializerAsync jsonDeserializerAsync;
 
@@ -56,4 +57,5 @@ public class RequestDataAsync {
         realEstateDtosList.forEach(result::addAll);
         return result;
     }
+
 }

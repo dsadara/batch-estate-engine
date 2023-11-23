@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class JsonDeserializerAsync {
+
     private final AsyncRestTemplate asyncRestTemplate;
     private final ObjectMapper objectMapper;
 
@@ -70,4 +71,5 @@ public class JsonDeserializerAsync {
         });
         return cf;
     }
+
 }

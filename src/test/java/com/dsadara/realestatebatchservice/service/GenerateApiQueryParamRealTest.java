@@ -20,9 +20,9 @@ public class GenerateApiQueryParamRealTest {
 
     @Test
     public void parseBjdCodeToMap_Success() throws Exception {
-        //given
         //when
         List<String> bjdCodeList = generateApiQueryParam.getBjdCodeList();
+
         //then
         Assertions.assertNotNull(bjdCodeList);
         Assertions.assertEquals(439, bjdCodeList.size());
@@ -33,10 +33,13 @@ public class GenerateApiQueryParamRealTest {
         //given
         Period period = Period.between(LocalDate.of(2005, 1, 1), LocalDate.now());
         int periodMonths = period.getYears() * 12 + period.getMonths();
+
         //when
         List<String> dealYearMonthsList = generateApiQueryParam.getDealYearMonthsList();
+
         //then
         Assertions.assertNotNull(dealYearMonthsList);
         Assertions.assertEquals(periodMonths + 1, dealYearMonthsList.size());
     }
+
 }

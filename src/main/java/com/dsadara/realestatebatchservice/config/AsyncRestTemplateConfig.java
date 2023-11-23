@@ -8,10 +8,12 @@ import org.springframework.web.client.AsyncRestTemplate;
 
 @Configuration
 public class AsyncRestTemplateConfig {
+
     @Bean
     public AsyncRestTemplate restTemplateAsync() {
         Netty4ClientHttpRequestFactory factory =
                 new Netty4ClientHttpRequestFactory(new NioEventLoopGroup(1));
         return new AsyncRestTemplate(factory);
     }
+
 }

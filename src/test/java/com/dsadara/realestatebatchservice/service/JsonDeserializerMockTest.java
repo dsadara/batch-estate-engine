@@ -35,7 +35,6 @@ public class JsonDeserializerMockTest {
     private ObjectMapper objectMapper;
     @Mock
     private RestTemplate restTemplate;
-
     @InjectMocks
     private JsonDeserializer jsonDeserializer;
 
@@ -44,6 +43,7 @@ public class JsonDeserializerMockTest {
     private static String wrongBaseUrl;
     private static MultiValueMap<String, String> queryParams;
     private static ResponseEntity<String> response;
+
     // stringToJsonNode(), jsonNodeToPOJO() 요청 파라미터, 비교용 데이터
     private static String rawJson;
     private static Optional<JsonNode> jsonNodeOptional;
@@ -67,9 +67,10 @@ public class JsonDeserializerMockTest {
     @Test
     @DisplayName("성공-stringToJsonNode()")
     void stringToJsonNode_Success() throws Exception {
-        //given
         //when
-        when(objectMapper.readTree(rawJson).path(anyString()).path(anyString()).path(anyString()).findValue(anyString())).thenReturn(jsonNodeOptional.get());
+        when(objectMapper.readTree(rawJson).path(anyString()).path(anyString()).path(anyString()).findValue(anyString()))
+                .thenReturn(jsonNodeOptional.get());
+
         //then
         assertEquals(jsonNodeOptional, jsonDeserializer.stringToJsonNode(rawJson));
     }
@@ -77,9 +78,10 @@ public class JsonDeserializerMockTest {
     @Test
     @DisplayName("성공-jsonNodeToPOJO()")
     void jsonNodeToPOJO_Success() throws Exception {
-        //given
         //when
-        when(objectMapper.readerFor(any(TypeReference.class)).readValue(any(JsonNode.class))).thenReturn(realEstateDataDtos.get());
+        when(objectMapper.readerFor(any(TypeReference.class)).readValue(any(JsonNode.class)))
+                .thenReturn(realEstateDataDtos.get());
+
         //then
         assertEquals(realEstateDataDtos, jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional));
     }
@@ -87,9 +89,10 @@ public class JsonDeserializerMockTest {
     @Test
     @DisplayName("성공-getResponse()")
     void getResponse_Success() {
-        //given
         //when
-        when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenReturn(response);
+        when(restTemplate.getForEntity(any(URI.class), eq(String.class)))
+                .thenReturn(response);
+
         //then
         Assertions.assertEquals(response, jsonDeserializer.getResponse(baseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
@@ -98,9 +101,10 @@ public class JsonDeserializerMockTest {
     @Test
     @DisplayName("실패-getResponse()-404 Not Found")
     void getResponse_Failure_404NotFound() {
-        //given
         //when
-        when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenThrow(HttpClientErrorException.NotFound.class);
+        when(restTemplate.getForEntity(any(URI.class), eq(String.class)))
+                .thenThrow(HttpClientErrorException.NotFound.class);
+
         //then
         Assertions.assertThrows(HttpClientErrorException.NotFound.class, () -> jsonDeserializer.getResponse(wrongBaseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
@@ -109,11 +113,13 @@ public class JsonDeserializerMockTest {
     @Test
     @DisplayName("실패-getResponse()-Internal Server Error")
     void getResponse_Failure_InternalServerError() {
-        //given
         //when
-        when(restTemplate.getForEntity(any(URI.class), eq(String.class))).thenThrow(HttpServerErrorException.InternalServerError.class);
+        when(restTemplate.getForEntity(any(URI.class), eq(String.class)))
+                .thenThrow(HttpServerErrorException.InternalServerError.class);
+
         //then
         Assertions.assertThrows(HttpServerErrorException.InternalServerError.class, () -> jsonDeserializer.getResponse(wrongBaseUrl, queryParams));
         verify(restTemplate, times(1)).getForEntity(any(URI.class), eq(String.class));
     }
+
 }

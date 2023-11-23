@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JsonDeserializerRealTest {
+
     @Autowired
     private JsonDeserializer jsonDeserializer;
 
@@ -30,9 +31,11 @@ public class JsonDeserializerRealTest {
                 "{\"매핑되지않는필드\":1994}" +
                 "]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":2}}}";
         Optional<JsonNode> optionalJsonNode = jsonDeserializer.stringToJsonNode(rawJson);
+
         // when
         Optional<List<RealEstateDto>> realEstateDataDtosOptional =
                 jsonDeserializer.jsonNodeToPOJO(optionalJsonNode);
+
         // then
         assertEquals("1998", realEstateDataDtosOptional.get().get(0).getConstructYear());
         assertEquals(null, realEstateDataDtosOptional.get().get(1).getConstructYear());
@@ -49,10 +52,13 @@ public class JsonDeserializerRealTest {
 //                "]" +
                 "},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1}}}";
         Optional<JsonNode> optionalJsonNode = jsonDeserializer.stringToJsonNode(rawJson);
+
         //when
         Optional<List<RealEstateDto>> realEstateDataDtosOptional =
                 jsonDeserializer.jsonNodeToPOJO(optionalJsonNode);
+
         //then
         assertEquals("1998", realEstateDataDtosOptional.get().get(0).getConstructYear());
     }
+
 }

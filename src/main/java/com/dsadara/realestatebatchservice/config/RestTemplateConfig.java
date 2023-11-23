@@ -1,6 +1,5 @@
 package com.dsadara.realestatebatchservice.config;
 
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Configuration
 public class RestTemplateConfig {
+
     @Bean
     public RestTemplate restTemplate() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
@@ -28,4 +28,5 @@ public class RestTemplateConfig {
         restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
         return restTemplate;
     }
+
 }

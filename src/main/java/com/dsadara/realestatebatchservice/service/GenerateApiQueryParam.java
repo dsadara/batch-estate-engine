@@ -3,16 +3,16 @@ package com.dsadara.realestatebatchservice.service;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
-import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 @Service
 @Getter
 public class GenerateApiQueryParam {
+
     private Map<String, String> bjdCodeMap;
     private List<String> dealYearMonthsList;
     private List<String> bjdCodeList;
@@ -43,7 +43,6 @@ public class GenerateApiQueryParam {
 
         String bjdCode;
         String siGunGu;
-
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             bjdCode = scanner.next().substring(0, 5);
@@ -55,7 +54,7 @@ public class GenerateApiQueryParam {
             }
             scanner.nextLine();
         }
-
         scanner.close();
     }
+
 }
