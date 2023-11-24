@@ -15,7 +15,6 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +53,7 @@ public class CreateRealEstateJobConfig {
                 .<RealEstateDto, RealEstate>chunk(10000)
                 .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
-                .writer(createJdbcRealEstateWriter())
+                .writer(createRealEstateWriter())
                 .faultTolerant()
                 .skip(HttpServerErrorException.class)
                 .skip(ExecutionException.class)
@@ -108,64 +107,6 @@ public class CreateRealEstateJobConfig {
         return new RepositoryItemWriterBuilder<RealEstate>()
                 .repository(realEstateRepository)
                 .build();
-    }
-
-    @Bean
-    public ItemWriter<RealEstate> createJdbcRealEstateWriter() {
-        return items -> jdbcTemplate.batchUpdate("insert into REAL_ESTATE (" +
-                        "cancel_deal_day," +
-                        "cancel_deal_type," +
-                        "agent_address," +
-                        "construct_year," +
-                        "contract_period," +
-                        "contract_type," +
-                        "contract_year," +
-                        "created_at," +
-                        "days," +
-                        "deal_amount," +
-                        "deal_type," +
-                        "deposit," +
-                        "deposit_before," +
-                        "floor," +
-                        "jeon_yong_area," +
-                        "legal_dong," +
-                        "months," +
-                        "monthly_rent," +
-                        "monthly_rent_before," +
-                        "name," +
-                        "parcel_number," +
-                        "region_code," +
-                        "request_renewal_right," +
-                        "si_gun_gu) values (" +
-                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                items,
-                10000,
-                (ps, RealEstate) -> {
-                    ps.setObject(1, RealEstate.getCancelDealDay());
-                    ps.setObject(2, RealEstate.getCancelDealType());
-                    ps.setObject(3, RealEstate.getAgentAddress());
-                    ps.setObject(4, RealEstate.getConstructYear());
-                    ps.setObject(5, RealEstate.getContractPeriod());
-                    ps.setObject(6, RealEstate.getContractType());
-                    ps.setObject(7, RealEstate.getContractYear());
-                    ps.setObject(8, RealEstate.getCreatedAt());
-                    ps.setObject(9, RealEstate.getDay());
-                    ps.setObject(10, RealEstate.getDealAmount());
-                    ps.setObject(11, RealEstate.getDealType());
-                    ps.setObject(12, RealEstate.getDeposit());
-                    ps.setObject(13, RealEstate.getDepositBefore());
-                    ps.setObject(14, RealEstate.getFloor());
-                    ps.setObject(15, RealEstate.getJeonYongArea());
-                    ps.setObject(16, RealEstate.getLegalDong());
-                    ps.setObject(17, RealEstate.getMonth());
-                    ps.setObject(18, RealEstate.getMonthlyRent());
-                    ps.setObject(19, RealEstate.getMonthlyRentBefore());
-                    ps.setObject(20, RealEstate.getName());
-                    ps.setObject(21, RealEstate.getParcelNumber());
-                    ps.setObject(22, RealEstate.getRegionCode());
-                    ps.setObject(23, RealEstate.getRequestRenewalRight());
-                    ps.setObject(24, RealEstate.getSiGunGu());
-                });
     }
 
 }
