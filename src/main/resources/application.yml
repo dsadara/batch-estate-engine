@@ -1,18 +1,33 @@
 spring:
-  main:
-    web-application-type: none
   profiles:
     active: local
+  config:
+    import: openapi.yml
+  main:
+    web-application-type: none
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      names: ${job.names:createRealEstateJob}
   jackson:
     deserialization:
       accept-single-value-as-array: true
-openapi:
-  url:
-    apt-rent: "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent"
-    apt-trade: "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade"
-    rowhouse-rent: "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcRHRent"
-    officetel-rent: "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcOffiRent"
-    detachedhouse-rent: "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcSHRent"
-  key: "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D"
-bjdCode:
-  path: "src/main/resources/bjdcode.txt"
+  bjdCode:
+    path: "src/main/resources/bjdcode.txt"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/batch_real_estate?rewriteBatchedStatements=true
+    username: root
+    password: Lch885233@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false

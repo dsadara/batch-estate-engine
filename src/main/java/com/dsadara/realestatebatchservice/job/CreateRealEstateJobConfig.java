@@ -65,8 +65,8 @@ public class CreateRealEstateJobConfig {
     @Bean
     @StepScope
     public ApiItemReader createApiItemReader(
-            @Value("${openapi.url.apt-rent}") String baseUrl,
-            @Value("${openapi.key}") String serviceKey) {
+            @Value("${openapi.request.url.aptRent}") String baseUrl,
+            @Value("${openapi.request.serviceKey}") String serviceKey) {
         return new ApiItemReader(baseUrl, serviceKey, requestDataAsync, generateApiQueryParam);
     }
 
