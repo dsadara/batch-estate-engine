@@ -4,7 +4,7 @@ import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.entity.RealEstate;
 import com.dsadara.realestatebatchservice.repository.RealEstateRepository;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
-import com.dsadara.realestatebatchservice.service.RequestDataAsync;
+import com.dsadara.realestatebatchservice.service.RequestData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -35,7 +35,7 @@ public class CreateRealEstateJobConfig {
     private final StepBuilderFactory stepBuilderFactory;
     private final RealEstateRepository realEstateRepository;
     private final JdbcTemplate jdbcTemplate;
-    private final RequestDataAsync requestDataAsync;
+    private final RequestData requestData;
     private final GenerateApiQueryParam generateApiQueryParam;
 
     @Bean
@@ -66,7 +66,7 @@ public class CreateRealEstateJobConfig {
     public ApiItemReader createApiItemReader(
             @Value("${openapi.request.url.aptRent}") String baseUrl,
             @Value("${openapi.request.serviceKey}") String serviceKey) {
-        return new ApiItemReader(baseUrl, serviceKey, requestDataAsync, generateApiQueryParam);
+        return new ApiItemReader(baseUrl, serviceKey, requestData, generateApiQueryParam);
     }
 
     @Bean

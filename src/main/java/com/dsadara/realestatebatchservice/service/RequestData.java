@@ -36,6 +36,14 @@ public class RequestData {
         return jsonDeserializer.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
     }
 
+    public List<RealEstateDto> requestOneLegalDongData(String baseURL, String legalDongCode, String servicekey) throws Exception {
+        List<RealEstateDto> result = new ArrayList<>();
+        for (String dealYearMonth : generateApiQueryParam.getDealYearMonthsList()) {
+            result.addAll(requestData(baseURL, legalDongCode, dealYearMonth, servicekey));
+        }
+        return result;
+    }
+
     public List<RealEstateDto> requestAptRentData() throws Exception {
         List<String> bjdCodeList = generateApiQueryParam.getBjdCodeList();
         List<String> dealYearMonthsList = generateApiQueryParam.getDealYearMonthsList();
