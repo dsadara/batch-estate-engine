@@ -58,6 +58,7 @@ public class CreateRealEstateJobConfig {
                 .skip(HttpServerErrorException.class)
                 .skip(ExecutionException.class)
                 .skipLimit(10000)
+                .listener(new StepExceptionLogger())
                 .build();
     }
 
