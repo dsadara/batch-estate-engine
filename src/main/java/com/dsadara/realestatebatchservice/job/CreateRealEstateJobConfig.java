@@ -3,7 +3,6 @@ package com.dsadara.realestatebatchservice.job;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.entity.RealEstate;
 import com.dsadara.realestatebatchservice.repository.RealEstateRepository;
-import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
 import com.dsadara.realestatebatchservice.service.RequestData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.time.LocalDateTime;
@@ -34,12 +32,10 @@ public class CreateRealEstateJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final RealEstateRepository realEstateRepository;
-    private final JdbcTemplate jdbcTemplate;
     private final RequestData requestData;
-    private final GenerateApiQueryParam generateApiQueryParam;
 
     @Bean
-    public Job createRealEstateJob() {
+    public Job createRealEstateJob() throws Exception {
         return jobBuilderFactory.get("createRealEstateJob")
                 .incrementer(new RunIdIncrementer())
                 .start(createAptRentStep())
@@ -48,9 +44,9 @@ public class CreateRealEstateJobConfig {
 
     @Bean
     @JobScope
-    public Step createAptRentStep() {
+    public Step createAptRentStep() throws Exception {
         return stepBuilderFactory.get("createAptRentStep")
-                .<RealEstateDto, RealEstate>chunk(10000)
+                .<RealEstateDto, RealEstate>chunk(100)
                 .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
@@ -66,8 +62,8 @@ public class CreateRealEstateJobConfig {
     @StepScope
     public ApiItemReader createApiItemReader(
             @Value("${openapi.request.url.aptRent}") String baseUrl,
-            @Value("${openapi.request.serviceKey}") String serviceKey) {
-        return new ApiItemReader(baseUrl, serviceKey, requestData, generateApiQueryParam);
+            @Value("${openapi.request.serviceKey}") String serviceKey) throws Exception {
+        return new ApiItemReader(baseUrl, serviceKey, "11110", "201501", requestData);
     }
 
     @Bean

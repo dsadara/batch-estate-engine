@@ -33,7 +33,10 @@ public class RequestData {
 
         ResponseEntity<String> response = jsonDeserializer.getResponse(baseURL, queryParams);
         Optional<JsonNode> itemOptional = jsonDeserializer.stringToJsonNode(response.getBody());
-        return jsonDeserializer.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
+        List<RealEstateDto> realEstateDtos = jsonDeserializer.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
+        log.info("[법정동 코드 {}][계약 연월일 {}] api 호출 완료 -> ( 데이터 개수: {} )", legalDongCode, contractYMD, realEstateDtos.size());
+
+        return realEstateDtos;
     }
 
     public List<RealEstateDto> requestOneLegalDongData(String baseURL, String legalDongCode, String servicekey) throws Exception {
