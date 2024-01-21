@@ -22,7 +22,7 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
         this.serviceKey = serviceKey;
         this.bjdCode = bjdCode;
         this.contractYMD = contractYMD;
-        this.items.addAll(requestData.requestData(baseUrl, bjdCode, contractYMD, serviceKey));
+        this.items.addAll(requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD));
     }
 
     @Override

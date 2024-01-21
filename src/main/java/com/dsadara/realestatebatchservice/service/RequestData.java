@@ -25,16 +25,16 @@ public class RequestData {
         this.generateApiQueryParam = generateApiQueryParam;
     }
 
-    public List<RealEstateDto> requestData(String baseURL, String legalDongCode, String contractYMD, String servicekey) throws Exception {
+    public List<RealEstateDto> requestData(String baseURL, String servicekey, String bjdCode, String contractYMD) throws Exception {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("LAWD_CD", legalDongCode);
+        queryParams.add("LAWD_CD", bjdCode);
         queryParams.add("DEAL_YMD", contractYMD);
         queryParams.add("serviceKey", servicekey);
 
         ResponseEntity<String> response = jsonDeserializer.getResponse(baseURL, queryParams);
         Optional<JsonNode> itemOptional = jsonDeserializer.stringToJsonNode(response.getBody());
         List<RealEstateDto> realEstateDtos = jsonDeserializer.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
-        log.info("[법정동 코드 {}][계약 연월일 {}] api 호출 완료 -> ( 데이터 개수: {} )", legalDongCode, contractYMD, realEstateDtos.size());
+        log.info("[법정동 코드 {}][계약 연월일 {}] api 호출 완료 -> ( 데이터 개수: {} )", bjdCode, contractYMD, realEstateDtos.size());
 
         return realEstateDtos;
     }

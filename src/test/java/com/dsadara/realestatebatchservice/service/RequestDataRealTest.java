@@ -25,12 +25,12 @@ public class RequestDataRealTest {
     public void requestData_Success_AptRent() throws Exception {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
-        String legalDongCode = "11200";
+        String bjdCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -59,12 +59,12 @@ public class RequestDataRealTest {
     public void requestData_Success_AptTransaction() throws Exception {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade";
-        String legalDongCode = "11200";
+        String bjdCode = "11200";
         String contractYMD = "202007";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -91,12 +91,12 @@ public class RequestDataRealTest {
     public void requestData_Success_DetachedHouseRent() throws Exception {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcSHRent";
-        String legalDongCode = "11200";
+        String bjdCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -122,12 +122,12 @@ public class RequestDataRealTest {
     public void requestData_Success_RowHouseRent() throws Exception {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcRHRent";
-        String legalDongCode = "11200";
+        String bjdCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -156,12 +156,12 @@ public class RequestDataRealTest {
     public void requestData_Success_EfficencyApt() throws Exception {
         //given
         String baseUrl = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcOffiRent";
-        String legalDongCode = "11200";
+        String bjdCode = "11200";
         String contractYMD = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, legalDongCode, contractYMD, serviceKey);
+        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
