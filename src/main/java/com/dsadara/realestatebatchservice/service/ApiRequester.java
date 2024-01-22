@@ -22,7 +22,7 @@ public class ApiRequester {
         this.jsonDeserializer = jsonDeserializer;
     }
 
-    public List<RealEstateDto> requestData(String baseURL, String servicekey, String bjdCode, String contractYMD) throws Exception {
+    public List<RealEstateDto> fetchData(String baseURL, String servicekey, String bjdCode, String contractYMD) throws Exception {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", bjdCode);
         queryParams.add("DEAL_YMD", contractYMD);

@@ -75,7 +75,7 @@ public class ApiRequesterMockTest {
 
         //then
         Assertions.assertEquals(realEstateDataDtos.get(),
-                apiRequester.requestData(baseURL, legalDong, contractYMD, searchKey));
+                apiRequester.fetchData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptional);
@@ -91,7 +91,7 @@ public class ApiRequesterMockTest {
 
         //then
         Assertions.assertThrows(IOException.class,
-                () -> apiRequester.requestData(baseURL, legalDong, contractYMD, searchKey));
+                () -> apiRequester.fetchData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
     }
@@ -106,7 +106,7 @@ public class ApiRequesterMockTest {
 
         //then
         Assertions.assertThrows(JsonProcessingException.class,
-                () -> apiRequester.requestData(baseURL, legalDong, contractYMD, searchKey));
+                () -> apiRequester.fetchData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
 

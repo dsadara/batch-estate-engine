@@ -30,7 +30,7 @@ public class ApiRequesterRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -64,7 +64,7 @@ public class ApiRequesterRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -96,7 +96,7 @@ public class ApiRequesterRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -127,7 +127,7 @@ public class ApiRequesterRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -161,7 +161,7 @@ public class ApiRequesterRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
