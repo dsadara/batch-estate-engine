@@ -3,7 +3,7 @@ package com.dsadara.realestatebatchservice.job;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.entity.RealEstate;
 import com.dsadara.realestatebatchservice.repository.RealEstateRepository;
-import com.dsadara.realestatebatchservice.service.RequestData;
+import com.dsadara.realestatebatchservice.service.ApiRequester;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -32,7 +32,7 @@ public class CreateRealEstateJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final RealEstateRepository realEstateRepository;
-    private final RequestData requestData;
+    private final ApiRequester apiRequester;
 
     @Bean
     public Job createRealEstateJob() throws Exception {
@@ -63,7 +63,7 @@ public class CreateRealEstateJobConfig {
     public ApiItemReader createApiItemReader(
             @Value("${openapi.request.url.aptRent}") String baseUrl,
             @Value("${openapi.request.serviceKey}") String serviceKey) throws Exception {
-        return new ApiItemReader(baseUrl, serviceKey, "11110", "201501", requestData);
+        return new ApiItemReader(baseUrl, serviceKey, "11110", "201501", apiRequester);
     }
 
     @Bean

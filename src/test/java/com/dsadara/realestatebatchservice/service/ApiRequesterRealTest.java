@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RequestDataRealTest {
+public class ApiRequesterRealTest {
 
     @Autowired
-    private RequestData requestData;
+    private ApiRequester apiRequester;
 
     @Test
     @DisplayName("성공-requestData()-아파트 전월세 api 요청")
@@ -30,7 +30,7 @@ public class RequestDataRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -64,7 +64,7 @@ public class RequestDataRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -96,7 +96,7 @@ public class RequestDataRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -127,7 +127,7 @@ public class RequestDataRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);
@@ -161,7 +161,7 @@ public class RequestDataRealTest {
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD);
 
         //then
         assertNotNull(dtos);

@@ -1,7 +1,7 @@
 package com.dsadara.realestatebatchservice.job;
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
-import com.dsadara.realestatebatchservice.service.RequestData;
+import com.dsadara.realestatebatchservice.service.ApiRequester;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 
@@ -17,12 +17,12 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
     private final String contractYMD;
     private final List<RealEstateDto> items = new LinkedList<>();
 
-    public ApiItemReader(String baseUrl, String serviceKey, String bjdCode, String contractYMD, RequestData requestData) throws Exception {
+    public ApiItemReader(String baseUrl, String serviceKey, String bjdCode, String contractYMD, ApiRequester apiRequester) throws Exception {
         this.baseUrl = baseUrl;
         this.serviceKey = serviceKey;
         this.bjdCode = bjdCode;
         this.contractYMD = contractYMD;
-        this.items.addAll(requestData.requestData(baseUrl, serviceKey, bjdCode, contractYMD));
+        this.items.addAll(apiRequester.requestData(baseUrl, serviceKey, bjdCode, contractYMD));
     }
 
     @Override

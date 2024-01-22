@@ -14,11 +14,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class RequestData {
+public class ApiRequester {
 
     private final JsonDeserializer jsonDeserializer;
 
-    public RequestData(JsonDeserializer jsonDeserializer) {
+    public ApiRequester(JsonDeserializer jsonDeserializer) {
         this.jsonDeserializer = jsonDeserializer;
     }
 

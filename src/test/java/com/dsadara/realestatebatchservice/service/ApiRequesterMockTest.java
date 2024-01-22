@@ -26,12 +26,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class RequestDataMockTest {
+public class ApiRequesterMockTest {
 
     @Mock
     private JsonDeserializer jsonDeserializer;
     @InjectMocks
-    private RequestData requestData;
+    private ApiRequester apiRequester;
 
     // 아파트 전월세 요청 파라미터, 비교용 데이터
     private static Optional<JsonNode> jsonNodeOptional;
@@ -75,7 +75,7 @@ public class RequestDataMockTest {
 
         //then
         Assertions.assertEquals(realEstateDataDtos.get(),
-                requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+                apiRequester.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptional);
@@ -91,7 +91,7 @@ public class RequestDataMockTest {
 
         //then
         Assertions.assertThrows(IOException.class,
-                () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+                () -> apiRequester.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
     }
@@ -106,7 +106,7 @@ public class RequestDataMockTest {
 
         //then
         Assertions.assertThrows(JsonProcessingException.class,
-                () -> requestData.requestData(baseURL, legalDong, contractYMD, searchKey));
+                () -> apiRequester.requestData(baseURL, legalDong, contractYMD, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
 
