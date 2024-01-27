@@ -39,15 +39,12 @@ class StepExceptionLoggerTest {
     private JobRepository jobRepository;
     @MockBean
     private ItemReader<String> itemReader;
+    private Job testJob;
 
     @BeforeEach
-    void setUpMock() throws Exception {
+    void setUpJob() throws Exception {
         when(itemReader.read()).thenThrow(new RuntimeException("Test Exception"));
-    }
 
-    @Test
-    public void testStepFailure() throws Exception {
-        // given
         StepExceptionLogger stepExceptionLogger = new StepExceptionLogger();
 
         Step testStep = stepBuilderFactory.get("testStep")
@@ -58,15 +55,17 @@ class StepExceptionLoggerTest {
                 .listener(stepExceptionLogger)
                 .build();
 
-        Job testJob = jobBuilderFactory.get("testJob")
+        testJob = jobBuilderFactory.get("testJob")
                 .start(testStep)
                 .build();
+    }
 
+    @Test
+    public void testStepFailure() throws Exception {
+        // given, when
         SimpleJobLauncher testJobLauncher = new SimpleJobLauncher();
         testJobLauncher.setJobRepository(jobRepository);
         testJobLauncher.afterPropertiesSet();
-
-        // when
         JobExecution jobExecution = testJobLauncher.run(testJob, new JobParameters());
         StepExecution stepExecution = jobExecution.getStepExecutions().iterator().next();
 
