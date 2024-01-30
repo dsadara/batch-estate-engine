@@ -61,8 +61,8 @@ public class CreateRealEstateJobConfig {
     @Bean
     @StepScope
     public ApiItemReader createApiItemReader(
-            @Value("${openapi.request.url.aptRent}") String baseUrl,
-            @Value("${openapi.request.serviceKey}") String serviceKey) throws Exception {
+            @Value("#{jobParameters['baseUrl']}") String baseUrl,
+            @Value("#{jobParameters['serviceKey']}") String serviceKey) throws Exception {
         return new ApiItemReader(baseUrl, serviceKey, "11110", "201501", apiRequester);
     }
 
