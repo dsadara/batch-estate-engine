@@ -20,11 +20,15 @@ class RealEstateJobLauncherRealTest {
         // given, when
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
-        JobExecution jobExecution = realEstateJobLauncher.launchJob(baseUrl, serviceKey);
+        String bjdCode = "11110";
+        String contractYMD = "201501";
+        JobExecution jobExecution = realEstateJobLauncher.launchJob(baseUrl, serviceKey, bjdCode, contractYMD);
 
         // then
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
         Assertions.assertEquals(baseUrl, jobExecution.getJobParameters().getString("baseUrl"));
         Assertions.assertEquals(serviceKey, jobExecution.getJobParameters().getString("serviceKey"));
+        Assertions.assertEquals(bjdCode, jobExecution.getJobParameters().getString("bjdCode"));
+        Assertions.assertEquals(contractYMD, jobExecution.getJobParameters().getString("contractYMD"));
     }
 }

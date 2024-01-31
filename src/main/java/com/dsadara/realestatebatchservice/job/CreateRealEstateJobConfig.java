@@ -47,7 +47,7 @@ public class CreateRealEstateJobConfig {
     public Step createAptRentStep() throws Exception {
         return stepBuilderFactory.get("createAptRentStep")
                 .<RealEstateDto, RealEstate>chunk(100)
-                .reader(createApiItemReader(null, null))
+                .reader(createApiItemReader(null, null, null, null))
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
                 .faultTolerant()
@@ -62,8 +62,10 @@ public class CreateRealEstateJobConfig {
     @StepScope
     public ApiItemReader createApiItemReader(
             @Value("#{jobParameters['baseUrl']}") String baseUrl,
-            @Value("#{jobParameters['serviceKey']}") String serviceKey) throws Exception {
-        return new ApiItemReader(baseUrl, serviceKey, "11110", "201501", apiRequester);
+            @Value("#{jobParameters['serviceKey']}") String serviceKey,
+            @Value("#{jobParameters['bjdCode']}") String bjdCode,
+            @Value("#{jobParameters['contractYMD']}") String contractYMD) throws Exception {
+        return new ApiItemReader(baseUrl, serviceKey, bjdCode, contractYMD, apiRequester);
     }
 
     @Bean

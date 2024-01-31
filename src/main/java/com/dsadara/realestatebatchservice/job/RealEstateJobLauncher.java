@@ -17,10 +17,13 @@ public class RealEstateJobLauncher {
 
     public JobExecution launchJob(
             @Value("${openapi.request.url.aptRent}") String baseUrl,
-            @Value("${openapi.request.serviceKey}") String serviceKey) throws Exception {
+            @Value("${openapi.request.serviceKey}") String serviceKey,
+            String bjdCode, String contractYMD) throws Exception {
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", baseUrl)
                 .addString("serviceKey", serviceKey)
+                .addString("bjdCode", bjdCode)
+                .addString("contractYMD", contractYMD)
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
         return jobLauncher.run(realEstateJobConfig.createRealEstateJob(), parameters);
