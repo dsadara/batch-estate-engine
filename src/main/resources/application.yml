@@ -9,7 +9,7 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      names: ${job.names:createRealEstateJob}
+      enabled: false
   jackson:
     deserialization:
       accept-single-value-as-array: true
