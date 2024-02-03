@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: test
+  config:
+    import: openapi.yml
   main:
     web-application-type: none
   batch:
