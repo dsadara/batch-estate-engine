@@ -1,5 +1,6 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.runner;
 
+import com.dsadara.realestatebatchservice.launcher.RealEstateJobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;

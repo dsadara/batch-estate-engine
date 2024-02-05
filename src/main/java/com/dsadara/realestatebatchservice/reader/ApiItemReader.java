@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.reader;
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.service.ApiRequester;

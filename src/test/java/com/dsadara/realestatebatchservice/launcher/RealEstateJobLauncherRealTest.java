@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.launcher;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

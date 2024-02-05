@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;

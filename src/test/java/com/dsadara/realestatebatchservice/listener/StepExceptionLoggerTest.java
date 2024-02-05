@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.listener;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;

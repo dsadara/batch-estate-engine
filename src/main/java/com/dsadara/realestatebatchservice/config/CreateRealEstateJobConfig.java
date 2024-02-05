@@ -1,7 +1,9 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.config;
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.entity.RealEstate;
+import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
+import com.dsadara.realestatebatchservice.reader.ApiItemReader;
 import com.dsadara.realestatebatchservice.repository.RealEstateRepository;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
 import lombok.RequiredArgsConstructor;

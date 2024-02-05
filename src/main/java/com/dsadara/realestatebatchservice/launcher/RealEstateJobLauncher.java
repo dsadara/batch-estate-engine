@@ -1,5 +1,6 @@
-package com.dsadara.realestatebatchservice.job;
+package com.dsadara.realestatebatchservice.launcher;
 
+import com.dsadara.realestatebatchservice.config.CreateRealEstateJobConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
