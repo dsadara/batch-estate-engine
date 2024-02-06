@@ -1,6 +1,5 @@
-package com.dsadara.realestatebatchservice.repository;
+package com.dsadara.realestatebatchservice.domain;
 
-import com.dsadara.realestatebatchservice.entity.RealEstate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class RealEstateRepositoryTest {
     private RealEstateRepository realEstateRepository;
 
     @Test
-    public void saveRealEstate_Success() throws Exception {
+    public void saveRealEstate_Success() {
         //given
         RealEstate realEstate = new RealEstate();
         realEstate.setAgentAddress("염창동");
@@ -36,7 +35,7 @@ public class RealEstateRepositoryTest {
     }
 
     @Test
-    public void findRealEstate_Success() throws Exception {
+    public void findRealEstate_Success() {
         //given
         RealEstate realEstate = new RealEstate();
         realEstate.setAgentAddress("염창동");
