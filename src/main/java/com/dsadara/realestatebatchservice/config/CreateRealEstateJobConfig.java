@@ -3,6 +3,7 @@ package com.dsadara.realestatebatchservice.config;
 import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
+import com.dsadara.realestatebatchservice.listener.RealEstateApiReaderContextInitializer;
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
 import com.dsadara.realestatebatchservice.reader.ApiItemReader;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
@@ -57,6 +58,7 @@ public class CreateRealEstateJobConfig {
                 .skip(ExecutionException.class)
                 .skipLimit(10000)
                 .listener(new StepExceptionLogger())
+                .listener(new RealEstateApiReaderContextInitializer())
                 .build();
     }
 
