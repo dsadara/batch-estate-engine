@@ -19,8 +19,6 @@ public class RealEstateJobLauncher {
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", baseUrl)
                 .addString("serviceKey", serviceKey)
-                .addString("bjdCode", bjdCode)
-                .addString("contractYMD", contractYMD)
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
         return jobLauncher.run(realEstateJobConfig.createRealEstateJob(), parameters);

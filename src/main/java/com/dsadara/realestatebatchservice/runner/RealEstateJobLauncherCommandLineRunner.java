@@ -16,7 +16,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-        realEstateJobLauncher.launchJob(baseUrl, serviceKey, "11110", "201501");
+        realEstateJobLauncher.launchJob(baseUrl, serviceKey, null, null);
     }
 
 }

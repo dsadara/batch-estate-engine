@@ -3,6 +3,8 @@ package com.dsadara.realestatebatchservice.reader;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemReader;
 
 import java.util.LinkedList;
@@ -13,15 +15,13 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
 
     private final String baseUrl;
     private final String serviceKey;
-    private final String bjdCode;
-    private final String contractYMD;
+    private String bjdCode;
+    private String contractYMD;
     private final List<RealEstateDto> items = new LinkedList<>();
 
-    public ApiItemReader(String baseUrl, String serviceKey, String bjdCode, String contractYMD, ApiRequester apiRequester) throws Exception {
+    public ApiItemReader(String baseUrl, String serviceKey, ApiRequester apiRequester) throws Exception {
         this.baseUrl = baseUrl;
         this.serviceKey = serviceKey;
-        this.bjdCode = bjdCode;
-        this.contractYMD = contractYMD;
         this.items.addAll(apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD));
     }
 
@@ -32,6 +32,12 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
         } else {
             return items.remove(0);
         }
+    }
+
+    @BeforeStep
+    public void beforeStep(StepExecution stepExecution) {
+        this.bjdCode = stepExecution.getExecutionContext().getString("bjdCode");
+        this.contractYMD = stepExecution.getExecutionContext().getString("contractYMD");
     }
 
 }
