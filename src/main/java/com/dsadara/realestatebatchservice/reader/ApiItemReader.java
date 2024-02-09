@@ -15,14 +15,13 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
 
     private final String baseUrl;
     private final String serviceKey;
-    private String bjdCode;
-    private String contractYMD;
+    private final ApiRequester apiRequester;
     private final List<RealEstateDto> items = new LinkedList<>();
 
     public ApiItemReader(String baseUrl, String serviceKey, ApiRequester apiRequester) throws Exception {
         this.baseUrl = baseUrl;
         this.serviceKey = serviceKey;
-        this.items.addAll(apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD));
+        this.apiRequester = apiRequester;
     }
 
     @Override
@@ -35,9 +34,10 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
     }
 
     @BeforeStep
-    public void beforeStep(StepExecution stepExecution) {
-        this.bjdCode = stepExecution.getExecutionContext().getString("bjdCode");
-        this.contractYMD = stepExecution.getExecutionContext().getString("contractYMD");
+    public void beforeStep(StepExecution stepExecution) throws Exception {
+        String bjdCode = stepExecution.getExecutionContext().getString("bjdCode");
+        String contractYMD = stepExecution.getExecutionContext().getString("contractYMD");
+        items.addAll(apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD));
     }
 
 }
