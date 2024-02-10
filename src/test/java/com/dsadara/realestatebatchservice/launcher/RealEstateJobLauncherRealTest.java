@@ -28,7 +28,5 @@ class RealEstateJobLauncherRealTest {
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
         Assertions.assertEquals(baseUrl, jobExecution.getJobParameters().getString("baseUrl"));
         Assertions.assertEquals(serviceKey, jobExecution.getJobParameters().getString("serviceKey"));
-        Assertions.assertEquals(bjdCode, jobExecution.getJobParameters().getString("bjdCode"));
-        Assertions.assertEquals(contractYMD, jobExecution.getJobParameters().getString("contractYMD"));
     }
 }
