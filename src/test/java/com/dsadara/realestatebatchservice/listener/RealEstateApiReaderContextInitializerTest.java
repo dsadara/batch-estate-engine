@@ -4,6 +4,8 @@ import com.dsadara.realestatebatchservice.launcher.RealEstateJobLauncher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,12 +17,17 @@ class RealEstateApiReaderContextInitializerTest {
 
     @Test
     public void assertStepExecutionContext() throws Exception {
-        // given, when
+        // given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
-        String bjdCode = "11110";
-        String contractYMD = "201501";
-        JobExecution jobExecution = realEstateJobLauncher.launchJob(baseUrl, serviceKey, bjdCode, contractYMD);
+        JobParameters parameters = new JobParametersBuilder()
+                .addString("baseUrl", baseUrl)
+                .addString("serviceKey", serviceKey)
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
+
+        // when
+        JobExecution jobExecution = realEstateJobLauncher.launchJob(parameters);
 
         // then
         for (StepExecution step : jobExecution.getStepExecutions()) {

@@ -1,6 +1,8 @@
 package com.dsadara.realestatebatchservice.runner;
 
 import com.dsadara.realestatebatchservice.launcher.RealEstateJobLauncher;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +18,12 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-        realEstateJobLauncher.launchJob(baseUrl, serviceKey, null, null);
+        JobParameters parameters = new JobParametersBuilder()
+                .addString("baseUrl", baseUrl)
+                .addString("serviceKey", serviceKey)
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
+        realEstateJobLauncher.launchJob(parameters);
     }
 
 }
