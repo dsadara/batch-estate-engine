@@ -7,15 +7,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 @Service
 @Getter
 public class GenerateApiQueryParam {
 
-    private Map<String, String> bjdCodeMap;
-    private List<String> dealYearMonthsList;
-    private List<String> bjdCodeList;
+    private final Map<String, String> bjdCodeMap;
+    private final List<String> dealYearMonthsList;
+    private final List<String> bjdCodeList;
 
     public GenerateApiQueryParam() throws FileNotFoundException {
         dealYearMonthsList = new LinkedList<>();
