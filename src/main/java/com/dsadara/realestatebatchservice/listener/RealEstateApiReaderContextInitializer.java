@@ -10,8 +10,6 @@ public class RealEstateApiReaderContextInitializer implements StepExecutionListe
     @Override
     public void beforeStep(StepExecution stepExecution) {
         stepExecution.getExecutionContext().put("bjdCode", "11110");
-        stepExecution.getExecutionContext().put("contractYMD", "201501");
-        log.info("샘플 query parameter 전달");
     }
 
     @Override

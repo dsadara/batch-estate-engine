@@ -7,6 +7,7 @@ import com.dsadara.realestatebatchservice.listener.RealEstateApiReaderContextIni
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
 import com.dsadara.realestatebatchservice.reader.ApiItemReader;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
+import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -16,6 +17,8 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.partition.support.Partitioner;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
@@ -25,6 +28,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Configuration
@@ -36,19 +42,31 @@ public class CreateRealEstateJobConfig {
     private final StepBuilderFactory stepBuilderFactory;
     private final RealEstateRepository realEstateRepository;
     private final ApiRequester apiRequester;
+    private final GenerateApiQueryParam generateApiQueryParam;
 
     @Bean
     public Job createRealEstateJob() throws Exception {
         return jobBuilderFactory.get("createRealEstateJob")
                 .incrementer(new RunIdIncrementer())
-                .start(createAptRentStep())
+                .flow(masterStep())
+                .end()
                 .build();
     }
 
     @Bean
     @JobScope
-    public Step createAptRentStep() throws Exception {
-        return stepBuilderFactory.get("createAptRentStep")
+    public Step masterStep() throws Exception {
+        return stepBuilderFactory.get("masterStep")
+                .partitioner("slaveStep", contractYMDPartitioner())
+                .step(slaveStep())
+                .gridSize(300)
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step slaveStep() throws Exception {
+        return stepBuilderFactory.get("slaveStep")
                 .<RealEstateDto, RealEstate>chunk(100)
                 .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
@@ -108,6 +126,20 @@ public class CreateRealEstateJobConfig {
         return new RepositoryItemWriterBuilder<RealEstate>()
                 .repository(realEstateRepository)
                 .build();
+    }
+
+    @Bean
+    public Partitioner contractYMDPartitioner() {
+        return gridSize -> {
+            Map<String, ExecutionContext> result = new HashMap<>();
+            List<String> contractYMDList = generateApiQueryParam.getDealYearMonthsList();
+            for (int i = 0; i < contractYMDList.size(); i++) {
+                ExecutionContext executionContext = new ExecutionContext();
+                executionContext.putString("contractYMD", contractYMDList.get(i));
+                result.put("partition" + i + ":contract year/month/date is " + contractYMDList.get(i), executionContext);
+            }
+            return result;
+        };
     }
 
 }
