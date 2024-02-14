@@ -136,7 +136,7 @@ public class CreateRealEstateJobConfig {
             for (int i = 0; i < contractYMDList.size(); i++) {
                 ExecutionContext executionContext = new ExecutionContext();
                 executionContext.putString("contractYMD", contractYMDList.get(i));
-                result.put("partition" + i + ":contract year/month/date is " + contractYMDList.get(i), executionContext);
+                result.put("contractYearMonth-" + contractYMDList.get(i), executionContext);
             }
             return result;
         };
