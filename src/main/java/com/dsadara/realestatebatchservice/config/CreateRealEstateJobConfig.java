@@ -133,10 +133,10 @@ public class CreateRealEstateJobConfig {
         return gridSize -> {
             Map<String, ExecutionContext> result = new HashMap<>();
             List<String> contractYMDList = generateApiQueryParam.getDealYearMonthsList();
-            for (int i = 0; i < contractYMDList.size(); i++) {
+            for (String contractYMD : contractYMDList) {
                 ExecutionContext executionContext = new ExecutionContext();
-                executionContext.putString("contractYMD", contractYMDList.get(i));
-                result.put("contractYearMonth-" + contractYMDList.get(i), executionContext);
+                executionContext.putString("contractYMD", contractYMD);
+                result.put("contractYearMonth-" + contractYMD, executionContext);
             }
             return result;
         };
