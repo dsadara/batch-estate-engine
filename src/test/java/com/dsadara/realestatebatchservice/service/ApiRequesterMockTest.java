@@ -39,7 +39,7 @@ public class ApiRequesterMockTest {
     private static ResponseEntity<String> response;
     private static String baseURL;
     private static String legalDong;
-    private static String contractYMD;
+    private static String dealYearMonth;
     private static String searchKey;
 
     @BeforeAll
@@ -51,13 +51,13 @@ public class ApiRequesterMockTest {
         JsonDeserializer jsonDeserializerTemp = new JsonDeserializer(new ObjectMapper(), new RestTemplate());
 
         legalDong = "11500";
-        contractYMD = "202304";
+        dealYearMonth = "202304";
         searchKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
         baseURL = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent?";
 
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", legalDong);
-        queryParams.add("DEAL_YMD", contractYMD);
+        queryParams.add("DEAL_YMD", dealYearMonth);
         queryParams.add("serviceKey", searchKey);
 
         response = jsonDeserializerTemp.getResponse(baseURL, queryParams);
@@ -75,7 +75,7 @@ public class ApiRequesterMockTest {
 
         //then
         Assertions.assertEquals(realEstateDataDtos.get(),
-                apiRequester.fetchData(baseURL, legalDong, contractYMD, searchKey));
+                apiRequester.fetchData(baseURL, legalDong, dealYearMonth, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
         verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptional);
@@ -91,7 +91,7 @@ public class ApiRequesterMockTest {
 
         //then
         Assertions.assertThrows(IOException.class,
-                () -> apiRequester.fetchData(baseURL, legalDong, contractYMD, searchKey));
+                () -> apiRequester.fetchData(baseURL, legalDong, dealYearMonth, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
         verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
     }
@@ -106,7 +106,7 @@ public class ApiRequesterMockTest {
 
         //then
         Assertions.assertThrows(JsonProcessingException.class,
-                () -> apiRequester.fetchData(baseURL, legalDong, contractYMD, searchKey));
+                () -> apiRequester.fetchData(baseURL, legalDong, dealYearMonth, searchKey));
         verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
 

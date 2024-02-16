@@ -26,11 +26,11 @@ public class ApiRequesterRealTest {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
         String bjdCode = "11200";
-        String contractYMD = "202206";
+        String dealYearMonth = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, dealYearMonth);
 
         //then
         assertNotNull(dtos);
@@ -60,11 +60,11 @@ public class ApiRequesterRealTest {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade";
         String bjdCode = "11200";
-        String contractYMD = "202007";
+        String dealYearMonth = "202007";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, dealYearMonth);
 
         //then
         assertNotNull(dtos);
@@ -92,11 +92,11 @@ public class ApiRequesterRealTest {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcSHRent";
         String bjdCode = "11200";
-        String contractYMD = "202206";
+        String dealYearMonth = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, dealYearMonth);
 
         //then
         assertNotNull(dtos);
@@ -123,11 +123,11 @@ public class ApiRequesterRealTest {
         //given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcRHRent";
         String bjdCode = "11200";
-        String contractYMD = "202206";
+        String dealYearMonth = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, dealYearMonth);
 
         //then
         assertNotNull(dtos);
@@ -157,11 +157,11 @@ public class ApiRequesterRealTest {
         //given
         String baseUrl = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcOffiRent";
         String bjdCode = "11200";
-        String contractYMD = "202206";
+        String dealYearMonth = "202206";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
 
         //when
-        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD);
+        List<RealEstateDto> dtos = apiRequester.fetchData(baseUrl, serviceKey, bjdCode, dealYearMonth);
 
         //then
         assertNotNull(dtos);

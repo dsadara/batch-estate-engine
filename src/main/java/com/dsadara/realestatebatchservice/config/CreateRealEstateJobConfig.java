@@ -57,7 +57,7 @@ public class CreateRealEstateJobConfig {
     @JobScope
     public Step masterStep() throws Exception {
         return stepBuilderFactory.get("masterStep")
-                .partitioner("slaveStep", contractYMDPartitioner())
+                .partitioner("slaveStep", dealYearMonthPartitioner())
                 .step(slaveStep())
                 .gridSize(300)
                 .build();
@@ -129,14 +129,14 @@ public class CreateRealEstateJobConfig {
     }
 
     @Bean
-    public Partitioner contractYMDPartitioner() {
+    public Partitioner dealYearMonthPartitioner() {
         return gridSize -> {
             Map<String, ExecutionContext> result = new HashMap<>();
-            List<String> contractYMDList = generateApiQueryParam.getDealYearMonthsList();
-            for (String contractYMD : contractYMDList) {
+            List<String> dealYearMonthList = generateApiQueryParam.getDealYearMonthsList();
+            for (String dealYearMonth : dealYearMonthList) {
                 ExecutionContext executionContext = new ExecutionContext();
-                executionContext.putString("contractYMD", contractYMD);
-                result.put("contractYearMonth-" + contractYMD, executionContext);
+                executionContext.putString("dealYearMonth", dealYearMonth);
+                result.put("dealYearMonth-" + dealYearMonth, executionContext);
             }
             return result;
         };

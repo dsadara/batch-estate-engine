@@ -36,8 +36,8 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
     @BeforeStep
     public void beforeStep(StepExecution stepExecution) throws Exception {
         String bjdCode = stepExecution.getExecutionContext().getString("bjdCode");
-        String contractYMD = stepExecution.getExecutionContext().getString("contractYMD");
-        items.addAll(apiRequester.fetchData(baseUrl, serviceKey, bjdCode, contractYMD));
+        String dealYearMonth = stepExecution.getExecutionContext().getString("dealYearMonth");
+        items.addAll(apiRequester.fetchData(baseUrl, serviceKey, bjdCode, dealYearMonth));
     }
 
 }

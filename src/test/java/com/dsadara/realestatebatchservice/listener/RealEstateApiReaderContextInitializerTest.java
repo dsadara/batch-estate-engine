@@ -34,7 +34,7 @@ class RealEstateApiReaderContextInitializerTest {
         // then
         for (StepExecution step : jobExecution.getStepExecutions()) {
             Assertions.assertEquals(step.getExecutionContext().getString("bjdCode"), "11110");
-            Assertions.assertEquals(step.getExecutionContext().getString("contractYMD"), "201501");
+            Assertions.assertEquals(step.getExecutionContext().getString("dealYearMonth"), "201501");
         }
 
     }
