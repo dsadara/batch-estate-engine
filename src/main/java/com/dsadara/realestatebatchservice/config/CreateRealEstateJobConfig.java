@@ -43,6 +43,8 @@ public class CreateRealEstateJobConfig {
     private final RealEstateRepository realEstateRepository;
     private final ApiRequester apiRequester;
     private final GenerateApiQueryParam generateApiQueryParam;
+    private final RealEstateApiReaderContextInitializer realEstateApiReaderContextInitializer;
+    private final StepExceptionLogger stepExceptionLogger;
 
     @Bean
     public Job createRealEstateJob() throws Exception {
@@ -75,8 +77,8 @@ public class CreateRealEstateJobConfig {
                 .skip(HttpServerErrorException.class)
                 .skip(ExecutionException.class)
                 .skipLimit(10000)
-                .listener(new StepExceptionLogger())
-                .listener(new RealEstateApiReaderContextInitializer())
+                .listener(stepExceptionLogger)
+                .listener(realEstateApiReaderContextInitializer)
                 .build();
     }
 
