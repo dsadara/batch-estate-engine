@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class RealEstateApiReaderContextInitializer implements StepExecutionListener {
     @Override
     public void beforeStep(StepExecution stepExecution) {
-        stepExecution.getExecutionContext().put("bjdCode", "11110");
+
     }
 
     @Override

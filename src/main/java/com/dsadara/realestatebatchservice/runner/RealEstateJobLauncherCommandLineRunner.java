@@ -21,6 +21,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", baseUrl)
                 .addString("serviceKey", serviceKey)
+                .addString("bjdCode", "11110")
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
         realEstateJobLauncher.launchJob(parameters);
