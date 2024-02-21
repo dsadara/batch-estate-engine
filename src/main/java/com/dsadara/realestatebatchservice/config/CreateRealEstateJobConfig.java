@@ -50,15 +50,15 @@ public class CreateRealEstateJobConfig {
     public Job createRealEstateJob() throws Exception {
         return jobBuilderFactory.get("createRealEstateJob")
                 .incrementer(new RunIdIncrementer())
-                .flow(masterStep())
+                .flow(masterStep(null))
                 .end()
                 .build();
     }
 
     @Bean
     @JobScope
-    public Step masterStep() throws Exception {
-        return stepBuilderFactory.get("masterStep")
+    public Step masterStep(@Value("#{jobParameters['bjdCode']}") String bjdCode) throws Exception {
+        return stepBuilderFactory.get("법정동코드" + ":" + bjdCode)
                 .partitioner("slaveStep", dealYearMonthPartitioner())
                 .step(slaveStep())
                 .gridSize(300)
