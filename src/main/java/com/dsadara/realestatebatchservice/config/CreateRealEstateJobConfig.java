@@ -68,7 +68,7 @@ public class CreateRealEstateJobConfig {
     @Bean
     @JobScope
     public Step slaveStep() throws Exception {
-        return stepBuilderFactory.get("slaveStep")
+        return stepBuilderFactory.get("계약월")
                 .<RealEstateDto, RealEstate>chunk(100)
                 .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
@@ -138,7 +138,7 @@ public class CreateRealEstateJobConfig {
             for (String dealYearMonth : dealYearMonthList) {
                 ExecutionContext executionContext = new ExecutionContext();
                 executionContext.putString("dealYearMonth", dealYearMonth);
-                result.put("dealYearMonth-" + dealYearMonth, executionContext);
+                result.put(dealYearMonth, executionContext);
             }
             return result;
         };
