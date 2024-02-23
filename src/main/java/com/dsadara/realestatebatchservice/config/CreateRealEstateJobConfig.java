@@ -25,13 +25,11 @@ import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.HttpServerErrorException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 @Configuration
 @Slf4j
@@ -73,10 +71,6 @@ public class CreateRealEstateJobConfig {
                 .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
-                .faultTolerant()
-                .skip(HttpServerErrorException.class)
-                .skip(ExecutionException.class)
-                .skipLimit(10000)
                 .listener(stepExceptionLogger)
                 .listener(realEstateApiReaderContextInitializer)
                 .build();
