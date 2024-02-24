@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Disabled("파티셔닝 사용으로 테스트 코드 변경 필요")
 @SpringBootTest
 class RealEstateApiReaderContextInitializerTest {
+
     @Autowired
     private RealEstateJobLauncher realEstateJobLauncher;
 
@@ -36,6 +37,6 @@ class RealEstateApiReaderContextInitializerTest {
             Assertions.assertEquals(step.getExecutionContext().getString("bjdCode"), "11110");
             Assertions.assertEquals(step.getExecutionContext().getString("dealYearMonth"), "201501");
         }
-
     }
+
 }

@@ -99,4 +99,5 @@ class StepExceptionLoggerTest {
         assertThat(listAppender.list).extracting(ILoggingEvent::getMessage)
                 .contains("[Step 에러 발생][법정동 코드 {}][계약 연월일 {}] ErrorMessage : {}");
     }
+
 }

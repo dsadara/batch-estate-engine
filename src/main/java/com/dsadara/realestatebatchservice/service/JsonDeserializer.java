@@ -37,8 +37,7 @@ public class JsonDeserializer {
 
     public Optional<List<RealEstateDto>> jsonNodeToPOJO(Optional<JsonNode> itemOptional) throws Exception {
         return Optional.ofNullable(
-                objectMapper
-                        .readerFor(new TypeReference<List<RealEstateDto>>() {
+                objectMapper.readerFor(new TypeReference<List<RealEstateDto>>() {
                         })
                         .readValue(itemOptional.orElse(objectMapper.nullNode()))
         );
@@ -49,7 +48,6 @@ public class JsonDeserializer {
                 .queryParams(queryParams)
                 .build(true)
                 .toUri();
-
         return restTemplate.getForEntity(uri, String.class);
     }
 

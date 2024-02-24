@@ -17,4 +17,5 @@ public class RealEstateJobLauncher {
     public JobExecution launchJob(JobParameters parameters) throws Exception {
         return jobLauncher.run(realEstateJobConfig.createRealEstateJob(), parameters);
     }
+
 }

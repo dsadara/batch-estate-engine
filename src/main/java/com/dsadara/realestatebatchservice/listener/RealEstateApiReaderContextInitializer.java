@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 public class RealEstateApiReaderContextInitializer implements StepExecutionListener {
     @Override
     public void beforeStep(StepExecution stepExecution) {
-
     }
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         return null;
     }
+
 }

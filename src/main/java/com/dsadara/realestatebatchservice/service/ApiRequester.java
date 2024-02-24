@@ -35,4 +35,5 @@ public class ApiRequester {
 
         return realEstateDtos;
     }
+
 }

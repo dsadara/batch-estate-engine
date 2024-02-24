@@ -15,7 +15,6 @@ public class StepExceptionLogger implements StepExecutionListener {
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
-
     }
 
     @Override
@@ -29,4 +28,5 @@ public class StepExceptionLogger implements StepExecutionListener {
         }
         return stepExecution.getExitStatus();
     }
+
 }

@@ -43,7 +43,6 @@ public class JsonDeserializerMockTest {
     private static String wrongBaseUrl;
     private static MultiValueMap<String, String> queryParams;
     private static ResponseEntity<String> response;
-
     // stringToJsonNode(), jsonNodeToPOJO() 요청 파라미터, 비교용 데이터
     private static String rawJson;
     private static Optional<JsonNode> jsonNodeOptional;

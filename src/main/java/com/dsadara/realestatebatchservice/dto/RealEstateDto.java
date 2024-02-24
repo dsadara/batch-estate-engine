@@ -34,7 +34,6 @@ public class RealEstateDto {
     private String regionCode;
     @JsonProperty(value = "층")
     private String floor;
-
     // 매매
     @JsonProperty(value = "거래금액")
     private String dealAmount;
@@ -46,7 +45,6 @@ public class RealEstateDto {
     private String dealType;
     @JsonProperty(value = "중개사소재지")
     private String agentAddress;
-
     // 전월세
     @JsonProperty(value = "갱신요구권사용")
     private String requestRenewalRight;

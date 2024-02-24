@@ -44,9 +44,7 @@ public class GenerateApiQueryParam {
         String file = "src/main/resources/bjdcode.txt";
         Scanner scanner = new Scanner(new File(file));
         scanner.useDelimiter("\t");
-
-        String bjdCode;
-        String siGunGu;
+        String bjdCode, siGunGu;
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             bjdCode = scanner.next().substring(0, 5);

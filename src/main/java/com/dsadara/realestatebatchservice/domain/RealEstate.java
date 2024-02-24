@@ -28,7 +28,6 @@ public class RealEstate {
     private Long id;
     @CreationTimestamp
     private LocalDateTime createdAt;
-
     // 공통
     @Comment("건축년도")
     private String constructYear;
@@ -54,7 +53,6 @@ public class RealEstate {
     private String regionCode;
     @Comment("층")
     private String floor;
-
     // 매매
     @Comment("거래금액")
     private String dealAmount;
@@ -66,7 +64,6 @@ public class RealEstate {
     private String dealType;
     @Comment("중개사소재지")
     private String agentAddress;
-
     // 전월세
     @Comment("갱신요구권사용")
     private String requestRenewalRight;
