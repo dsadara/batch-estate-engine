@@ -71,6 +71,9 @@ public class CreateRealEstateJobConfig {
                 .reader(createApiItemReader(null, null))
                 .processor(createRealEstateProcessor())
                 .writer(createRealEstateWriter())
+                .faultTolerant()
+                .skipLimit(50)
+                .skip(Exception.class)
                 .listener(stepExceptionLogger)
                 .listener(realEstateApiReaderContextInitializer)
                 .build();
