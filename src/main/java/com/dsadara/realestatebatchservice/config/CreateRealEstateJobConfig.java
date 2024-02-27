@@ -3,7 +3,6 @@ package com.dsadara.realestatebatchservice.config;
 import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
-import com.dsadara.realestatebatchservice.listener.RealEstateApiReaderContextInitializer;
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
 import com.dsadara.realestatebatchservice.reader.ApiItemReader;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
@@ -41,7 +40,6 @@ public class CreateRealEstateJobConfig {
     private final RealEstateRepository realEstateRepository;
     private final ApiRequester apiRequester;
     private final GenerateApiQueryParam generateApiQueryParam;
-    private final RealEstateApiReaderContextInitializer realEstateApiReaderContextInitializer;
     private final StepExceptionLogger stepExceptionLogger;
 
     @Bean
@@ -75,7 +73,6 @@ public class CreateRealEstateJobConfig {
                 .skipLimit(50)
                 .skip(Exception.class)
                 .listener(stepExceptionLogger)
-                .listener(realEstateApiReaderContextInitializer)
                 .build();
     }
 
