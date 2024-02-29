@@ -1,6 +1,6 @@
 package com.dsadara.realestatebatchservice.launcher;
 
-import com.dsadara.realestatebatchservice.config.CreateRealEstateJobConfig;
+import com.dsadara.realestatebatchservice.config.RealEstateJobConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class RealEstateJobLauncher {
 
     private final JobLauncher jobLauncher;
-    private final CreateRealEstateJobConfig realEstateJobConfig;
+    private final RealEstateJobConfig realEstateJobConfig;
 
     public JobExecution launchJob(JobParameters parameters) throws Exception {
         return jobLauncher.run(realEstateJobConfig.createRealEstateJob(), parameters);
