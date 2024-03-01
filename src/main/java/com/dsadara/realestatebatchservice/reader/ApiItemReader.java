@@ -18,7 +18,7 @@ public class ApiItemReader implements ItemReader<RealEstateDto> {
     private final ApiRequester apiRequester;
     private final List<RealEstateDto> items = new LinkedList<>();
 
-    public ApiItemReader(String baseUrl, String serviceKey, ApiRequester apiRequester) throws Exception {
+    public ApiItemReader(String baseUrl, String serviceKey, ApiRequester apiRequester) {
         this.baseUrl = baseUrl;
         this.serviceKey = serviceKey;
         this.apiRequester = apiRequester;

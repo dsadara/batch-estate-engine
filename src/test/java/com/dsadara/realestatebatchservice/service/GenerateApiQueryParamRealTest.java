@@ -29,7 +29,7 @@ public class GenerateApiQueryParamRealTest {
     }
 
     @Test
-    public void generateDealYearMonth_Success() throws Exception {
+    public void generateDealYearMonth_Success() {
         //given
         Period period = Period.between(LocalDate.of(2005, 1, 1), LocalDate.now());
         int periodMonths = period.getYears() * 12 + period.getMonths();
