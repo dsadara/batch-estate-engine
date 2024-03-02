@@ -21,11 +21,13 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Profile("test")
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
