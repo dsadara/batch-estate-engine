@@ -46,7 +46,7 @@ public class RealEstateJobConfig {
 
     @Bean
     public Job createRealEstateJob() throws Exception {
-        return jobBuilderFactory.get("createRealEstateJob")
+        return jobBuilderFactory.get("realEstateJob")
                 .incrementer(new RunIdIncrementer())
                 .flow(masterStep(null))
                 .end()
