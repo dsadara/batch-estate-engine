@@ -1,7 +1,6 @@
 package com.dsadara.realestatebatchservice.launcher;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.ExitStatus;
@@ -11,7 +10,6 @@ import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@Disabled("파티셔닝 사용으로 테스트 코드 변경 필요")
 @SpringBootTest
 class RealEstateJobLauncherRealTest {
 
@@ -27,6 +25,7 @@ class RealEstateJobLauncherRealTest {
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", baseUrl)
                 .addString("serviceKey", serviceKey)
+                .addString("bjdCode", "11110")
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
 
