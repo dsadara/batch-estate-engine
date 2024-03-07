@@ -77,7 +77,7 @@ public class TestJobConfig {
     public ItemReader<RealEstateDto> createEmptyItemReader(
             @Value("#{jobParameters['baseUrl']}") String baseUrl,
             @Value("#{jobParameters['serviceKey']}") String serviceKey) throws Exception {
-        return RealEstateDto::new;
+        return () -> null;
     }
 
     @Bean

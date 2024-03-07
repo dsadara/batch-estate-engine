@@ -22,6 +22,7 @@ class RealEstateJobLauncherRealTest {
         // given
         String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
         String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
+        String bjdCode = "11110";
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", baseUrl)
                 .addString("serviceKey", serviceKey)
@@ -36,6 +37,7 @@ class RealEstateJobLauncherRealTest {
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
         Assertions.assertEquals(baseUrl, jobExecution.getJobParameters().getString("baseUrl"));
         Assertions.assertEquals(serviceKey, jobExecution.getJobParameters().getString("serviceKey"));
+        Assertions.assertEquals(bjdCode, jobExecution.getJobParameters().getString("bjdCode"));
     }
 
 }
