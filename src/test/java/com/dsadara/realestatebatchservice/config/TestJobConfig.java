@@ -39,6 +39,7 @@ public class TestJobConfig {
     private final StepBuilderFactory stepBuilderFactory;
     private final GenerateApiQueryParam generateApiQueryParam;
     private final StepExceptionLogger stepExceptionLogger;
+    private final ItemReader<RealEstateDto> createEmptyItemReader;
 
     @Bean
     public Job TestJob() throws Exception {
@@ -64,7 +65,7 @@ public class TestJobConfig {
     public Step testSlaveStep() throws Exception {
         return stepBuilderFactory.get("계약월")
                 .<RealEstateDto, RealEstate>chunk(100)
-                .reader(createEmptyItemReader(null, null))
+                .reader(createEmptyItemReader)
                 .processor(createEmptyProcessor())
                 .writer(createEmptyWriter())
                 .faultTolerant()
