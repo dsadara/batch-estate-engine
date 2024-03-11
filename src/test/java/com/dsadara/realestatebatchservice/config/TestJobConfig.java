@@ -68,9 +68,6 @@ public class TestJobConfig {
                 .reader(createEmptyItemReader)
                 .processor(createEmptyProcessor())
                 .writer(createEmptyWriter())
-                .faultTolerant()
-                .skipLimit(50)
-                .skip(Exception.class)
                 .listener(stepExceptionLogger)
                 .build();
     }
