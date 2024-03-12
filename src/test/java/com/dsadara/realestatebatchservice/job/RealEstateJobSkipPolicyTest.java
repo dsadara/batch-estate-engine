@@ -27,7 +27,7 @@ public class RealEstateJobSkipPolicyTest {
     private ItemReader<RealEstateDto> mockItemReader;
 
     @Test
-    public void testSkipPolicyInSlaveStep() throws Exception {
+    public void assertPrecondition_readMethodCalledAtMost300() throws Exception {
         // given
         Mockito.when(mockItemReader.read())
                 .thenReturn(new RealEstateDto(), new RealEstateDto(), null)
@@ -46,5 +46,4 @@ public class RealEstateJobSkipPolicyTest {
         Mockito.verify(mockItemReader, Mockito.atMost(300)).read();
         Assertions.assertEquals(jobExecution.getExitStatus(), ExitStatus.FAILED);
     }
-
 }
