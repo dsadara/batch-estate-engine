@@ -2,6 +2,7 @@ package com.dsadara.realestatebatchservice.job;
 
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
+import com.dsadara.realestatebatchservice.listener.FailedStepCounter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,6 +23,8 @@ public class RealEstateJobSkipPolicyTest {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
+    @Autowired
+    private FailedStepCounter failedStepCounter;
 
     @MockBean(name = "createEmptyItemReader")
     private ItemReader<RealEstateDto> mockItemReader;
@@ -46,4 +49,28 @@ public class RealEstateJobSkipPolicyTest {
         Mockito.verify(mockItemReader, Mockito.atMost(300)).read();
         Assertions.assertEquals(jobExecution.getExitStatus(), ExitStatus.FAILED);
     }
+
+    @Test
+    public void checkStepFailCountIsAtMost50() throws Exception {
+        // given
+        Mockito.when(mockItemReader.read())
+                .thenReturn(new RealEstateDto(), new RealEstateDto(), null)
+                .thenThrow(new Exception("test Exception"));
+        JobParameters parameters = new JobParametersBuilder()
+                .addString("baseUrl", "http://SampleUrl1.co.kr")
+                .addString("serviceKey", "SampleServiceKey1")
+                .addString("bjd`Code", "11110")
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
+
+        // when
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob(parameters);
+        failedStepCounter.afterJob(jobExecution);
+        int failedSteps = failedStepCounter.getFailedSteps();
+
+        // then
+        Assertions.assertTrue(failedSteps <= 50);
+        Assertions.assertEquals(jobExecution.getExitStatus(), ExitStatus.FAILED);
+    }
+
 }
