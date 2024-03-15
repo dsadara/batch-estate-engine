@@ -24,9 +24,5 @@ public class FailedStepCounter extends JobExecutionListenerSupport {
         failedSteps = (int) stepExecutions.stream()
                 .filter(step -> step.getStatus() == BatchStatus.FAILED)
                 .count();
-        if (failedSteps > ALLOWED_FAILED_STEPS) {
-            jobExecution.setStatus(BatchStatus.FAILED);
-            log.warn("스텝 실패 횟수 초과. job을 FAILED로 설정.");
-        }
     }
 }
