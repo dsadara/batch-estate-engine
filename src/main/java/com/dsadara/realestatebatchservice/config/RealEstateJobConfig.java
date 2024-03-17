@@ -3,6 +3,7 @@ package com.dsadara.realestatebatchservice.config;
 import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
+import com.dsadara.realestatebatchservice.listener.FailedStepCounter;
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
 import com.dsadara.realestatebatchservice.reader.ApiItemReader;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
@@ -43,11 +44,13 @@ public class RealEstateJobConfig {
     private final ApiRequester apiRequester;
     private final GenerateApiQueryParam generateApiQueryParam;
     private final StepExceptionLogger stepExceptionLogger;
+    private final FailedStepCounter failedStepCounter;
 
     @Bean
     public Job createRealEstateJob() throws Exception {
         return jobBuilderFactory.get("realEstateJob")
                 .incrementer(new RunIdIncrementer())
+                .listener(failedStepCounter)
                 .flow(masterStep(null))
                 .end()
                 .build();
