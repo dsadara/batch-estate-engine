@@ -19,11 +19,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class RealEstateJobReRunTest {
 
-    static String BASE_URL_1 = "http://SampleUrl1.co.kr";
-    static String SERVICE_KEY_1 = "SampleServiceKey1";
+    static String BASE_URL_1 = "http://rerun.co.kr";
+    static String SERVICE_KEY_1 = "ReRunServiceKey1";
     static String BJD_CODE_1 = "11110";
-    static String BASE_URL_2 = "http://SampleUrl2.co.kr";
-    static String SERVICE_KEY_2 = "SampleServiceKey2";
+    static String BASE_URL_2 = "http://rerun.co.kr";
+    static String SERVICE_KEY_2 = "ReRunServiceKey2";
     static String BJD_CODE_2 = "11111";
 
     @Autowired
