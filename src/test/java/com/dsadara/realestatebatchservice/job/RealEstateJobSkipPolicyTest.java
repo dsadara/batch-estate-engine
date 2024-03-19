@@ -65,7 +65,6 @@ public class RealEstateJobSkipPolicyTest {
 
         // when
         JobExecution jobExecution = jobLauncherTestUtils.launchJob(parameters);
-        failedStepCounter.afterJob(jobExecution);
         int failedSteps = failedStepCounter.getFailedSteps();
 
         // then
