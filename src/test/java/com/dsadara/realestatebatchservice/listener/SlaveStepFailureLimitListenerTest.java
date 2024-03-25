@@ -13,7 +13,6 @@ import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 
 
 @SpringBootTest
@@ -24,8 +23,6 @@ class SlaveStepFailureLimitListenerTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
     @MockBean(name = "createEmptyItemReader")
     private ItemReader<RealEstateDto> mockItemReader;
-    @SpyBean
-    private SlaveStepFailureLimitListener slaveStepFailureLimitListener;
 
     @Test
     void afterStep() throws Exception {
@@ -45,7 +42,6 @@ class SlaveStepFailureLimitListenerTest {
         int failedSteps = jobExecution.getExecutionContext().getInt("failedSteps", 0);
 
         // given
-        Mockito.verify(slaveStepFailureLimitListener, Mockito.atMost(300)).handleFailureLimitExceed();
-        Assertions.assertTrue(failedSteps <= 300);
+        Assertions.assertEquals(50, failedSteps);
     }
 }
