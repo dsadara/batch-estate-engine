@@ -2,7 +2,6 @@ package com.dsadara.realestatebatchservice.job;
 
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
-import com.dsadara.realestatebatchservice.listener.FailedStepCounter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,8 +22,6 @@ public class RealEstateJobSkipPolicyTest {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
-    @Autowired
-    private FailedStepCounter failedStepCounter;
 
     @MockBean(name = "createEmptyItemReader")
     private ItemReader<RealEstateDto> mockItemReader;
@@ -47,7 +44,7 @@ public class RealEstateJobSkipPolicyTest {
 
         // then
         Mockito.verify(mockItemReader, Mockito.atMost(300)).read();
-        Assertions.assertEquals(jobExecution.getExitStatus(), ExitStatus.FAILED);
+        Assertions.assertEquals(ExitStatus.STOPPED.getExitCode(), jobExecution.getExitStatus().getExitCode());
     }
 
     @Test
@@ -65,11 +62,11 @@ public class RealEstateJobSkipPolicyTest {
 
         // when
         JobExecution jobExecution = jobLauncherTestUtils.launchJob(parameters);
-        int failedSteps = failedStepCounter.getFailedSteps();
+        int failedSteps = jobExecution.getExecutionContext().getInt("failedSteps");
 
         // then
-        Assertions.assertTrue(failedSteps <= 50);
-        Assertions.assertEquals(jobExecution.getExitStatus(), ExitStatus.FAILED);
+        Assertions.assertTrue(failedSteps == 50);
+        Assertions.assertEquals(ExitStatus.STOPPED.getExitCode(), jobExecution.getExitStatus().getExitCode());
     }
 
 }
