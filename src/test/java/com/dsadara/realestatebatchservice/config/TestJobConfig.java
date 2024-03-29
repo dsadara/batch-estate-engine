@@ -2,7 +2,6 @@ package com.dsadara.realestatebatchservice.config;
 
 import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
-import com.dsadara.realestatebatchservice.listener.FailedStepCounter;
 import com.dsadara.realestatebatchservice.listener.SlaveStepFailureLimitListener;
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
@@ -42,14 +41,12 @@ public class TestJobConfig {
     private final GenerateApiQueryParam generateApiQueryParam;
     private final StepExceptionLogger stepExceptionLogger;
     private final ItemReader<RealEstateDto> createEmptyItemReader;
-    private final FailedStepCounter failedStepCounter;
     private final SlaveStepFailureLimitListener slaveStepFailureLimitListener;
 
     @Bean
     public Job TestJob() throws Exception {
         return jobBuilderFactory.get("testJob")
                 .incrementer(new RunIdIncrementer())
-                .listener(failedStepCounter)
                 .flow(testMasterStep(null))
                 .end()
                 .build();
