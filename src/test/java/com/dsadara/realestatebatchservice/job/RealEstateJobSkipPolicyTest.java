@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+
 @SpringBootTest
 @SpringBatchTest
 public class RealEstateJobSkipPolicyTest {
@@ -48,7 +49,7 @@ public class RealEstateJobSkipPolicyTest {
     }
 
     @Test
-    public void checkStepFailCountIsAtMost50() throws Exception {
+    public void checkStepFailCountIs50() throws Exception {
         // given
         Mockito.when(mockItemReader.read())
                 .thenReturn(new RealEstateDto(), new RealEstateDto(), null)
@@ -56,7 +57,7 @@ public class RealEstateJobSkipPolicyTest {
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", "http://SampleUrl1.co.kr")
                 .addString("serviceKey", "SampleServiceKey1")
-                .addString("bjd`Code", "11110")
+                .addString("bjdCode", "11110")
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
 
