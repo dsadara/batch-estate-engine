@@ -5,6 +5,8 @@ import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -15,6 +17,8 @@ import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @SpringBootTest
@@ -68,6 +72,40 @@ public class RealEstateJobSkipPolicyTest {
         // then
         Assertions.assertTrue(failedSteps == 50);
         Assertions.assertEquals(ExitStatus.STOPPED.getExitCode(), jobExecution.getExitStatus().getExitCode());
+    }
+
+    @Test
+    public void checkStepFailCountIsUnder50() throws Exception {
+        // given
+        AtomicInteger callCount = new AtomicInteger(0);
+        Mockito.when(mockItemReader.read())
+                .thenAnswer(new Answer<RealEstateDto>() {
+                    @Override
+                    public RealEstateDto answer(InvocationOnMock invocation) throws Throwable {
+                        int count = callCount.incrementAndGet();
+                        if (count <= 49) {
+                            throw new Exception("test Exception");
+                        }
+                        if (count == 50) {
+                            return new RealEstateDto();
+                        }
+                        return null;
+                    }
+                });
+        JobParameters parameters = new JobParametersBuilder()
+                .addString("baseUrl", "http://SampleUrl1.co.kr")
+                .addString("serviceKey", "SampleServiceKey1")
+                .addString("bjdCode", "11110")
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
+
+        // when
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob(parameters);
+        int failedSteps = jobExecution.getExecutionContext().getInt("failedSteps");
+
+        // then
+        Assertions.assertTrue(failedSteps == 49);
+        Assertions.assertEquals(ExitStatus.FAILED.getExitCode(), jobExecution.getExitStatus().getExitCode());
     }
 
 }
