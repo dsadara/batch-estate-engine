@@ -6,7 +6,6 @@ import com.dsadara.realestatebatchservice.listener.SlaveStepFailureLimitListener
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -31,7 +30,6 @@ import java.util.Map;
 
 @EnableBatchProcessing
 @Profile("test")
-@Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class TestJobConfig {

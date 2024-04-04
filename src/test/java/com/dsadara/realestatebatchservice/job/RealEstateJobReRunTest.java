@@ -3,7 +3,6 @@ package com.dsadara.realestatebatchservice.job;
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.launcher.RealEstateJobLauncher;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
-@Slf4j
 @SpringBatchTest
 @SpringBootTest
 public class RealEstateJobReRunTest {
@@ -104,7 +102,6 @@ public class RealEstateJobReRunTest {
         Mockito.when(mockItemReader.read()).thenReturn(new RealEstateDto(), new RealEstateDto(), null);
 
         // when
-        log.info("실패한 job 재실행 시작");
         JobExecution jobExecution2 = jobLauncherTestUtils.launchJob(parameters);
 
         // then
