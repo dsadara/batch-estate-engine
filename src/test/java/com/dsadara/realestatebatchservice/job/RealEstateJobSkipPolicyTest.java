@@ -2,11 +2,10 @@ package com.dsadara.realestatebatchservice.job;
 
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
+import com.dsadara.realestatebatchservice.utils.PartialFailRealEstateDtoSimulation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -82,22 +81,7 @@ public class RealEstateJobSkipPolicyTest {
         // given
         AtomicInteger callCount = new AtomicInteger(0);
         Mockito.when(mockItemReader.read())
-                .thenAnswer(new Answer<RealEstateDto>() {
-                    @Override
-                    public RealEstateDto answer(InvocationOnMock invocation) throws Throwable {
-                        int count = callCount.incrementAndGet();
-                        // 49번째 step까지는 실패
-                        if (count <= 49) {
-                            throw new Exception("test Exception");
-                        }
-                        // 50번째 step은 성공
-                        if (count == 50) {
-                            return new RealEstateDto();
-                        }
-                        // 이후에 null 반환하여 종료
-                        return null;
-                    }
-                });
+                .thenAnswer(new PartialFailRealEstateDtoSimulation());
         JobParameters parameters = new JobParametersBuilder()
                 .addString("baseUrl", "http://SampleUrl1.co.kr")
                 .addString("serviceKey", "SampleServiceKey1")
