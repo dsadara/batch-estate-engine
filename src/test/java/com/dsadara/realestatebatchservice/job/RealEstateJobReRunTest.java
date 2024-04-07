@@ -3,6 +3,7 @@ package com.dsadara.realestatebatchservice.job;
 
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.launcher.RealEstateJobLauncher;
+import com.dsadara.realestatebatchservice.utils.PartialFailRealEstateDtoSimulation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,7 +95,7 @@ public class RealEstateJobReRunTest {
         JobParameters parameters = new JobParametersBuilder().addString("baseUrl", "http://FailedReRun.co.kr").addString("serviceKey", "FailedReRunKey").addString("bjdCode", "11113").toJobParameters();
 
         // 첫번쨰 실행은 실패로 만들기
-        Mockito.when(mockItemReader.read()).thenThrow(new Exception("test Exception")).thenReturn(new RealEstateDto(), new RealEstateDto(), null);
+        Mockito.when(mockItemReader.read()).thenAnswer(new PartialFailRealEstateDtoSimulation());
         JobExecution jobExecution1 = jobLauncherTestUtils.launchJob(parameters);
 
         // 두번째는 정상적으로 실행하도록 설정
