@@ -92,7 +92,12 @@ public class RealEstateJobReRunTest {
     @Test
     public void FailedJobReRunTest() throws Exception {
         // given
-        JobParameters parameters = new JobParametersBuilder().addString("baseUrl", "http://FailedReRun.co.kr").addString("serviceKey", "FailedReRunKey").addString("bjdCode", "11113").toJobParameters();
+        JobParameters parameters = new JobParametersBuilder()
+                .addString("baseUrl", "http://FailedReRun.co.kr")
+                .addString("serviceKey", "FailedReRunKey")
+                .addString("bjdCode", "11113")
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
 
         // 첫번쨰 실행은 실패로 만들기
         Mockito.when(mockItemReader.read()).thenAnswer(new PartialFailRealEstateDtoSimulation());
@@ -107,6 +112,35 @@ public class RealEstateJobReRunTest {
 
         // then
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution2.getExitStatus());
+    }
+
+    @DisplayName("step 중 하나만 실패할 경우 Job 재실행 가능 여부 확인")
+    @Test
+    public void OneStepFailReRunTest() throws Exception {
+        // given
+        JobParameters parameters = new JobParametersBuilder()
+                .addString("baseUrl", "http://FailedReRun.co.kr")
+                .addString("serviceKey", "FailedReRunKey")
+                .addString("bjdCode", "11113")
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
+
+        // 첫번쨰 실행에서 step 한개만 실패하기
+        Mockito.when(mockItemReader.read())
+                .thenThrow(new Exception("test exception"))
+                .thenReturn(new RealEstateDto(), new RealEstateDto(), null);
+        JobExecution jobExecution1 = jobLauncherTestUtils.launchJob(parameters);
+
+        // 두번째 실행은 정상적으로 실행하도록 설정
+        Mockito.reset(mockItemReader);
+        Mockito.when(mockItemReader.read()).thenReturn(new RealEstateDto(), new RealEstateDto(), null);
+
+        // when
+        JobExecution jobExecution2 = jobLauncherTestUtils.launchJob(parameters);
+
+        // then
+        Assertions.assertEquals(ExitStatus.FAILED.getExitCode(), jobExecution1.getExitStatus().getExitCode());
+        Assertions.assertEquals(ExitStatus.COMPLETED.getExitCode(), jobExecution2.getExitStatus().getExitCode());
     }
 
 }
