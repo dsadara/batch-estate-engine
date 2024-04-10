@@ -1,5 +1,6 @@
 package com.dsadara.realestatebatchservice.domain;
 
+import com.dsadara.realestatebatchservice.type.RealEstateType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,6 +56,9 @@ public class RealEstate {
     private String regionCode;
     @Comment("층")
     private String floor;
+    @Comment("부동산 종류")
+    @Enumerated(EnumType.STRING)
+    private RealEstateType realEstateType;
     // 매매
     @Comment("거래금액")
     private String dealAmount;
