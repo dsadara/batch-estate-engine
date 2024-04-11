@@ -71,7 +71,7 @@ public class RealEstateJobConfig {
         return stepBuilderFactory.get("계약월")
                 .<RealEstateDto, RealEstate>chunk(100)
                 .reader(createApiItemReader(null, null))
-                .processor(createRealEstateProcessor())
+                .processor(createRealEstateProcessor(null))
                 .writer(createRealEstateWriter())
                 .listener(stepExceptionLogger)
                 .listener(slaveStepFailureLimitListener)
@@ -87,8 +87,9 @@ public class RealEstateJobConfig {
     }
 
     @Bean
-    public ItemProcessor<RealEstateDto, RealEstate> createRealEstateProcessor() {
-        return new RealEstateProcessor();
+    @StepScope
+    public ItemProcessor<RealEstateDto, RealEstate> createRealEstateProcessor(@Value("#{jobParameters['realEstateType']}") String realRealEstateType) {
+        return new RealEstateProcessor(realRealEstateType);
     }
 
     @Bean

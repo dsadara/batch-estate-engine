@@ -2,11 +2,19 @@ package com.dsadara.realestatebatchservice.processor;
 
 import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
+import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDateTime;
 
 public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEstate> {
+
+    private final RealEstateType realEstateType;
+
+    public RealEstateProcessor(String realEstateType) {
+        this.realEstateType = RealEstateType.valueOf(realEstateType);
+    }
+
     @Override
     public RealEstate process(RealEstateDto realEstateDto) throws Exception {
         LocalDateTime now = LocalDateTime.now();
@@ -35,6 +43,7 @@ public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEst
                 .depositBefore(realEstateDto.getDepositBefore())
                 .monthlyRentBefore(realEstateDto.getMonthlyRentBefore())
                 .createdAt(now)
+                .realEstateType(realEstateType)
                 .build();
     }
 }

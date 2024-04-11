@@ -2,6 +2,7 @@ package com.dsadara.realestatebatchservice.runner;
 
 import com.dsadara.realestatebatchservice.launcher.RealEstateJobLauncher;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
+import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
                     .addString("baseUrl", baseUrl_aptRent)
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
+                    .addString("realEstateType", RealEstateType.APT_RENT.name())
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             realEstateJobLauncher.launchJob(parameters);
@@ -54,6 +56,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
                     .addString("baseUrl", baseUrl_aptTrade)
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
+                    .addString("realEstateType", RealEstateType.APT_TRADE.name())
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             realEstateJobLauncher.launchJob(parameters);
@@ -66,6 +69,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
                     .addString("baseUrl", baseUrl_rowhouseRent)
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
+                    .addString("realEstateType", RealEstateType.ROWHOUSE_RENT.name())
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             realEstateJobLauncher.launchJob(parameters);
@@ -78,6 +82,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
                     .addString("baseUrl", baseUrl_officetelRent)
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
+                    .addString("realEstateType", RealEstateType.EFFICENCYAPT_RENT.name())
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             realEstateJobLauncher.launchJob(parameters);
@@ -90,6 +95,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
                     .addString("baseUrl", baseUrl_detachedHouseRent)
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
+                    .addString("realEstateType", RealEstateType.DETACHEDHOUSE_RENT.name())
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             realEstateJobLauncher.launchJob(parameters);
