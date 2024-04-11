@@ -5,6 +5,7 @@ import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.listener.SlaveStepFailureLimitListener;
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
+import com.dsadara.realestatebatchservice.processor.RealEstateProcessor;
 import com.dsadara.realestatebatchservice.reader.ApiItemReader;
 import com.dsadara.realestatebatchservice.service.ApiRequester;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
@@ -27,7 +28,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,35 +88,7 @@ public class RealEstateJobConfig {
 
     @Bean
     public ItemProcessor<RealEstateDto, RealEstate> createRealEstateProcessor() {
-        return RealEstateDto -> {
-            LocalDateTime now = LocalDateTime.now();
-            return RealEstate.builder()
-                    .constructYear(RealEstateDto.getConstructYear())
-                    .contractYear(RealEstateDto.getContractYear())
-                    .name(RealEstateDto.getName())
-                    .legalDong(RealEstateDto.getLegalDong())
-                    .siGunGu(RealEstateDto.getSiGunGu())
-                    .month(RealEstateDto.getMonth())
-                    .day(RealEstateDto.getDay())
-                    .jeonYongArea(RealEstateDto.getJeonYongArea())
-                    .parcelNumber(RealEstateDto.getParcelNumber())
-                    .regionCode(RealEstateDto.getRegionCode())
-                    .floor(RealEstateDto.getFloor())
-                    .dealAmount(RealEstateDto.getDealAmount())
-                    .CancelDealType(RealEstateDto.getCancelDealType())
-                    .CancelDealDay(RealEstateDto.getCancelDealDay())
-                    .dealType(RealEstateDto.getDealType())
-                    .agentAddress(RealEstateDto.getAgentAddress())
-                    .requestRenewalRight(RealEstateDto.getRequestRenewalRight())
-                    .contractType(RealEstateDto.getContractType())
-                    .contractPeriod(RealEstateDto.getContractPeriod())
-                    .monthlyRent(RealEstateDto.getMonthlyRent())
-                    .deposit(RealEstateDto.getDeposit())
-                    .depositBefore(RealEstateDto.getDepositBefore())
-                    .monthlyRentBefore(RealEstateDto.getMonthlyRentBefore())
-                    .createdAt(now)
-                    .build();
-        };
+        return new RealEstateProcessor();
     }
 
     @Bean
