@@ -82,7 +82,7 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
                     .addString("baseUrl", baseUrl_officetelRent)
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
-                    .addString("realEstateType", RealEstateType.EFFICENCYAPT_RENT.name())
+                    .addString("realEstateType", RealEstateType.OFFICETEL_RENT.name())
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             realEstateJobLauncher.launchJob(parameters);

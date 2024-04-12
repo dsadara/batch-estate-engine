@@ -150,7 +150,7 @@ public class ApiRequesterRealTest {
 
     @Test
     @DisplayName("성공-requestData()- 오피스텔 api 요청")
-    public void requestData_Success_EfficencyApt() throws Exception {
+    public void requestData_Success_OfficeTel() throws Exception {
         //given
         String baseUrl = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcOffiRent";
         String bjdCode = "11200";
