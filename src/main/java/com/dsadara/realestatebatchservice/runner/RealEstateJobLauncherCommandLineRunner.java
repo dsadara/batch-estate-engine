@@ -12,10 +12,8 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-        realEstateJobLauncher.launchJob(RealEstateType.APT_RENT);
-        realEstateJobLauncher.launchJob(RealEstateType.APT_TRADE);
-        realEstateJobLauncher.launchJob(RealEstateType.ROWHOUSE_RENT);
-        realEstateJobLauncher.launchJob(RealEstateType.OFFICETEL_RENT);
-        realEstateJobLauncher.launchJob(RealEstateType.DETACHEDHOUSE_RENT);
+        for (RealEstateType realEstateType : RealEstateType.values()) {
+            realEstateJobLauncher.launchJob(realEstateType);
+        }
     }
 }
