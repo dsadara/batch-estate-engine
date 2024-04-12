@@ -47,11 +47,11 @@ public class RealEstateJobReRunTest {
         JobParameters parameters = new JobParametersBuilder().addString("baseUrl", BASE_URL_1).addString("serviceKey", SERVICE_KEY_1).addString("bjdCode", BJD_CODE_1).toJobParameters();
 
         // when
-        JobExecution jobExecution1 = realEstateJobLauncher.launchJob(parameters);
+        JobExecution jobExecution1 = jobLauncherTestUtils.launchJob(parameters);
 
         // then
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution1.getExitStatus());
-        Assertions.assertThrowsExactly(JobInstanceAlreadyCompleteException.class, () -> realEstateJobLauncher.launchJob(parameters));
+        Assertions.assertThrowsExactly(JobInstanceAlreadyCompleteException.class, () -> jobLauncherTestUtils.launchJob(parameters));
     }
 
     @DisplayName("재실행 방지 기능 테스트 - 내용은 같지만 다른 JobParameters 객체")
@@ -63,11 +63,11 @@ public class RealEstateJobReRunTest {
         JobParameters parameters2 = new JobParametersBuilder().addString("baseUrl", BASE_URL_2).addString("serviceKey", SERVICE_KEY_2).addString("bjdCode", BJD_CODE_2).toJobParameters();
 
         // when
-        JobExecution jobExecution1 = realEstateJobLauncher.launchJob(parameters1);
+        JobExecution jobExecution1 = jobLauncherTestUtils.launchJob(parameters1);
 
         // then
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution1.getExitStatus());
-        Assertions.assertThrowsExactly(JobInstanceAlreadyCompleteException.class, () -> realEstateJobLauncher.launchJob(parameters2));
+        Assertions.assertThrowsExactly(JobInstanceAlreadyCompleteException.class, () -> jobLauncherTestUtils.launchJob(parameters2));
     }
 
     @DisplayName("고유값인 시간을 추가하면 재실행 가능")
@@ -79,8 +79,8 @@ public class RealEstateJobReRunTest {
         JobParameters parameters2 = new JobParametersBuilder().addString("baseUrl", BASE_URL_2).addString("serviceKey", SERVICE_KEY_2).addString("bjdCode", BJD_CODE_2).addLong("time", System.currentTimeMillis() + 1).toJobParameters();
 
         // when
-        JobExecution jobExecution1 = realEstateJobLauncher.launchJob(parameters1);
-        JobExecution jobExecution2 = realEstateJobLauncher.launchJob(parameters2);
+        JobExecution jobExecution1 = jobLauncherTestUtils.launchJob(parameters1);
+        JobExecution jobExecution2 = jobLauncherTestUtils.launchJob(parameters2);
 
         // then
         Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution1.getExitStatus());
