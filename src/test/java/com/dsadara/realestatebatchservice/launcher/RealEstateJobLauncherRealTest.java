@@ -1,42 +1,44 @@
 package com.dsadara.realestatebatchservice.launcher;
 
-import org.junit.Ignore;
-import org.junit.jupiter.api.DisplayName;
+import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
+import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
+
+import java.util.Arrays;
+
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class RealEstateJobLauncherRealTest {
 
-    @Autowired
+    @InjectMocks
     private RealEstateJobLauncher realEstateJobLauncher;
 
-    @Ignore("launchJob 매서드 시그니처 변경으로 테스트 잠시 중지")
+    @Mock
+    private GenerateApiQueryParam generateApiQueryParam;
+    @Mock
+    private Environment env;
+    @Mock
+    private JobLauncher jobLauncher;
+
     @Test
-    @DisplayName("두 매개변수가 JobParameters에 잘 들어갔는지 확인")
     void launchJob() throws Exception {
         // given
-        String baseUrl = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
-        String serviceKey = "KNxUoxDnwzkyp3fb8dOjCWatfWm6VdGxJHzwOlvkSAcOcm%2B6%2BgIsOrcZ8Wr8hU0qzcmNE2tSjG7HUQBIA%2FqkYg%3D%3D";
-        String bjdCode = "11110";
-        JobParameters parameters = new JobParametersBuilder()
-                .addString("baseUrl", baseUrl)
-                .addString("serviceKey", serviceKey)
-                .addString("bjdCode", "11110")
-                .addLong("time", System.currentTimeMillis())
-                .toJobParameters();
+        when(env.getProperty("openapi.request.url." + RealEstateType.APT_RENT.name())).thenReturn("http://example.com");
+        when(env.getProperty("openapi.request.serviceKey")).thenReturn("serviceKey123");
+        when(generateApiQueryParam.getBjdCodeList()).thenReturn(Arrays.asList("11110", "11111"));
 
         // when
-//        JobExecution jobExecution = realEstateJobLauncher.launchJob(parameters);
+        realEstateJobLauncher.launchJob(RealEstateType.APT_RENT);
 
         // then
-//        Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
-//        Assertions.assertEquals(baseUrl, jobExecution.getJobParameters().getString("baseUrl"));
-//        Assertions.assertEquals(serviceKey, jobExecution.getJobParameters().getString("serviceKey"));
-//        Assertions.assertEquals(bjdCode, jobExecution.getJobParameters().getString("bjdCode"));
+        verify(jobLauncher, times(2)).run(any(), any(JobParameters.class));
     }
 
 }
