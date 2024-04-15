@@ -19,24 +19,8 @@ public class RealEstateJobLauncherCommandLineRunner implements CommandLineRunner
 
     private void launchJobsForAllTypes() {
         for (RealEstateType realEstateType : RealEstateType.values()) {
-            executeWithRetry(realEstateType, 2);
+            realEstateJobLauncher.executeWithRetry(realEstateType, 2);
         }
     }
 
-    private void executeWithRetry(RealEstateType realEstateType, int maxAttempts) {
-        int attempt = 0;
-        while (attempt < maxAttempts) {
-            try {
-                realEstateJobLauncher.launchJob(realEstateType);
-                return;
-            } catch (Exception e) {
-                attempt++;
-                if (attempt >= maxAttempts) {
-                    log.error("[{}] {} 번 재시도 후에도 데이터 호출 실패.", realEstateType.getKrName(), maxAttempts);
-                } else {
-                    log.error("[{}] {} 번째 재실행 시작", realEstateType.getKrName(), attempt);
-                }
-            }
-        }
-    }
 }
