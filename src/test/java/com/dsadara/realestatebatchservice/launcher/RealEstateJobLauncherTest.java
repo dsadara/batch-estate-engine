@@ -20,7 +20,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class RealEstateJobLauncherRealTest {
+class RealEstateJobLauncherTest {
 
     @Mock
     private GenerateApiQueryParam generateApiQueryParam;
