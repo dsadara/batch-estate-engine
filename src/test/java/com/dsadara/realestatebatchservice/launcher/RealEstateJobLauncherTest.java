@@ -3,6 +3,7 @@ package com.dsadara.realestatebatchservice.launcher;
 import com.dsadara.realestatebatchservice.service.GenerateApiQueryParam;
 import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -22,6 +23,9 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class RealEstateJobLauncherTest {
 
+    @InjectMocks
+    private RealEstateJobLauncher realEstateJobLauncher;
+
     @Mock
     private GenerateApiQueryParam generateApiQueryParam;
     @Mock
@@ -30,23 +34,24 @@ class RealEstateJobLauncherTest {
     private JobLauncher jobLauncher;
     @Mock
     private Job realEstateJob;
-    @InjectMocks
-    private RealEstateJobLauncher realEstateJobLauncher;
     @Captor
     private ArgumentCaptor<JobParameters> jobParametersCaptor;
 
-    @Test
-    void testLaunchJobWithCorrectJobParameters() throws Exception {
-        // given
-        RealEstateType realEstateType = RealEstateType.APT_RENT;
-        List<String> bjdCodeList = Arrays.asList("11110", "11111");
-        String requestUrl = "https://api.example.com/data";
-        String serviceKey = "test-service-key";
+    private RealEstateType realEstateType = RealEstateType.APT_RENT;
+    private List<String> bjdCodeList = Arrays.asList("11110", "11111");
+    private String requestUrl = "https://api.example.com/data";
+    private String serviceKey = "test-service-key";
+
+    @BeforeEach
+    void setUp() {
         when(env.getProperty("openapi.request.url." + realEstateType.name())).thenReturn(requestUrl);
         when(env.getProperty("openapi.request.serviceKey")).thenReturn(serviceKey);
         when(generateApiQueryParam.getBjdCodeList()).thenReturn(bjdCodeList);
+    }
 
-        // when
+    @Test
+    void testLaunchJobWithCorrectJobParameters() throws Exception {
+        // given, when
         realEstateJobLauncher.launchJob(realEstateType);
 
         // then
@@ -67,12 +72,7 @@ class RealEstateJobLauncherTest {
 
     @Test
     void testLaunchJob() throws Exception {
-        // given
-        when(env.getProperty("openapi.request.url." + RealEstateType.APT_RENT.name())).thenReturn("http://example.com");
-        when(env.getProperty("openapi.request.serviceKey")).thenReturn("serviceKey123");
-        when(generateApiQueryParam.getBjdCodeList()).thenReturn(Arrays.asList("11110", "11111"));
-
-        // when
+        // given, when
         realEstateJobLauncher.launchJob(RealEstateType.APT_RENT);
 
         // then
