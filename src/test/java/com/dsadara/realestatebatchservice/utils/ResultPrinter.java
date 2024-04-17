@@ -26,16 +26,24 @@ public class ResultPrinter {
 
         log.info("[실패한 step 결과 출력 시작]");
         for (int i = 0; i < failedSteps.size(); i++) {
-            log.info("[" + (i + 1) + "]" + " 실패한 step: " + failedSteps.get(i).getStepName());
+            log.info("[" + (i + 1) + "]" + "[실패한 step]" + "[step 이름:" + failedSteps.get(i).getStepName()
+                    + "][ExitStatus:" + failedSteps.get(i).getExitStatus().getExitCode()
+                    + "][status:" + failedSteps.get(i).getStatus()
+                    + "][skipCount:" + failedSteps.get(i).getSkipCount() + "]");
         }
         log.info("[성공한 step 결과 출력 시작]");
         for (int i = 0; i < completedSteps.size(); i++) {
-            log.info("[" + (i + 1) + "]" + " 성공한 step: " + completedSteps.get(i).getStepName());
+            log.info("[" + (i + 1) + "]" + "[성공한 step]" + "[step 이름:" + completedSteps.get(i).getStepName()
+                    + "][ExitStatus:" + completedSteps.get(i).getExitStatus().getExitCode()
+                    + "][status:" + completedSteps.get(i).getStatus()
+                    + "][skipCount:" + completedSteps.get(i).getSkipCount() + "]");
         }
         log.info("[나머지 step 결과 출력 시작]");
         for (int i = 0; i < otherSteps.size(); i++) {
-            log.info("[" + (i + 1) + "]" + " 나머지 step: " + otherSteps.get(i).getStepName()
-                    + " -> " + "ExitStatus:" + otherSteps.get(i).getExitStatus().getExitCode());
+            log.info("[" + (i + 1) + "]" + "[나머지 step]" + "[step 이름:" + otherSteps.get(i).getStepName()
+                    + "][ExitStatus:" + otherSteps.get(i).getExitStatus().getExitCode()
+                    + "][status:" + otherSteps.get(i).getStatus()
+                    + "][skipCount:" + otherSteps.get(i).getSkipCount() + "]");
         }
     }
 
@@ -54,8 +62,8 @@ public class ResultPrinter {
             }
         }
 
-        log.info("실패한 step 개수 -> " + failedStepCount);
-        log.info("성공한 step 개수 -> " + completedStepCount);
-        log.info("나머지 step 개수 -> " + otherStepCount);
+        log.info("[실패한 step 개수:" + failedStepCount + "]");
+        log.info("[성공한 step 개수:" + completedStepCount + "]");
+        log.info("[나머지 step 개수:" + otherStepCount + "]");
     }
 }
