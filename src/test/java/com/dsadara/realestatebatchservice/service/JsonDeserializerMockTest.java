@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,17 +39,17 @@ public class JsonDeserializerMockTest {
     private JsonDeserializer jsonDeserializer;
 
     // getResponse() 요청 파라미터, 비교용 데이터
-    private static String baseUrl;
-    private static String wrongBaseUrl;
-    private static MultiValueMap<String, String> queryParams;
-    private static ResponseEntity<String> response;
+    private String baseUrl;
+    private String wrongBaseUrl;
+    private MultiValueMap<String, String> queryParams;
+    private ResponseEntity<String> response;
     // stringToJsonNode(), jsonNodeToPOJO() 요청 파라미터, 비교용 데이터
-    private static String rawJson;
-    private static Optional<JsonNode> jsonNodeOptional;
-    private static Optional<List<RealEstateDto>> realEstateDataDtos;
+    private String rawJson;
+    private Optional<JsonNode> jsonNodeOptional;
+    private Optional<List<RealEstateDto>> realEstateDataDtos;
 
-    @BeforeAll
-    static void beforeAll() throws Exception {
+    @BeforeEach
+    void beforeAll() throws Exception {
         JsonDeserializer jsonDeserializer = new JsonDeserializer(new ObjectMapper(), new RestTemplate());
         queryParams = new LinkedMultiValueMap<>();
         queryParams.add("LAWD_CD", "11500");

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,20 +34,20 @@ public class ApiRequesterMockTest {
     private ApiRequester apiRequester;
 
     // 아파트 전월세 요청 파라미터, 비교용 데이터
-    private static Optional<JsonNode> jsonNodeOptional;
-    private static Optional<List<RealEstateDto>> realEstateDataDtos;
-    private static ResponseEntity<String> response;
-    private static String baseURL;
-    private static String legalDong;
-    private static String dealYearMonth;
-    private static String searchKey;
+    private Optional<JsonNode> jsonNodeOptional;
+    private Optional<List<RealEstateDto>> realEstateDataDtos;
+    private ResponseEntity<String> response;
+    private String baseURL;
+    private String legalDong;
+    private String dealYearMonth;
+    private String searchKey;
 
-    @BeforeAll
-    static void beforeAll() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         prepareDataForRequestAptRent();
     }
 
-    static void prepareDataForRequestAptRent() throws Exception {
+    void prepareDataForRequestAptRent() throws Exception {
         JsonDeserializer jsonDeserializerTemp = new JsonDeserializer(new ObjectMapper(), new RestTemplate());
 
         legalDong = "11500";
