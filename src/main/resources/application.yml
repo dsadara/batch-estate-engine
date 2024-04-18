@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: local-mysql
   config:
     import: openapi.yml
   main:
@@ -20,7 +20,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: local-mysql
   datasource:
     url: jdbc:mysql://localhost:3306/hogangyes?rewriteBatchedStatements=true
     username: root

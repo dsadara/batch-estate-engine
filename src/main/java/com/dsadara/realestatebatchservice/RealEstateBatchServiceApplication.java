@@ -15,7 +15,7 @@ public class RealEstateBatchServiceApplication {
         SpringApplication.run(RealEstateBatchServiceApplication.class, args);
     }
 
-    @Profile("!test")
+    @Profile("local-mysql")
     @Bean
     public RealEstateJobLauncherCommandLineRunner realEstateJobLauncherCommandLineRunner() {
         return new RealEstateJobLauncherCommandLineRunner();
