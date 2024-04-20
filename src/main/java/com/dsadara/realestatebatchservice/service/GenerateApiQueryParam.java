@@ -1,5 +1,6 @@
 package com.dsadara.realestatebatchservice.service;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,11 @@ import java.util.Scanner;
 @Getter
 public class GenerateApiQueryParam {
 
-    private final Map<String, String> bjdCodeMap;
     private final List<String> dealYearMonthsList;
     private final List<String> bjdCodeList;
+
+    @Getter(AccessLevel.NONE)
+    private final Map<String, String> bjdCodeMap;
 
     public GenerateApiQueryParam() throws FileNotFoundException {
         dealYearMonthsList = new LinkedList<>();
