@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JsonDeserializer {
+public class RealEstateDataFetcher {
 
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
-    public JsonDeserializer(ObjectMapper objectMapper, RestTemplate restTemplate) {
+    public RealEstateDataFetcher(ObjectMapper objectMapper, RestTemplate restTemplate) {
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;
     }

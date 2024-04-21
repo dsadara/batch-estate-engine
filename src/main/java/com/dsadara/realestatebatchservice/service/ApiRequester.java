@@ -16,10 +16,10 @@ import java.util.Optional;
 @Slf4j
 public class ApiRequester {
 
-    private final JsonDeserializer jsonDeserializer;
+    private final RealEstateDataFetcher realEstateDataFetcher;
 
-    public ApiRequester(JsonDeserializer jsonDeserializer) {
-        this.jsonDeserializer = jsonDeserializer;
+    public ApiRequester(RealEstateDataFetcher realEstateDataFetcher) {
+        this.realEstateDataFetcher = realEstateDataFetcher;
     }
 
     public List<RealEstateDto> fetchData(String baseURL, String servicekey, String bjdCode, String dealYearMonth) throws Exception {
@@ -28,9 +28,9 @@ public class ApiRequester {
         queryParams.add("DEAL_YMD", dealYearMonth);
         queryParams.add("serviceKey", servicekey);
 
-        ResponseEntity<String> response = jsonDeserializer.getResponse(baseURL, queryParams);
-        Optional<JsonNode> itemOptional = jsonDeserializer.stringToJsonNode(response.getBody());
-        List<RealEstateDto> realEstateDtos = jsonDeserializer.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
+        ResponseEntity<String> response = realEstateDataFetcher.getResponse(baseURL, queryParams);
+        Optional<JsonNode> itemOptional = realEstateDataFetcher.stringToJsonNode(response.getBody());
+        List<RealEstateDto> realEstateDtos = realEstateDataFetcher.jsonNodeToPOJO(itemOptional).orElse(new ArrayList<>());
         log.info("[법정동 코드 {}][계약 연월일 {}] api 호출 완료 -> ( 데이터 개수: {} )", bjdCode, dealYearMonth, realEstateDtos.size());
 
         return realEstateDtos;

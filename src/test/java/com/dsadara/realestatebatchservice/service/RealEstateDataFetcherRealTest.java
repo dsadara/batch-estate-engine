@@ -13,10 +13,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class JsonDeserializerRealTest {
+public class RealEstateDataFetcherRealTest {
 
     @Autowired
-    private JsonDeserializer jsonDeserializer;
+    private RealEstateDataFetcher realEstateDataFetcher;
 
     @Test
     @DisplayName("성공-jsonNodeToPOJO()-dto에 매핑되는 json field가 없는 경우")
@@ -27,11 +27,11 @@ public class JsonDeserializerRealTest {
                 "{\"건축년도\":1998}," +
                 "{\"매핑되지않는필드\":1994}" +
                 "]},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":2}}}";
-        Optional<JsonNode> optionalJsonNode = jsonDeserializer.stringToJsonNode(rawJson);
+        Optional<JsonNode> optionalJsonNode = realEstateDataFetcher.stringToJsonNode(rawJson);
 
         // when
         Optional<List<RealEstateDto>> realEstateDataDtosOptional =
-                jsonDeserializer.jsonNodeToPOJO(optionalJsonNode);
+                realEstateDataFetcher.jsonNodeToPOJO(optionalJsonNode);
 
         // then
         assertEquals("1998", realEstateDataDtosOptional.get().get(0).getConstructYear());
@@ -48,11 +48,11 @@ public class JsonDeserializerRealTest {
                 "{\"건축년도\":1998}" +
 //                "]" +
                 "},\"numOfRows\":10,\"pageNo\":1,\"totalCount\":1}}}";
-        Optional<JsonNode> optionalJsonNode = jsonDeserializer.stringToJsonNode(rawJson);
+        Optional<JsonNode> optionalJsonNode = realEstateDataFetcher.stringToJsonNode(rawJson);
 
         //when
         Optional<List<RealEstateDto>> realEstateDataDtosOptional =
-                jsonDeserializer.jsonNodeToPOJO(optionalJsonNode);
+                realEstateDataFetcher.jsonNodeToPOJO(optionalJsonNode);
 
         //then
         assertEquals("1998", realEstateDataDtosOptional.get().get(0).getConstructYear());

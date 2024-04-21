@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
 public class ApiRequesterMockTest {
 
     @Mock
-    private JsonDeserializer jsonDeserializer;
+    private RealEstateDataFetcher realEstateDataFetcher;
     @InjectMocks
     private ApiRequester apiRequester;
 
@@ -48,7 +48,7 @@ public class ApiRequesterMockTest {
     }
 
     void prepareDataForRequestAptRent() throws Exception {
-        JsonDeserializer jsonDeserializerTemp = new JsonDeserializer(new ObjectMapper(), new RestTemplate());
+        RealEstateDataFetcher realEstateDataFetcherTemp = new RealEstateDataFetcher(new ObjectMapper(), new RestTemplate());
 
         legalDong = "11500";
         dealYearMonth = "202304";
@@ -60,54 +60,54 @@ public class ApiRequesterMockTest {
         queryParams.add("DEAL_YMD", dealYearMonth);
         queryParams.add("serviceKey", searchKey);
 
-        response = jsonDeserializerTemp.getResponse(baseURL, queryParams);
-        jsonNodeOptional = jsonDeserializerTemp.stringToJsonNode(response.getBody());
-        realEstateDataDtos = jsonDeserializerTemp.jsonNodeToPOJO(jsonNodeOptional);
+        response = realEstateDataFetcherTemp.getResponse(baseURL, queryParams);
+        jsonNodeOptional = realEstateDataFetcherTemp.stringToJsonNode(response.getBody());
+        realEstateDataDtos = realEstateDataFetcherTemp.jsonNodeToPOJO(jsonNodeOptional);
     }
 
     @Test
     @DisplayName("성공-requestData()")
     void requestData_Success() throws Exception {
         //when
-        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
-        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
-        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenReturn(realEstateDataDtos);
+        when(realEstateDataFetcher.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
+        when(realEstateDataFetcher.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
+        when(realEstateDataFetcher.jsonNodeToPOJO(jsonNodeOptional)).thenReturn(realEstateDataDtos);
 
         //then
         Assertions.assertEquals(realEstateDataDtos.get(),
                 apiRequester.fetchData(baseURL, legalDong, dealYearMonth, searchKey));
-        verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
-        verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
-        verify(jsonDeserializer, times(1)).jsonNodeToPOJO(jsonNodeOptional);
+        verify(realEstateDataFetcher, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
+        verify(realEstateDataFetcher, times(1)).stringToJsonNode(anyString());
+        verify(realEstateDataFetcher, times(1)).jsonNodeToPOJO(jsonNodeOptional);
     }
 
     @Test
     @DisplayName("실패-requestData()-IOException")
     void requestData_Failure_IOException() throws Exception {
         //when
-        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
-        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
-        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(IOException.class);
+        when(realEstateDataFetcher.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
+        when(realEstateDataFetcher.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
+        when(realEstateDataFetcher.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(IOException.class);
 
         //then
         Assertions.assertThrows(IOException.class,
                 () -> apiRequester.fetchData(baseURL, legalDong, dealYearMonth, searchKey));
-        verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
-        verify(jsonDeserializer, times(1)).stringToJsonNode(anyString());
+        verify(realEstateDataFetcher, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
+        verify(realEstateDataFetcher, times(1)).stringToJsonNode(anyString());
     }
 
     @Test
     @DisplayName("실패-requestData()-JsonProcessionException")
     void requestAptRent_Failure_JsonProcessionException() throws Exception {
         //when
-        when(jsonDeserializer.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
-        when(jsonDeserializer.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
-        when(jsonDeserializer.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(JsonProcessingException.class);
+        when(realEstateDataFetcher.getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any())).thenReturn(response);
+        when(realEstateDataFetcher.stringToJsonNode(anyString())).thenReturn(jsonNodeOptional);
+        when(realEstateDataFetcher.jsonNodeToPOJO(jsonNodeOptional)).thenThrow(JsonProcessingException.class);
 
         //then
         Assertions.assertThrows(JsonProcessingException.class,
                 () -> apiRequester.fetchData(baseURL, legalDong, dealYearMonth, searchKey));
-        verify(jsonDeserializer, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
+        verify(realEstateDataFetcher, times(1)).getResponse(anyString(), ArgumentMatchers.<MultiValueMap<String, String>>any());
     }
 
 }
