@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice.utils;
+package com.dsadara.realestatebatchservice.test.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;

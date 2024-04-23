@@ -1,4 +1,4 @@
-package com.dsadara.realestatebatchservice.config;
+package com.dsadara.realestatebatchservice.test.config;
 
 import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
