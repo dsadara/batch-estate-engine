@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class ResultPrinter {
-    public static void printJobResultDetail(JobExecution jobExecution) {
+public class JobResultPrinter {
+    public static void printDetail(JobExecution jobExecution) {
         List<StepExecution> failedSteps = new ArrayList<>();
         List<StepExecution> completedSteps = new ArrayList<>();
         List<StepExecution> otherSteps = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ResultPrinter {
         }
     }
 
-    public static void printJobResult(JobExecution jobExecution) {
+    public static void printTotal(JobExecution jobExecution) {
         int failedStepCount = 0;
         int completedStepCount = 0;
         int otherStepCount = 0;
