@@ -2,10 +2,11 @@ package com.dsadara.realestatebatchservice.service;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.LinkedHashMap;
@@ -44,10 +45,17 @@ public class GenerateApiQueryParam {
     }
 
     private void parseBjdCodeToMap() throws FileNotFoundException {
-        String file = "src/main/resources/bjdcode.txt";
-        Scanner scanner = new Scanner(new File(file));
+        ClassPathResource resource = new ClassPathResource("bjdcode.txt");
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(resource.getFile());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         scanner.useDelimiter("\t");
-        String bjdCode, siGunGu;
+
+        String bjdCode;
+        String siGunGu;
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             bjdCode = scanner.next().substring(0, 5);
