@@ -1,0 +1,27 @@
+### 공공데이터포털 '국토교통부_전국 법정동' api 호출 테스트
+### https://www.data.go.kr/tcs/dss/selectFileDataDetailView.do?publicDataPk=15063424
+
+### QueryParam: page index - 0, page size - 5000
+GET https://api.odcloud.kr/api/15063424/v1/uddi:257e1510-0eeb-44de-8883-8295c94dadf7?page=0&perPage=5000&
+    serviceKey={{serviceKey}}
+
+### QueryParam: page index - 1, page size - 5000
+GET https://api.odcloud.kr/api/15063424/v1/uddi:257e1510-0eeb-44de-8883-8295c94dadf7?page=1&perPage=5000&
+    serviceKey={{serviceKey}}
+
+### QueryParam: page index - 2, page size - 5000
+GET https://api.odcloud.kr/api/15063424/v1/uddi:257e1510-0eeb-44de-8883-8295c94dadf7?page=2&perPage=5000&
+    serviceKey={{serviceKey}}
+
+### QueryParam: page index - 9, page size - 5000
+GET https://api.odcloud.kr/api/15063424/v1/uddi:257e1510-0eeb-44de-8883-8295c94dadf7?page=9&perPage=5000&
+    serviceKey={{serviceKey}}
+
+### QueryParam: page index - 10, page size - 5000
+GET https://api.odcloud.kr/api/15063424/v1/uddi:257e1510-0eeb-44de-8883-8295c94dadf7?page=10&perPage=5000&
+    serviceKey={{serviceKey}}
+
+### QueryParam: page index - 11, page size - 5000
+GET https://api.odcloud.kr/api/15063424/v1/uddi:257e1510-0eeb-44de-8883-8295c94dadf7?page=11&perPage=5000&
+    serviceKey={{serviceKey}}
+
