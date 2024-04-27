@@ -2,10 +2,10 @@ package com.dsadara.realestatebatchservice.service;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 @Service
 @Getter
+@Slf4j
 public class GenerateApiQueryParam {
 
     private final List<String> dealYearMonthsList;
@@ -25,7 +26,7 @@ public class GenerateApiQueryParam {
     @Getter(AccessLevel.NONE)
     private final Map<String, String> bjdCodeMap;
 
-    public GenerateApiQueryParam() throws FileNotFoundException {
+    public GenerateApiQueryParam() {
         dealYearMonthsList = new LinkedList<>();
         bjdCodeMap = new LinkedHashMap<>();
         generateDealYearMonth();
@@ -44,9 +45,9 @@ public class GenerateApiQueryParam {
         }
     }
 
-    private void parseBjdCodeToMap() throws FileNotFoundException {
+    private void parseBjdCodeToMap() {
         ClassPathResource resource = new ClassPathResource("bjdcode.txt");
-        Scanner scanner = null;
+        Scanner scanner;
         try {
             scanner = new Scanner(resource.getFile());
         } catch (IOException e) {
@@ -56,7 +57,15 @@ public class GenerateApiQueryParam {
 
         String bjdCode;
         String siGunGu;
-        scanner.nextLine();
+
+        // bjdcode.txt 파일 읽을 수 있는지 확인, 첫번째 줄 넘기기
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        } else {
+            log.error("bjdcode.txt 파일 읽을 수 없음.");
+        }
+
+        // bjdcode.txt 모든 줄 읽기 시작
         while (scanner.hasNextLine()) {
             bjdCode = scanner.next().substring(0, 5);
             siGunGu = scanner.next();
