@@ -49,7 +49,7 @@ public class GenerateApiQueryParam {
         ClassPathResource resource = new ClassPathResource("bjdcode.txt");
         Scanner scanner;
         try {
-            scanner = new Scanner(resource.getFile());
+            scanner = new Scanner(resource.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
