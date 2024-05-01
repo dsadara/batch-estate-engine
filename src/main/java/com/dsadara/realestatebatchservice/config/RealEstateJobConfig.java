@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Profile("local-mysql")
+@Profile({"local-mysql", "prod"})
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
