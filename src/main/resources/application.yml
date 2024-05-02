@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: rds-mariadb
   config:
     import: openapi.yml
   main:
@@ -36,7 +36,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: rds-mariadb
   datasource:
     url: jdbc:mariadb://batch-estate-engine.cd5znwe3yi6t.ap-northeast-2.rds.amazonaws.com:3306/batch_estate_engine
     username: chaehyun

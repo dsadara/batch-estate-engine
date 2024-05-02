@@ -15,7 +15,7 @@ public class RealEstateBatchServiceApplication {
         SpringApplication.run(RealEstateBatchServiceApplication.class, args);
     }
 
-    @Profile({"local-mysql", "prod"})
+    @Profile({"local-mysql", "rds-mariadb"})
     @Bean
     public RealEstateJobLauncherCommandLineRunner realEstateJobLauncherCommandLineRunner() {
         return new RealEstateJobLauncherCommandLineRunner();
