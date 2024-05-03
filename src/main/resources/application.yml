@@ -45,5 +45,5 @@ spring:
   jpa:
     generate-ddl: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
