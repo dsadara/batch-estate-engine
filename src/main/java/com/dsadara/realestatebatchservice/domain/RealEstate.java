@@ -16,6 +16,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,6 +26,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "real_estate", indexes = @Index(name = "idx_real_estate_type", columnList = "realEstateType", unique = true))
 public class RealEstate {
 
     @Id
