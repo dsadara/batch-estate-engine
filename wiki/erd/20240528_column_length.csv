@@ -1,0 +1,25 @@
+Column,Value (1)
+max_length_cancel_deal_day,8
+max_length_cancel_deal_type,1
+max_length_agent_address,79
+max_length_construct_year,4
+max_length_contract_period,11
+max_length_contract_type,6
+max_length_contract_year,4
+max_length_days,2
+max_length_deal_amount,12
+max_length_deal_type,12
+max_length_deposit,9
+max_length_deposit_before,7
+max_length_floor,3
+max_length_jeon_yong_area,9
+max_length_legal_dong,28
+max_length_months,2
+max_length_monthly_rent,6
+max_length_monthly_rent_before,6
+max_length_name,79
+max_length_parcel_number,13
+max_length_real_estate_type,18
+max_length_region_code,5
+max_length_request_renewal_right,6
+max_length_si_gun_gu,21
