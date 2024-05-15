@@ -5,6 +5,7 @@ import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.springframework.batch.item.ItemProcessor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEstate> {
@@ -19,18 +20,18 @@ public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEst
     public RealEstate process(RealEstateDto realEstateDto) throws Exception {
         LocalDateTime now = LocalDateTime.now();
         return RealEstate.builder()
-                .constructYear(realEstateDto.getConstructYear())
-                .contractYear(realEstateDto.getContractYear())
+                .constructYear(Short.valueOf(realEstateDto.getConstructYear()))
+                .contractYear(Short.valueOf(realEstateDto.getContractYear()))
                 .name(realEstateDto.getName())
-                .legalDong(realEstateDto.getLegalDong())
+                .beopJeongDong(realEstateDto.getLegalDong())
                 .siGunGu(realEstateDto.getSiGunGu())
-                .month(realEstateDto.getMonth())
-                .day(realEstateDto.getDay())
+                .contractMonth(Short.valueOf(realEstateDto.getMonth()))
+                .contractDay(Short.valueOf(realEstateDto.getDay()))
                 .jeonYongArea(realEstateDto.getJeonYongArea())
                 .parcelNumber(realEstateDto.getParcelNumber())
-                .regionCode(realEstateDto.getRegionCode())
+                .beopJeongDongCode(realEstateDto.getRegionCode())
                 .floor(realEstateDto.getFloor())
-                .dealAmount(realEstateDto.getDealAmount())
+                .dealAmount(new BigDecimal(realEstateDto.getDealAmount()))
                 .CancelDealType(realEstateDto.getCancelDealType())
                 .CancelDealDay(realEstateDto.getCancelDealDay())
                 .dealType(realEstateDto.getDealType())
@@ -38,10 +39,10 @@ public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEst
                 .requestRenewalRight(realEstateDto.getRequestRenewalRight())
                 .contractType(realEstateDto.getContractType())
                 .contractPeriod(realEstateDto.getContractPeriod())
-                .monthlyRent(realEstateDto.getMonthlyRent())
-                .deposit(realEstateDto.getDeposit())
-                .depositBefore(realEstateDto.getDepositBefore())
-                .monthlyRentBefore(realEstateDto.getMonthlyRentBefore())
+                .monthlyRent(new BigDecimal(realEstateDto.getMonthlyRent()))
+                .deposit(new BigDecimal(realEstateDto.getDeposit()))
+                .depositBefore(new BigDecimal(realEstateDto.getDepositBefore()))
+                .monthlyRentBefore(new BigDecimal(realEstateDto.getMonthlyRentBefore()))
                 .createdAt(now)
                 .realEstateType(realEstateType)
                 .build();
