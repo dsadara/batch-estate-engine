@@ -18,20 +18,18 @@ public class RealEstateDto {
     @JsonAlias({"연립다세대", "단지"})
     private String name;
     @JsonProperty(value = "법정동")
-    private String legalDong;
-    @JsonProperty(value = "시군구")
-    private String siGunGu;
+    private String beopJeongDong;
     @JsonProperty(value = "월")
-    private String month;
+    private String contractMonth;
     @JsonProperty(value = "일")
-    private String day;
+    private String contractDay;
     @JsonProperty(value = "전용면적")
     @JsonAlias("계약면적")
     private String jeonYongArea;
     @JsonProperty(value = "지번")
     private String parcelNumber;
     @JsonProperty(value = "지역코드")
-    private String regionCode;
+    private String beopJeongDongCode;
     @JsonProperty(value = "층")
     private String floor;
     // 매매
@@ -62,5 +60,7 @@ public class RealEstateDto {
     private String depositBefore;
     @JsonProperty(value = "종전계약월세")
     private String monthlyRentBefore;
+    @JsonProperty(value = "시군구")
+    private String siGunGu;
 
 }

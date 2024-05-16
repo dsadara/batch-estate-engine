@@ -37,16 +37,16 @@ public class ApiRequesterRealTest {
         assertNotNull(dtos.get(0).getContractType());
         assertNotNull(dtos.get(0).getContractPeriod());
         assertNotNull(dtos.get(0).getContractYear());
-        assertNotNull(dtos.get(0).getLegalDong());
+        assertNotNull(dtos.get(0).getBeopJeongDong());
         assertNotNull(dtos.get(0).getMonthlyRent());
         assertNotNull(dtos.get(0).getName());
-        assertNotNull(dtos.get(0).getMonth());
-        assertNotNull(dtos.get(0).getDay());
+        assertNotNull(dtos.get(0).getContractMonth());
+        assertNotNull(dtos.get(0).getContractDay());
         assertNotNull(dtos.get(0).getJeonYongArea());
         assertNotNull(dtos.get(0).getDeposit());
         assertNotNull(dtos.get(0).getDepositBefore());
         assertNotNull(dtos.get(0).getParcelNumber());
-        assertNotNull(dtos.get(0).getRegionCode());
+        assertNotNull(dtos.get(0).getBeopJeongDongCode());
         assertNotNull(dtos.get(0).getFloor());
         assertNotNull(dtos.get(0).getMonthlyRentBefore());
     }
@@ -69,13 +69,13 @@ public class ApiRequesterRealTest {
         assertNotEquals(0, dtos.size());
         assertNotNull(dtos.get(0).getConstructYear());
         assertNotNull(dtos.get(0).getContractYear());
-        assertNotNull(dtos.get(0).getLegalDong());
+        assertNotNull(dtos.get(0).getBeopJeongDong());
         assertNotNull(dtos.get(0).getName());
-        assertNotNull(dtos.get(0).getMonth());
-        assertNotNull(dtos.get(0).getDay());
+        assertNotNull(dtos.get(0).getContractMonth());
+        assertNotNull(dtos.get(0).getContractDay());
         assertNotNull(dtos.get(0).getJeonYongArea());
         assertNotNull(dtos.get(0).getParcelNumber());
-        assertNotNull(dtos.get(0).getRegionCode());
+        assertNotNull(dtos.get(0).getBeopJeongDongCode());
         assertNotNull(dtos.get(0).getDealAmount());
         assertNotNull(dtos.get(0).getCancelDealType());
         assertNotNull(dtos.get(0).getCancelDealDay());
@@ -104,14 +104,14 @@ public class ApiRequesterRealTest {
         assertNotNull(dtos.get(0).getContractPeriod());
         assertNotNull(dtos.get(0).getJeonYongArea());
         assertNotNull(dtos.get(0).getContractYear());
-        assertNotNull(dtos.get(0).getLegalDong());
+        assertNotNull(dtos.get(0).getBeopJeongDong());
         assertNotNull(dtos.get(0).getDeposit());
-        assertNotNull(dtos.get(0).getMonth());
+        assertNotNull(dtos.get(0).getContractMonth());
         assertNotNull(dtos.get(0).getMonthlyRent());
-        assertNotNull(dtos.get(0).getDay());
+        assertNotNull(dtos.get(0).getContractDay());
         assertNotNull(dtos.get(0).getDepositBefore());
         assertNotNull(dtos.get(0).getMonthlyRentBefore());
-        assertNotNull(dtos.get(0).getRegionCode());
+        assertNotNull(dtos.get(0).getBeopJeongDongCode());
     }
 
     @Test
@@ -134,17 +134,17 @@ public class ApiRequesterRealTest {
         assertNotNull(dtos.get(0).getContractType());
         assertNotNull(dtos.get(0).getContractPeriod());
         assertNotNull(dtos.get(0).getContractYear());
-        assertNotNull(dtos.get(0).getLegalDong());
+        assertNotNull(dtos.get(0).getBeopJeongDong());
         assertNotNull(dtos.get(0).getDeposit());
         assertNotNull(dtos.get(0).getName());
-        assertNotNull(dtos.get(0).getMonth());
+        assertNotNull(dtos.get(0).getContractMonth());
         assertNotNull(dtos.get(0).getMonthlyRent());
-        assertNotNull(dtos.get(0).getDay());
+        assertNotNull(dtos.get(0).getContractDay());
         assertNotNull(dtos.get(0).getJeonYongArea());
         assertNotNull(dtos.get(0).getDepositBefore());
         assertNotNull(dtos.get(0).getMonthlyRentBefore());
         assertNotNull(dtos.get(0).getParcelNumber());
-        assertNotNull(dtos.get(0).getRegionCode());
+        assertNotNull(dtos.get(0).getBeopJeongDongCode());
         assertNotNull(dtos.get(0).getFloor());
     }
 
@@ -169,17 +169,17 @@ public class ApiRequesterRealTest {
         assertNotNull(dtos.get(0).getContractPeriod());
         assertNotNull(dtos.get(0).getContractYear());
         assertNotNull(dtos.get(0).getName());
-        assertNotNull(dtos.get(0).getLegalDong());
+        assertNotNull(dtos.get(0).getBeopJeongDong());
         assertNotNull(dtos.get(0).getDeposit());
         assertNotNull(dtos.get(0).getSiGunGu());
-        assertNotNull(dtos.get(0).getMonth());
+        assertNotNull(dtos.get(0).getContractMonth());
         assertNotNull(dtos.get(0).getMonthlyRent());
-        assertNotNull(dtos.get(0).getDay());
+        assertNotNull(dtos.get(0).getContractDay());
         assertNotNull(dtos.get(0).getJeonYongArea());
         assertNotNull(dtos.get(0).getDepositBefore());
         assertNotNull(dtos.get(0).getMonthlyRentBefore());
         assertNotNull(dtos.get(0).getParcelNumber());
-        assertNotNull(dtos.get(0).getRegionCode());
+        assertNotNull(dtos.get(0).getBeopJeongDongCode());
         assertNotNull(dtos.get(0).getFloor());
     }
 
