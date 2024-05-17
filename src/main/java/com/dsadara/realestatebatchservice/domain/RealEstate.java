@@ -35,8 +35,6 @@ public class RealEstate {
     @CreationTimestamp
     private LocalDateTime createdAt;
     // 공통
-    @Comment("갱신요구권사용")
-    private String requestRenewalRight;
     @Comment("건축년도")
     private Short constructYear;
     @Comment("계약년")
@@ -60,7 +58,7 @@ public class RealEstate {
     @Comment("부동산 종류")
     @Enumerated(EnumType.STRING)
     private RealEstateType realEstateType;
-    // 아파트 매매
+    // 매매
     @Comment("거래금액")
     private BigDecimal dealAmount;
     @Comment("해제 여부")
@@ -72,6 +70,8 @@ public class RealEstate {
     @Comment("중개사 소재지")
     private String agentAddress;
     // 전월세
+    @Comment("갱신요구권사용")
+    private String requestRenewalRight;
     @Comment("계약구분")
     private String contractType;
     @Comment("계약기간")
