@@ -38,7 +38,7 @@ spring:
     activate:
       on-profile: rds-mariadb
   datasource:
-    url: jdbc:mariadb://batch-estate-engine.cd5znwe3yi6t.ap-northeast-2.rds.amazonaws.com:3306/batch_estate_engine
+    url: jdbc:mariadb://batch-estate-engine-backup.chiy2uou2gt3.ap-northeast-2.rds.amazonaws.com:3306
     username: chaehyun
     password: chaehyunttak
     driver-class-name: org.mariadb.jdbc.Driver
