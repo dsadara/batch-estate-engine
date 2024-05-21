@@ -8,9 +8,11 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+@Profile({"local-mysql", "rds-mariadb"})
 @Slf4j
 @RequiredArgsConstructor
 @Component
