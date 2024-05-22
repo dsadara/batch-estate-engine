@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Profile({"local-mysql", "rds-mariadb"})
+@Profile("!rds-mariadb-migration")
 @Slf4j
 @RequiredArgsConstructor
 @Component
