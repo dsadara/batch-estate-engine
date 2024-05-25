@@ -1,7 +1,7 @@
 -- V2__First_optimization.sql
 # data type, not null, default 제약조건 설정
 ALTER TABLE batch_estate_engine.real_estate
-    MODIFY COLUMN id INT AUTO_INCREMENT PRIMARY KEY,
+    MODIFY COLUMN id INT NOT NULL,
     MODIFY COLUMN legal_dong VARCHAR(56) NOT NULL DEFAULT '' COMMENT '법정동',
     MODIFY COLUMN request_renewal_right VARCHAR(12) NOT NULL DEFAULT '' COMMENT '갱신요구권사용',
     MODIFY COLUMN construct_year SMALLINT NOT NULL DEFAULT 0 COMMENT '건축년도',
