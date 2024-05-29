@@ -8,16 +8,17 @@ SET deal_amount    = REPLACE(deal_amount, ',', ''),
 
 # 공백문자 제거
 UPDATE batch_estate_engine.real_estate
-SET deal_amount         = TRIM(deal_amount),
-    deposit             = TRIM(deposit),
-    deposit_before      = TRIM(deposit_before),
-    monthly_rent        = TRIM(monthly_rent),
-    monthly_rent_before = TRIM(monthly_rent_before)
-WHERE TRIM(deal_amount) != deal_amount
-   OR TRIM(deposit) != deposit
-   OR TRIM(deposit_before) != deposit_before
-   OR TRIM(monthly_rent) != monthly_rent
-   OR TRIM(monthly_rent_before) != monthly_rent_before;
+SET deal_amount         = REPLACE(deal_amount, ' ', NULL),
+    deposit             = REPLACE(deposit, ' ', NULL),
+    deposit_before      = REPLACE(deposit_before, ' ', NULL),
+    monthly_rent        = REPLACE(monthly_rent, ' ', NULL),
+    monthly_rent_before = REPLACE(monthly_rent_before, ' ', NULL),
+    contract_year       = REPLACE(contract_year, ' ', NULL),
+    contract_month      = REPLACE(contract_month, ' ', NULL),
+    contract_day        = REPLACE(contract_day, ' ', NULL),
+    construct_year      = REPLACE(construct_year, ' ', NULL),
+    floor               = REPLACE(floor, ' ', NULL);
+
 
 # 숫자 형식(Decimal, Int)로 캐스팅
 ALTER TABLE batch_estate_engine.real_estate
@@ -31,5 +32,4 @@ ALTER TABLE batch_estate_engine.real_estate
     MODIFY COLUMN deposit DECIMAL,
     MODIFY COLUMN deposit_before DECIMAL,
     MODIFY COLUMN monthly_rent DECIMAL,
-    MODIFY COLUMN monthly_rent_before DECIMAL,
-    MODIFY COLUMN created_at DATETIME(6);
+    MODIFY COLUMN monthly_rent_before DECIMAL;
