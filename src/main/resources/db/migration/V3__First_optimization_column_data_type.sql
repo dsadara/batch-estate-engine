@@ -2,9 +2,12 @@
 
 -- 숫자 데이터의 쉼표 제거
 UPDATE batch_estate_engine.real_estate
-SET deal_amount    = REPLACE(deal_amount, ',', ''),
-    deposit        = REPLACE(deposit, ',', ''),
-    deposit_before = REPLACE(deposit_before, ',', '');
+SET deal_amount         = REPLACE(deal_amount, ',', ''),
+    deposit             = REPLACE(deposit, ',', ''),
+    deposit_before      = REPLACE(deposit_before, ',', ''),
+    monthly_rent        = REPLACE(monthly_rent, ',', ''),
+    monthly_rent_before = REPLACE(monthly_rent_before, ',', '');
+
 
 -- 공백문자 제거 및 공백만 있는 문자열을 NULL로 변경
 UPDATE batch_estate_engine.real_estate
