@@ -15,7 +15,8 @@ spring:
       accept-single-value-as-array: true
   bjdCode:
     path: "src/main/resources/bjdcode.txt"
-
+  flyway:
+    enabled: false
 ---
 spring:
   config:
