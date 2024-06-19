@@ -5,7 +5,6 @@ import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEstate> {
@@ -24,25 +23,12 @@ public class RealEstateProcessor implements ItemProcessor<RealEstateDto, RealEst
                 .contractYear(Short.valueOf(realEstateDto.getContractYear()))
                 .name(realEstateDto.getName())
                 .beopJeongDong(realEstateDto.getBeopJeongDong())
-                .siGunGu(realEstateDto.getSiGunGu())
                 .contractMonth(Short.valueOf(realEstateDto.getContractMonth()))
                 .contractDay(Short.valueOf(realEstateDto.getContractDay()))
                 .jeonYongArea(realEstateDto.getJeonYongArea())
                 .parcelNumber(realEstateDto.getParcelNumber())
                 .beopJeongDongCode(realEstateDto.getBeopJeongDongCode())
                 .floor(realEstateDto.getFloor())
-                .dealAmount(new BigDecimal(realEstateDto.getDealAmount()))
-                .CancelDealType(realEstateDto.getCancelDealType())
-                .CancelDealDay(realEstateDto.getCancelDealDay())
-                .dealType(realEstateDto.getDealType())
-                .agentAddress(realEstateDto.getAgentAddress())
-                .requestRenewalRight(realEstateDto.getRequestRenewalRight())
-                .contractType(realEstateDto.getContractType())
-                .contractPeriod(realEstateDto.getContractPeriod())
-                .monthlyRent(new BigDecimal(realEstateDto.getMonthlyRent()))
-                .deposit(new BigDecimal(realEstateDto.getDeposit()))
-                .depositBefore(new BigDecimal(realEstateDto.getDepositBefore()))
-                .monthlyRentBefore(new BigDecimal(realEstateDto.getMonthlyRentBefore()))
                 .createdAt(now)
                 .realEstateType(realEstateType)
                 .build();

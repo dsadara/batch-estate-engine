@@ -22,14 +22,12 @@ public class RealEstateRepositoryTest {
     public void saveRealEstate_Success() {
         //given
         RealEstate realEstate = new RealEstate();
-        realEstate.setAgentAddress("염창동");
         realEstate.setName("강변힐스테이트");
 
         //when
         RealEstate saved = realEstateRepository.save(realEstate);
 
         //then
-        assertEquals("염창동", saved.getAgentAddress());
         assertEquals("강변힐스테이트", saved.getName());
     }
 
@@ -37,7 +35,6 @@ public class RealEstateRepositoryTest {
     public void findRealEstate_Success() {
         //given
         RealEstate realEstate = new RealEstate();
-        realEstate.setAgentAddress("염창동");
         realEstate.setName("강변힐스테이트");
         RealEstate saved = realEstateRepository.save(realEstate);
 
@@ -45,7 +42,6 @@ public class RealEstateRepositoryTest {
         List<RealEstate> realEstates = realEstateRepository.findAll();
 
         //then
-        assertEquals("염창동", realEstates.get(0).getAgentAddress());
         assertEquals("강변힐스테이트", realEstates.get(0).getName());
     }
 
