@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @Entity
 public class Sale {
     @Id
-    @OneToOne(targetEntity = RealEstate.class)
     private int id;
 
     @Comment("해제사유 발생일")

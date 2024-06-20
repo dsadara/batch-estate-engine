@@ -60,10 +60,10 @@ public class RealEstate {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "RealEstate", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "realEstate", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Rent rent;
-    @OneToOne(mappedBy = "RealEstate", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "realEstate", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Sale sale;
 }

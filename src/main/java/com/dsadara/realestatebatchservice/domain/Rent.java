@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @Entity
 public class Rent {
     @Id
-    @OneToOne(targetEntity = RealEstate.class)
     private int id;
 
     @Comment("갱신요구권사용")
