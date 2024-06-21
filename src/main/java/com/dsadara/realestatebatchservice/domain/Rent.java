@@ -1,5 +1,10 @@
 package com.dsadara.realestatebatchservice.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.Entity;
@@ -10,6 +15,11 @@ import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
 @Entity
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Rent {
     @Id
     private int id;
