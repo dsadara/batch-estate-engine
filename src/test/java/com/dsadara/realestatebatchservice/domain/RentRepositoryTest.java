@@ -34,9 +34,20 @@ public class RentRepositoryTest {
     @Test
     public void saveRent_fail_doNotSetRealEstate() throws Exception {
         // given
-        RealEstate realEstate = new RealEstate();
-        realEstateRepository.save(realEstate);
         Rent rent = new Rent();
+
+        // when
+        // then
+        Assertions.assertThrows(RuntimeException.class, () -> rentRepository.save(rent));
+    }
+
+    @Test
+    public void saveRent_fail_onlySetRentAtRealEstate() throws Exception {
+        // given
+        Rent rent = new Rent();
+        RealEstate.builder()
+                .rent(rent)
+                .build();
 
         // when
         // then
