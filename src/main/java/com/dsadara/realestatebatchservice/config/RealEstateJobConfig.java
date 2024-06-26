@@ -9,7 +9,7 @@ import com.dsadara.realestatebatchservice.domain.SaleRepository;
 import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.listener.SlaveStepFailureLimitListener;
 import com.dsadara.realestatebatchservice.listener.StepExceptionLogger;
-import com.dsadara.realestatebatchservice.processor.RealEstateProcessor;
+import com.dsadara.realestatebatchservice.processor.RealEstateItemProcessor;
 import com.dsadara.realestatebatchservice.processor.RentProcessor;
 import com.dsadara.realestatebatchservice.processor.SaleProcessor;
 import com.dsadara.realestatebatchservice.reader.ApiItemReader;
@@ -104,7 +104,7 @@ public class RealEstateJobConfig {
         CompositeItemProcessor<RealEstateDto, Object> processor = new CompositeItemProcessor<>();
 
         List<ItemProcessor<RealEstateDto, ?>> processors = new ArrayList<>();
-        processors.add(new RealEstateProcessor(realRealEstateType));
+        processors.add(new RealEstateItemProcessor(realRealEstateType));
         if (realRealEstateType.equals("아파트매매")) {     // 매매 데이터 처리
             processors.add(new SaleProcessor());
         } else {                                        // 전월세 데이터 처리
