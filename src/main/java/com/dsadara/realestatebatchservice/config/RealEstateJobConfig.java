@@ -51,7 +51,7 @@ public class RealEstateJobConfig {
     private final SlaveStepFailureLimitListener slaveStepFailureLimitListener;
 
     @Bean
-    public Job createRealEstateJob() throws Exception {
+    public Job realEstateJob() throws Exception {
         return jobBuilderFactory.get("realEstateJob")
                 .incrementer(new RunIdIncrementer())
                 .flow(masterStep(null))
@@ -74,9 +74,9 @@ public class RealEstateJobConfig {
     public Step slaveStep() throws Exception {
         return stepBuilderFactory.get("계약월")
                 .<RealEstateDto, RealEstate>chunk(100)
-                .reader(createApiItemReader(null, null))
-                .processor(createRealEstateItemProcessor(null))
-                .writer(createRealEstateItemWriter())
+                .reader(apiItemReader(null, null))
+                .processor(realEstateItemProcessor(null))
+                .writer(realEstateItemWriter())
                 .listener(stepExceptionLogger)
                 .listener(slaveStepFailureLimitListener)
                 .build();
@@ -98,7 +98,7 @@ public class RealEstateJobConfig {
 
     @Bean
     @StepScope
-    public ApiItemReader createApiItemReader(
+    public ApiItemReader apiItemReader(
             @Value("#{jobParameters['baseUrl']}") String baseUrl,
             @Value("#{jobParameters['serviceKey']}") String serviceKey) throws Exception {
         return new ApiItemReader(baseUrl, serviceKey, apiRequester);
@@ -106,13 +106,13 @@ public class RealEstateJobConfig {
 
     @Bean
     @StepScope
-    public ItemProcessor<RealEstateDto, RealEstate> createRealEstateItemProcessor(
+    public ItemProcessor<RealEstateDto, RealEstate> realEstateItemProcessor(
             @Value("#{jobParameters['realEstateType']}") String realEstateType) {
         return new RealEstateItemProcessor(realEstateType);
     }
 
     @Bean
-    public ItemWriter<RealEstate> createRealEstateItemWriter() {
+    public ItemWriter<RealEstate> realEstateItemWriter() {
         return new RealEstateItemWriter(realEstateRepository, rentRepository, saleRepository);
     }
 
