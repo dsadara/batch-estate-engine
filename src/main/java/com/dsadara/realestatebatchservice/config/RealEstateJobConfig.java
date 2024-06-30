@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Profile({"local-mysql", "rds-mariadb"})
+@Profile({"local-mysql", "rds-mariadb", "local-h2"})
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
