@@ -36,7 +36,7 @@ public class RealEstateJobRealTest {
                 .addString("baseUrl", env.getProperty("openapi.request.url.APT_TRADE"))
                 .addString("serviceKey", env.getProperty("openapi.request.serviceKey"))
                 .addString("bjdCode", "11110")
-                .addString("realEstateType", "아파트매매")
+                .addString("realEstateType", "APT_TRADE")
                 .toJobParameters();
 
         // when
