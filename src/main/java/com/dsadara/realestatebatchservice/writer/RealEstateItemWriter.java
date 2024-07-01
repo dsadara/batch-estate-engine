@@ -6,11 +6,9 @@ import com.dsadara.realestatebatchservice.domain.RentRepository;
 import com.dsadara.realestatebatchservice.domain.SaleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 @RequiredArgsConstructor
 public class RealEstateItemWriter implements ItemWriter<RealEstate> {
 
