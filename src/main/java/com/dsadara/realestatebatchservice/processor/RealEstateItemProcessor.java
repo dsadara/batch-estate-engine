@@ -21,12 +21,8 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
     @Override
     public RealEstate process(RealEstateDto realEstateDto) throws Exception {
         RealEstate realEstate = RealEstate.builder()
-                .constructYear(Short.valueOf(realEstateDto.getConstructYear()))
-                .contractYear(Short.valueOf(realEstateDto.getContractYear()))
                 .name(realEstateDto.getName())
                 .beopJeongDong(realEstateDto.getBeopJeongDong())
-                .contractMonth(Short.valueOf(realEstateDto.getContractMonth()))
-                .contractDay(Short.valueOf(realEstateDto.getContractDay()))
                 .jeonYongArea(realEstateDto.getJeonYongArea())
                 .parcelNumber(realEstateDto.getParcelNumber())
                 .beopJeongDongCode(realEstateDto.getBeopJeongDongCode())
@@ -34,6 +30,7 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
                 .createdAt(LocalDateTime.now())
                 .realEstateType(realEstateType)
                 .build();
+        realEstate.setNumeralFields(realEstateDto);
 
         if (realEstateType.equals(RealEstateType.APT_TRADE)) {      // 매매 타입일 경우
             Sale sale = Sale.builder()
@@ -44,6 +41,7 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
                     .dealType(realEstateDto.getDealType())
                     .realEstate(realEstate)
                     .build();
+            sale.setNumeralFields(realEstateDto);
             realEstate.setSale(sale);
         } else {                                                    // 전월세 타입일 경우
             Rent rent = Rent.builder()
@@ -57,6 +55,7 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
                     .siGunGu(realEstateDto.getSiGunGu())
                     .realEstate(realEstate)
                     .build();
+            rent.setNumeralFields(realEstateDto);
             realEstate.setRent(rent);
         }
         return realEstate;

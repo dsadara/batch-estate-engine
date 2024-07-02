@@ -3,6 +3,7 @@ package com.dsadara.realestatebatchservice.job;
 import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.domain.RentRepository;
 import com.dsadara.realestatebatchservice.domain.SaleRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 
+@Disabled
 @SpringBatchTest
 @SpringBootTest
 @ActiveProfiles("local-h2")

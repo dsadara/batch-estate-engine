@@ -1,11 +1,13 @@
 package com.dsadara.realestatebatchservice.domain;
 
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -39,4 +41,10 @@ public class Sale {
     @MapsId
     @JoinColumn(name = "id")
     private RealEstate realEstate;
+
+    public void setNumeralFields(RealEstateDto realEstateDto) {
+        if (StringUtils.hasText(realEstateDto.getDealAmount())) {
+            this.dealAmount = new BigDecimal(realEstateDto.getDealAmount().replace(",", ""));
+        }
+    }
 }

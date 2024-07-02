@@ -1,5 +1,6 @@
 package com.dsadara.realestatebatchservice.domain;
 
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.type.RealEstateType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -66,4 +68,19 @@ public class RealEstate {
     @OneToOne(mappedBy = "realEstate", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Sale sale;
+
+    public void setNumeralFields(RealEstateDto realEstateDto) {
+        if (StringUtils.hasText(realEstateDto.getConstructYear())) {
+            this.constructYear = Short.valueOf(realEstateDto.getConstructYear().replace(",", ""));
+        }
+        if (StringUtils.hasText(realEstateDto.getContractYear())) {
+            this.contractYear = Short.valueOf(realEstateDto.getContractYear().replace(",", ""));
+        }
+        if (StringUtils.hasText(realEstateDto.getContractMonth())) {
+            this.contractYear = Short.valueOf(realEstateDto.getContractMonth().replace(",", ""));
+        }
+        if (StringUtils.hasText(realEstateDto.getContractDay())) {
+            this.contractYear = Short.valueOf(realEstateDto.getContractDay().replace(",", ""));
+        }
+    }
 }

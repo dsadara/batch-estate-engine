@@ -1,11 +1,13 @@
 package com.dsadara.realestatebatchservice.domain;
 
+import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -45,4 +47,19 @@ public class Rent {
     @MapsId
     @JoinColumn(name = "id")
     private RealEstate realEstate;
+
+    public void setNumeralFields(RealEstateDto realEstateDto) {
+        if (StringUtils.hasText(realEstateDto.getDeposit())) {
+            this.deposit = new BigDecimal(realEstateDto.getDeposit().replace(",", ""));
+        }
+        if (StringUtils.hasText(realEstateDto.getDepositBefore())) {
+            this.depositBefore = new BigDecimal(realEstateDto.getDepositBefore().replace(",", ""));
+        }
+        if (StringUtils.hasText(realEstateDto.getMonthlyRent())) {
+            this.monthlyRent = new BigDecimal(realEstateDto.getMonthlyRent().replace(",", ""));
+        }
+        if (StringUtils.hasText(realEstateDto.getMonthlyRentBefore())) {
+            this.monthlyRentBefore = new BigDecimal(realEstateDto.getMonthlyRentBefore().replace(",", ""));
+        }
+    }
 }
