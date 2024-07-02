@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
+
+import static com.dsadara.realestatebatchservice.test.utils.StringValidator.checkNumeric;
+import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trimNumeric;
 
 @Entity
 @Setter
@@ -43,8 +45,8 @@ public class Sale {
     private RealEstate realEstate;
 
     public void setNumeralFields(RealEstateDto realEstateDto) {
-        if (StringUtils.hasText(realEstateDto.getDealAmount())) {
-            this.dealAmount = new BigDecimal(realEstateDto.getDealAmount().replace(",", ""));
+        if (checkNumeric(realEstateDto.getDealAmount())) {
+            this.dealAmount = new BigDecimal(trimNumeric(realEstateDto.getDealAmount()));
         }
     }
 }

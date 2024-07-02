@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
+
+import static com.dsadara.realestatebatchservice.test.utils.StringValidator.checkNumeric;
+import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trimNumeric;
 
 @Entity
 @Setter
@@ -49,17 +51,17 @@ public class Rent {
     private RealEstate realEstate;
 
     public void setNumeralFields(RealEstateDto realEstateDto) {
-        if (StringUtils.hasText(realEstateDto.getDeposit())) {
-            this.deposit = new BigDecimal(realEstateDto.getDeposit().replace(",", ""));
+        if (checkNumeric(realEstateDto.getDeposit())) {
+            this.deposit = new BigDecimal(trimNumeric(realEstateDto.getDeposit()));
         }
-        if (StringUtils.hasText(realEstateDto.getDepositBefore())) {
-            this.depositBefore = new BigDecimal(realEstateDto.getDepositBefore().replace(",", ""));
+        if (checkNumeric(realEstateDto.getDepositBefore())) {
+            this.depositBefore = new BigDecimal(trimNumeric(realEstateDto.getDepositBefore()));
         }
-        if (StringUtils.hasText(realEstateDto.getMonthlyRent())) {
-            this.monthlyRent = new BigDecimal(realEstateDto.getMonthlyRent().replace(",", ""));
+        if (checkNumeric(realEstateDto.getMonthlyRent())) {
+            this.monthlyRent = new BigDecimal(trimNumeric(realEstateDto.getMonthlyRent()));
         }
-        if (StringUtils.hasText(realEstateDto.getMonthlyRentBefore())) {
-            this.monthlyRentBefore = new BigDecimal(realEstateDto.getMonthlyRentBefore().replace(",", ""));
+        if (checkNumeric(realEstateDto.getMonthlyRentBefore())) {
+            this.monthlyRentBefore = new BigDecimal(trimNumeric(realEstateDto.getMonthlyRentBefore()));
         }
     }
 }

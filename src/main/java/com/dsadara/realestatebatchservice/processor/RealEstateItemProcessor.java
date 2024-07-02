@@ -7,7 +7,6 @@ import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, RealEstate> {
@@ -37,7 +36,6 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
                     .CancelDealDay(realEstateDto.getCancelDealDay())
                     .CancelDealType(realEstateDto.getCancelDealType())
                     .agentAddress(realEstateDto.getAgentAddress())
-                    .dealAmount(new BigDecimal(realEstateDto.getDealAmount()))
                     .dealType(realEstateDto.getDealType())
                     .realEstate(realEstate)
                     .build();
@@ -48,10 +46,6 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
                     .requestRenewalRight(realEstateDto.getRequestRenewalRight())
                     .contractType(realEstateDto.getContractType())
                     .contractPeriod(realEstateDto.getContractPeriod())
-                    .deposit(new BigDecimal(realEstateDto.getDeposit()))
-                    .depositBefore(new BigDecimal(realEstateDto.getDepositBefore()))
-                    .monthlyRent(new BigDecimal(realEstateDto.getMonthlyRent()))
-                    .monthlyRentBefore(new BigDecimal(realEstateDto.getMonthlyRentBefore()))
                     .siGunGu(realEstateDto.getSiGunGu())
                     .realEstate(realEstate)
                     .build();

@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -23,6 +22,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+
+import static com.dsadara.realestatebatchservice.test.utils.StringValidator.checkNumeric;
+import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trimNumeric;
 
 @Entity
 @Setter
@@ -70,17 +72,17 @@ public class RealEstate {
     private Sale sale;
 
     public void setNumeralFields(RealEstateDto realEstateDto) {
-        if (StringUtils.hasText(realEstateDto.getConstructYear())) {
-            this.constructYear = Short.valueOf(realEstateDto.getConstructYear().replace(",", ""));
+        if (checkNumeric(realEstateDto.getConstructYear())) {
+            this.constructYear = Short.valueOf(trimNumeric(realEstateDto.getConstructYear()));
         }
-        if (StringUtils.hasText(realEstateDto.getContractYear())) {
-            this.contractYear = Short.valueOf(realEstateDto.getContractYear().replace(",", ""));
+        if (checkNumeric(realEstateDto.getContractYear())) {
+            this.contractYear = Short.valueOf(trimNumeric(realEstateDto.getContractYear()));
         }
-        if (StringUtils.hasText(realEstateDto.getContractMonth())) {
-            this.contractYear = Short.valueOf(realEstateDto.getContractMonth().replace(",", ""));
+        if (checkNumeric(realEstateDto.getContractMonth())) {
+            this.contractYear = Short.valueOf(trimNumeric(realEstateDto.getContractMonth()));
         }
-        if (StringUtils.hasText(realEstateDto.getContractDay())) {
-            this.contractYear = Short.valueOf(realEstateDto.getContractDay().replace(",", ""));
+        if (checkNumeric(realEstateDto.getContractDay())) {
+            this.contractYear = Short.valueOf(trimNumeric(realEstateDto.getContractDay()));
         }
     }
 }
