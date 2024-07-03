@@ -32,7 +32,7 @@ import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trim
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "real_estate", indexes = @Index(name = "idx_real_estate_type", columnList = "realEstateType", unique = true))
+@Table(name = "real_estate", indexes = @Index(name = "idx_real_estate_type", columnList = "realEstateType"))
 public class RealEstate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
