@@ -1,8 +1,10 @@
 package com.dsadara.realestatebatchservice.job;
 
+import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.domain.RentRepository;
 import com.dsadara.realestatebatchservice.domain.SaleRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.JobParameters;
@@ -44,6 +46,9 @@ public class RealEstateJobRealTest {
         // when
         jobLauncherTestUtils.launchJob(jobParameters);
         // then
+        for (RealEstate realEstate : realEstateRepository.findAll()) {
+            Assertions.assertTrue(saleRepository.existsById(realEstate.getId()));
+        }
     }
 
 
