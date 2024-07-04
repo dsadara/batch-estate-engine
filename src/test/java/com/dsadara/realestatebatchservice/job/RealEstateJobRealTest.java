@@ -51,5 +51,22 @@ public class RealEstateJobRealTest {
         }
     }
 
+    @Test
+    public void jobLauncher_run_checkRentOneToOneMapped() throws Exception {
+        // given
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("baseUrl", env.getProperty("openapi.request.url.APT_RENT"))
+                .addString("serviceKey", env.getProperty("openapi.request.serviceKey"))
+                .addString("bjdCode", "11110")
+                .addString("realEstateType", "APT_RENT")
+                .toJobParameters();
+
+        // when
+        jobLauncherTestUtils.launchJob(jobParameters);
+        // then
+        for (RealEstate realEstate : realEstateRepository.findAll()) {
+            Assertions.assertTrue(rentRepository.existsById(realEstate.getId()));
+        }
+    }
 
 }
