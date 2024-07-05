@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Disabled("테스트 시간이 오래 걸리므로 필요할 때만 실행")
 @SpringBatchTest
 @SpringBootTest
-@ActiveProfiles("local-h2")
+@ActiveProfiles("local-mysql-test")
 public class RealEstateJobRealTest {
 
     @Autowired
