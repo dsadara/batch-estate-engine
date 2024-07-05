@@ -4,6 +4,7 @@ import com.dsadara.realestatebatchservice.domain.RealEstate;
 import com.dsadara.realestatebatchservice.domain.RealEstateRepository;
 import com.dsadara.realestatebatchservice.domain.RentRepository;
 import com.dsadara.realestatebatchservice.domain.SaleRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 
-@Disabled
+@Disabled("테스트 시간이 오래 걸리므로 필요할 때만 실행")
 @SpringBatchTest
 @SpringBootTest
 @ActiveProfiles("local-h2")
@@ -32,6 +33,13 @@ public class RealEstateJobRealTest {
     private SaleRepository saleRepository;
     @Autowired
     private RentRepository rentRepository;
+
+    @AfterEach
+    public void cleanDatabase() {
+        rentRepository.deleteAll();
+        saleRepository.deleteAll();
+        realEstateRepository.deleteAll();
+    }
 
     @Test
     public void jobLauncher_run_checkSaleOneToOneMapped() throws Exception {
