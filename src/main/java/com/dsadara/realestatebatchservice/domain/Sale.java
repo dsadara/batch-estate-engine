@@ -44,7 +44,16 @@ public class Sale {
     @JoinColumn(name = "id")
     private RealEstate realEstate;
 
-    public void setNumeralFields(RealEstateDto realEstateDto) {
+    public Sale(RealEstateDto realEstateDto, RealEstate realEstate) {
+        setNumeralFields(realEstateDto);
+        this.CancelDealDay = realEstateDto.getCancelDealDay();
+        this.CancelDealType = realEstateDto.getCancelDealType();
+        this.agentAddress = realEstateDto.getAgentAddress();
+        this.dealType = realEstateDto.getDealType();
+        this.realEstate = realEstate;
+    }
+
+    private void setNumeralFields(RealEstateDto realEstateDto) {
         if (checkNumeric(realEstateDto.getDealAmount())) {
             this.dealAmount = new BigDecimal(trimNumeric(realEstateDto.getDealAmount()));
         }

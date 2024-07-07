@@ -7,8 +7,6 @@ import com.dsadara.realestatebatchservice.dto.RealEstateDto;
 import com.dsadara.realestatebatchservice.type.RealEstateType;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.time.LocalDateTime;
-
 public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, RealEstate> {
 
     private final RealEstateType realEstateType;
@@ -19,37 +17,13 @@ public class RealEstateItemProcessor implements ItemProcessor<RealEstateDto, Rea
 
     @Override
     public RealEstate process(RealEstateDto realEstateDto) throws Exception {
-        RealEstate realEstate = RealEstate.builder()
-                .name(realEstateDto.getName())
-                .beopJeongDong(realEstateDto.getBeopJeongDong())
-                .jeonYongArea(realEstateDto.getJeonYongArea())
-                .parcelNumber(realEstateDto.getParcelNumber())
-                .beopJeongDongCode(realEstateDto.getBeopJeongDongCode())
-                .floor(realEstateDto.getFloor())
-                .createdAt(LocalDateTime.now())
-                .realEstateType(realEstateType)
-                .build();
-        realEstate.setNumeralFields(realEstateDto);
+        RealEstate realEstate = new RealEstate(realEstateDto, realEstateType);
 
         if (realEstateType.equals(RealEstateType.APT_TRADE)) {      // 매매 타입일 경우
-            Sale sale = Sale.builder()
-                    .CancelDealDay(realEstateDto.getCancelDealDay())
-                    .CancelDealType(realEstateDto.getCancelDealType())
-                    .agentAddress(realEstateDto.getAgentAddress())
-                    .dealType(realEstateDto.getDealType())
-                    .realEstate(realEstate)
-                    .build();
-            sale.setNumeralFields(realEstateDto);
+            Sale sale = new Sale(realEstateDto, realEstate);
             realEstate.setSale(sale);
         } else {                                                    // 전월세 타입일 경우
-            Rent rent = Rent.builder()
-                    .requestRenewalRight(realEstateDto.getRequestRenewalRight())
-                    .contractType(realEstateDto.getContractType())
-                    .contractPeriod(realEstateDto.getContractPeriod())
-                    .siGunGu(realEstateDto.getSiGunGu())
-                    .realEstate(realEstate)
-                    .build();
-            rent.setNumeralFields(realEstateDto);
+            Rent rent = new Rent(realEstateDto, realEstate);
             realEstate.setRent(rent);
         }
         return realEstate;

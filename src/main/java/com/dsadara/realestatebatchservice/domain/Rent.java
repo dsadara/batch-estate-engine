@@ -50,7 +50,16 @@ public class Rent {
     @JoinColumn(name = "id")
     private RealEstate realEstate;
 
-    public void setNumeralFields(RealEstateDto realEstateDto) {
+    public Rent(RealEstateDto realEstateDto, RealEstate realEstate) {
+        setNumeralFields(realEstateDto);
+        this.requestRenewalRight = realEstateDto.getRequestRenewalRight();
+        this.contractType = realEstateDto.getContractType();
+        this.contractPeriod = realEstateDto.getContractPeriod();
+        this.siGunGu = realEstateDto.getSiGunGu();
+        this.realEstate = realEstate;
+    }
+
+    private void setNumeralFields(RealEstateDto realEstateDto) {
         if (checkNumeric(realEstateDto.getDeposit())) {
             this.deposit = new BigDecimal(trimNumeric(realEstateDto.getDeposit()));
         }

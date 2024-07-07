@@ -71,7 +71,20 @@ public class RealEstate {
     @PrimaryKeyJoinColumn
     private Sale sale;
 
-    public void setNumeralFields(RealEstateDto realEstateDto) {
+    public RealEstate(RealEstateDto realEstateDto, RealEstateType realEstateType) {
+        setNumeralFields(realEstateDto);
+        this.name = realEstateDto.getName();
+        this.beopJeongDong = realEstateDto.getBeopJeongDong();
+        this.jeonYongArea = realEstateDto.getJeonYongArea();
+        this.parcelNumber = realEstateDto.getParcelNumber();
+        this.beopJeongDongCode = realEstateDto.getBeopJeongDongCode();
+        this.floor = realEstateDto.getFloor();
+        this.createdAt = LocalDateTime.now();
+        this.realEstateType = realEstateType;
+    }
+
+
+    private void setNumeralFields(RealEstateDto realEstateDto) {
         if (checkNumeric(realEstateDto.getConstructYear())) {
             this.constructYear = Short.valueOf(trimNumeric(realEstateDto.getConstructYear()));
         }
