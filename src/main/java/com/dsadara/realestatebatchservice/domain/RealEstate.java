@@ -92,10 +92,10 @@ public class RealEstate {
             this.contractYear = Short.valueOf(trimNumeric(realEstateDto.getContractYear()));
         }
         if (checkNumeric(realEstateDto.getContractMonth())) {
-            this.contractYear = Short.valueOf(trimNumeric(realEstateDto.getContractMonth()));
+            this.contractMonth = Short.valueOf(trimNumeric(realEstateDto.getContractMonth()));
         }
         if (checkNumeric(realEstateDto.getContractDay())) {
-            this.contractYear = Short.valueOf(trimNumeric(realEstateDto.getContractDay()));
+            this.contractDay = Short.valueOf(trimNumeric(realEstateDto.getContractDay()));
         }
     }
 }
