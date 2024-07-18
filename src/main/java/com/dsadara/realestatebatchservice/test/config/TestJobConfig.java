@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @EnableBatchProcessing
-@Profile({"test", "local-h2"})
+@Profile({"test"})
 @RequiredArgsConstructor
 @Configuration
 public class TestJobConfig {

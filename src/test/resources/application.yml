@@ -56,3 +56,18 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+---
+spring:
+  config:
+    activate:
+      on-profile: local-mysql-test
+  datasource:
+    url: jdbc:mysql://localhost:3306/hogangyes?rewriteBatchedStatements=true
+    username: root
+    password: dockermysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true

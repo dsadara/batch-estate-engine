@@ -3,13 +3,18 @@ package com.dsadara.realestatebatchservice.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RealEstateDto {
-
-    // 공통
+    // 공통 (RealEstate)
     @JsonProperty(value = "건축년도")
     private String constructYear;
     @JsonProperty(value = "년")
@@ -32,7 +37,8 @@ public class RealEstateDto {
     private String beopJeongDongCode;
     @JsonProperty(value = "층")
     private String floor;
-    // 매매
+
+    // 매매 (Sale)
     @JsonProperty(value = "거래금액")
     private String dealAmount;
     @JsonProperty(value = "해제여부")
@@ -43,6 +49,7 @@ public class RealEstateDto {
     private String dealType;
     @JsonProperty(value = "중개사소재지")
     private String agentAddress;
+
     // 전월세
     @JsonProperty(value = "갱신요구권사용")
     private String requestRenewalRight;
