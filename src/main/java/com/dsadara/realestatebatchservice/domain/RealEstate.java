@@ -40,7 +40,7 @@ public class RealEstate {
 
     @Comment("건축년도")
     private Short constructYear;
-    @Comment("계약년")
+    @Comment("계약년도")
     private Short contractYear;
     @Comment("계약일")
     private Short contractDay;
@@ -59,7 +59,7 @@ public class RealEstate {
     @Comment("부동산 종류")
     @Enumerated(EnumType.STRING)
     private RealEstateType realEstateType;
-    @Comment("지역코드")
+    @Comment("법정동 코드")
     private String beopJeongDongCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
