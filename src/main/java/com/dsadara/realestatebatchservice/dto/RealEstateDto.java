@@ -36,7 +36,7 @@ public class RealEstateDto {
     @JsonProperty(value = "지역코드")
     private Integer beopJeongDongCode;
     @JsonProperty(value = "층")
-    private String floor;
+    private Short floor;
 
     // 매매 (Sale)
     @JsonProperty(value = "거래금액")

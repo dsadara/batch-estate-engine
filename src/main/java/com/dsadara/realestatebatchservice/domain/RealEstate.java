@@ -45,7 +45,7 @@ public class RealEstate {
     @Comment("계약일")
     private Short contractDay;
     @Comment("층")
-    private String floor;
+    private Short floor;
     @Comment("전용면적, 계약면적")
     private String jeonYongArea;
     @Comment("법정동")

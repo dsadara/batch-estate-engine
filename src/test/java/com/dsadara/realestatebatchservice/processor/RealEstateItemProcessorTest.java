@@ -36,7 +36,7 @@ class RealEstateItemProcessorTest {
                 .jeonYongArea("74")
                 .parcelNumber("299")
                 .beopJeongDongCode(11500)
-                .floor("12")
+                .floor(Short.valueOf("12"))
                 .dealAmount("90000")
                 .CancelDealType("0")
                 .CancelDealDay("23.01.01")
@@ -59,7 +59,7 @@ class RealEstateItemProcessorTest {
         assertEquals("74", realEstate.getJeonYongArea());
         assertEquals("299", realEstate.getParcelNumber());
         assertEquals(11500, realEstate.getBeopJeongDongCode());
-        assertEquals("12", realEstate.getFloor());
+        assertEquals(Short.valueOf("12"), realEstate.getFloor());
         assertEquals(new BigDecimal("90000"), sale.getDealAmount());
         assertEquals("0", sale.getCancelDealType());
         assertEquals("23.01.01", sale.getCancelDealDay());
@@ -80,7 +80,7 @@ class RealEstateItemProcessorTest {
                 .jeonYongArea("74")
                 .parcelNumber("299")
                 .beopJeongDongCode(11500)
-                .floor("12")
+                .floor(Short.valueOf("12"))
                 .requestRenewalRight("사용")
                 .contractType("신규")
                 .contractPeriod("23.07~25.07")
@@ -106,7 +106,7 @@ class RealEstateItemProcessorTest {
         assertEquals("74", realEstate.getJeonYongArea());
         assertEquals("299", realEstate.getParcelNumber());
         assertEquals(11500, realEstate.getBeopJeongDongCode());
-        assertEquals("12", realEstate.getFloor());
+        assertEquals(Short.valueOf("12"), realEstate.getFloor());
         assertEquals("사용", rent.getRequestRenewalRight());
         assertEquals("신규", rent.getContractType());
         assertEquals("23.07~25.07", rent.getContractPeriod());
