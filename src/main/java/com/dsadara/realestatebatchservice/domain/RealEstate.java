@@ -60,7 +60,7 @@ public class RealEstate {
     @Enumerated(EnumType.STRING)
     private RealEstateType realEstateType;
     @Comment("법정동 코드")
-    private String beopJeongDongCode;
+    private Integer beopJeongDongCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

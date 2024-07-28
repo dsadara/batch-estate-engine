@@ -34,7 +34,7 @@ public class RealEstateDto {
     @JsonProperty(value = "지번")
     private String parcelNumber;
     @JsonProperty(value = "지역코드")
-    private String beopJeongDongCode;
+    private Integer beopJeongDongCode;
     @JsonProperty(value = "층")
     private String floor;
 
