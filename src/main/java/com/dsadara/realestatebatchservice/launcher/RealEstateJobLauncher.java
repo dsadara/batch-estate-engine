@@ -32,7 +32,6 @@ public class RealEstateJobLauncher {
                     .addString("serviceKey", serviceKey)
                     .addString("bjdCode", bjdCode)
                     .addString("realEstateType", realEstateType.name())
-                    .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             jobLauncher.run(realEstateJob, jobParameters);
         }

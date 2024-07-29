@@ -80,7 +80,6 @@ class RealEstateJobLauncherTest {
             Assertions.assertEquals(serviceKey, params.getString("serviceKey"));
             Assertions.assertEquals(bjdCodeList.get(i), params.getString("bjdCode"));
             Assertions.assertEquals(realEstateType.name(), params.getString("realEstateType"));
-            Assertions.assertNotNull(params.getLong("time"));
         }
     }
 
