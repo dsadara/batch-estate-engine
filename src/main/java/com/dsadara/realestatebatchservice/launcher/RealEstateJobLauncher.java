@@ -46,9 +46,9 @@ public class RealEstateJobLauncher {
             } catch (Exception e) {
                 attempt++;
                 if (attempt >= maxAttempts) {
-                    log.error("[{}] {} 번 재시도 후에도 데이터 호출 실패.", realEstateType.getKrName(), maxAttempts);
+                    log.error("[{}][{} 번 재시도 후에도 데이터 호출 실패][실패 이유:{}]", realEstateType.getKrName(), maxAttempts, e.getMessage());
                 } else {
-                    log.error("[{}] {} 번째 재실행 시작", realEstateType.getKrName(), attempt);
+                    log.error("[{}][{} 번째 재실행 시작][실패 이유:{}]", realEstateType.getKrName(), attempt, e.getMessage());
                 }
             }
         }
