@@ -26,7 +26,7 @@ import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trim
 @NoArgsConstructor
 public class Sale {
     @Id
-    private int id;
+    private Integer id;
 
     @Comment("해제사유 발생일")
     private String CancelDealDay;

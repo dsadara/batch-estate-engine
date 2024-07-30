@@ -26,7 +26,7 @@ import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trim
 @NoArgsConstructor
 public class Rent {
     @Id
-    private int id;
+    private Integer id;
 
     @Comment("갱신요구권사용")
     private String requestRenewalRight;
