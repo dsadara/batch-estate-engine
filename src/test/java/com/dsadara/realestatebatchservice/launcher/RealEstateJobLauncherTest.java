@@ -102,9 +102,9 @@ class RealEstateJobLauncherTest {
 
         // Then
         assertThat(listAppender.list).extracting(ILoggingEvent::getMessage)
-                .contains("[{}] {} 번 재시도 후에도 데이터 호출 실패.");
+                .contains("[{}][{} 번 재시도 후에도 데이터 호출 실패][실패 이유:{}]");
         assertThat(listAppender.list).extracting(ILoggingEvent::getMessage)
-                .contains("[{}] {} 번째 재실행 시작");
+                .contains("[{}][{} 번째 재실행 시작][실패 이유:{}]");
     }
 
     @Test
@@ -118,7 +118,7 @@ class RealEstateJobLauncherTest {
 
         // Then
         assertThat(listAppender.list).extracting(ILoggingEvent::getMessage)
-                .contains("[{}] {} 번 재시도 후에도 데이터 호출 실패.");
+                .contains("[{}][{} 번 재시도 후에도 데이터 호출 실패][실패 이유:{}]");
 
     }
 
@@ -133,7 +133,7 @@ class RealEstateJobLauncherTest {
 
         // Then
         assertThat(listAppender.list).extracting(ILoggingEvent::getMessage)
-                .doesNotContain("[{}] {} 번 재시도 후에도 데이터 호출 실패.");
+                .doesNotContain("[{}][{} 번 재시도 후에도 데이터 호출 실패][실패 이유:{}]");
     }
 
 }
