@@ -36,7 +36,7 @@ import static com.dsadara.realestatebatchservice.test.utils.StringValidator.trim
 public class RealEstate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Comment("건축년도")
     private Short constructYear;

@@ -39,7 +39,7 @@ spring:
     activate:
       on-profile: rds-mariadb
   datasource:
-    url: jdbc:mariadb://batch-estate-engine-20240704.chiy2uou2gt3.ap-northeast-2.rds.amazonaws.com:3306/batch_estate_engine
+    url: jdbc:mariadb://batch-estate-engine-20240730.chiy2uou2gt3.ap-northeast-2.rds.amazonaws.com:3306/batch_estate_engine
     username: chaehyun
     password: chaehyunttak
     driver-class-name: org.mariadb.jdbc.Driver
@@ -55,7 +55,7 @@ spring:
     activate:
       on-profile: rds-mariadb-migration
   datasource:
-    url: jdbc:mariadb://batch-estate-engine-20240704.chiy2uou2gt3.ap-northeast-2.rds.amazonaws.com:3306/batch_estate_engine
+    url: jdbc:mariadb://batch-estate-engine-20240730.chiy2uou2gt3.ap-northeast-2.rds.amazonaws.com:3306/batch_estate_engine
     username: chaehyun
     password: chaehyunttak
     driver-class-name: org.mariadb.jdbc.Driver
